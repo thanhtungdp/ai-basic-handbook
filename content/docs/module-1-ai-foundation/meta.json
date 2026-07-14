@@ -1,5 +1,6 @@
 {
   "title": "Module 1 — AI Foundation",
+  "description": "5 ngày × 6 giờ. Nền tảng LLM, prompting có kiểm chứng, structured content, workflow automation, mini-project.",
   "pages": [
     "buoi-1-io-ai-va-claude",
     "buoi-2-prompting-va-market-research",

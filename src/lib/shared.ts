@@ -1,4 +1,4 @@
-export const appName = 'AI Basic Handbook';
+export const appName = 'KADA Program';
 export const docsRoute = '/docs';
 export const docsImageRoute = '/og/docs';
 export const docsContentRoute = '/llms.mdx/docs';

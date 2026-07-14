@@ -1,91 +1,15 @@
 {
-  "startDate": "2026-07-05",
-  "title": "Hermes Handbook — Khóa học 4 tuần",
-  "weeks": [
-    {
-      "week": 1,
-      "label": "Tuần 1 — Nhập môn Hermes",
-      "unlockDate": "2026-07-05",
-      "pages": [
-        "khoa-hoc-hermes-handbook/00-tu-duy-hermes",
-        "khoa-hoc-hermes-handbook/01-cai-dat-chay-lan-dau"
-      ]
-    },
-    {
-      "week": 1.5,
-      "label": "Tuần 1 — Ra lệnh & Dạy agent",
-      "unlockDate": "2026-07-08",
-      "pages": [
-        "khoa-hoc-hermes-handbook/02-ra-lenh-kieu-ceo",
-        "khoa-hoc-hermes-handbook/03-day-agent-viec-dau-tien"
-      ]
-    },
-    {
-      "week": 2,
-      "label": "Tuần 2 — Kết nối tool",
-      "unlockDate": "2026-07-16",
-      "pages": [
-        "khoa-hoc-hermes-handbook/04-ket-noi-tool"
-      ]
-    },
-    {
-      "week": 2.5,
-      "label": "Tuần 2 — Tự động hóa + Challenge",
-      "unlockDate": "2026-07-17",
-      "pages": [
-        "khoa-hoc-hermes-handbook/05-tu-dong-hoa-quy-trinh-lap",
-        "khoa-hoc-hermes-handbook/challenge-4-tuan",
-        "khoa-hoc-hermes-handbook/challenge-4-tuan/index",
-        "khoa-hoc-hermes-handbook/challenge-4-tuan/rubric-danh-gia",
-        "khoa-hoc-hermes-handbook/challenge-4-tuan/khong-ranh-ky-thuat",
-        "khoa-hoc-hermes-handbook/challenge-4-tuan/sau-4-tuan",
-        "khoa-hoc-hermes-handbook/challenge-4-tuan/faq"
-      ]
-    },
-    {
-      "week": 3,
-      "label": "Tuần 3 — Hệ thống Business 1 người",
-      "unlockDate": "2026-07-19",
-      "pages": [
-        "khoa-hoc-hermes-handbook/06-he-thong-hermes-business-1-nguoi"
-      ]
-    },
-    {
-      "week": 4,
-      "label": "Tuần 4 — Hệ thống 5 Agent & Use Case Library",
-      "unlockDate": "2026-07-26",
-      "pages": [
-        "he-thong-5-agent",
-        "he-thong-5-agent/index",
-        "he-thong-5-agent/core-hermes-core",
-        "he-thong-5-agent/01-hermes-sales",
-        "he-thong-5-agent/02-hermes-funnel",
-        "he-thong-5-agent/03-hermes-voice",
-        "he-thong-5-agent/04-hermes-visual",
-        "he-thong-5-agent/05-hermes-daily",
-        "use-case-library",
-        "use-case-library/index",
-        "use-case-library/sales",
-        "use-case-library/marketing",
-        "use-case-library/van-hanh",
-        "use-case-library/tai-chinh",
-        "use-case-library/hr-knowledge",
-        "use-case-library/lead-magnet-builder",
-        "use-case-library/proposal-quotation-builder",
-        "use-case-library/personalized-solution-brief",
-        "use-case-library/viral-video-engine",
-        "use-case-library/client-onboarding-command-center",
-        "use-case-library/receivable-cashflow-watchdog",
-        "use-case-library/tien-trinh-song-song",
-        "use-case-library/bo-template-van-hanh",
-        "use-case-library/demo-artifacts",
-        "use-case-library/video-scripts"
-      ]
-    }
-  ],
+  "startDate": "2026-07-14",
+  "title": "KADA Training Program",
+  "weeks": [],
   "alwaysAccessible": [
-    "khoa-hoc-hermes-handbook",
-    "khoa-hoc-hermes-handbook/index",
-    "outline-khoa-hoc-hermes-handbook"
+    "module-1-ai-foundation/buoi-1-io-ai-va-claude",
+    "module-1-ai-foundation/buoi-2-prompting-va-market-research",
+    "module-1-ai-foundation/buoi-3-structured-content-va-skills",
+    "module-1-ai-foundation/buoi-4-workflow-automation-va-hermes-agent",
+    "module-1-ai-foundation/buoi-5-team-mini-project",
+    "module-5-capstone/buoi-6-business-model-canvas",
+    "module-5-capstone/buoi-7-build-sprint-va-gtm",
+    "module-5-capstone/buoi-8-final-demo-va-portfolio"
   ]
 }

@@ -1,4 +1,3 @@
-import { auth } from "@clerk/nextjs/server";
 import {
   DocsBody,
   DocsDescription,
@@ -10,9 +9,7 @@ import {
 import { ProgressBar } from '@/components/handbook/shared'
 import { createRelativeLink } from "fumadocs-ui/mdx";
 import type { Metadata } from "next";
-import { headers } from "next/headers";
-import { notFound, redirect } from "next/navigation";
-import { CourseLock } from "@/components/course-lock";
+import { notFound } from "next/navigation";
 import { LessonMeta } from "@/components/handbook/interactive";
 import { getMDXComponents } from "@/components/mdx";
 import { DoneButton, LessonTracker } from "@/components/tracking";
@@ -20,7 +17,7 @@ import { checkAdminUnlock, getLockStatus } from "@/lib/course-schedule";
 import { gitConfig } from "@/lib/shared";
 import { getPageImage, getPageMarkdownUrl, source } from "@/lib/source";
 
-const DEFAULT_COURSE_LABEL = "KHÓA · HERMES HANDBOOK";
+const DEFAULT_COURSE_LABEL = "KADA · TRAINING PROGRAM";
 
 type LessonFrontmatter = NonNullable<
   NonNullable<ReturnType<typeof source.getPage>>["data"]["lesson"]
@@ -73,26 +70,7 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
   // Determine if we should show locked view
   const isLocked = lockStatus.locked && !adminUnlocked;
 
-  // For unlocked content, require auth (unless admin unlock bypass)
-  if (!isLocked && !adminUnlocked) {
-    // In dev mode, Clerk dev-browser cookies don't work on tunnel domains.
-    // Allow access without auth when unlock=all is present (handled above).
-    const isDev = process.env.NODE_ENV !== "production";
-    if (!isDev) {
-      const { userId } = await auth();
-      if (!userId) {
-        const headersList = await headers();
-        const forwardedProto = headersList.get("x-forwarded-proto") || "https";
-        const forwardedHost =
-          headersList.get("x-forwarded-host") ||
-          headersList.get("host") ||
-          "localhost:3000";
-        const origin = `${forwardedProto}://${forwardedHost}`;
-        const currentUrl = `${origin}/docs/${slug}`;
-        redirect(`/sign-in?redirect_url=${encodeURIComponent(currentUrl)}`);
-      }
-    }
-  }
+  // KADA Program: all pages are public, no auth required
 
   const lesson = page.data.lesson;
   const showLessonMeta = Boolean(lesson && !lesson.hideMeta);
@@ -103,35 +81,6 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
 
   // Find hero image from the page (first Image src)
   const pageImage = getPageImage(page);
-
-  if (isLocked) {
-    return (
-      <DocsPage>
-        <DocsTitle>{page.data.title}</DocsTitle>
-        <DocsDescription className="mb-0">
-          {page.data.description}
-        </DocsDescription>
-        <div className="flex flex-row gap-2 items-center border-b pb-6">
-          <MarkdownCopyButton markdownUrl={markdownUrl} />
-          <ViewOptionsPopover
-            markdownUrl={markdownUrl}
-            githubUrl={`https://github.com/${gitConfig.user}/${gitConfig.repo}/blob/${gitConfig.branch}/content/docs/${page.path}`}
-          />
-        </div>
-        <DocsBody>
-          <CourseLock
-            title={page.data.title}
-            description={page.data.description}
-            teaser={teaser}
-            unlockDate={lockStatus.unlockDate!}
-            weekLabel={lockStatus.weekLabel}
-            imageSrc={`${pageImage.url}`}
-            imageAlt={page.data.title}
-          />
-        </DocsBody>
-      </DocsPage>
-    );
-  }
 
   const copyAddons = <div className="flex flex-row gap-2 items-center">
     <MarkdownCopyButton markdownUrl={markdownUrl} />

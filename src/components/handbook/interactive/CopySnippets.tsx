@@ -12,6 +12,12 @@ interface CopySnippetsProps {
   snippets: Snippet[]
 }
 
+function formatSnippet(code: string) {
+  // MDX props often contain escaped newline sequences (\\n).
+  // Convert them to real line breaks for display and copy.
+  return code.replace(/\\\\n/g, '\\n')
+}
+
 function CopySnippetsInner({ snippets }: CopySnippetsProps) {
   const [copied, setCopied] = useState<number | null>(null)
 
@@ -35,13 +41,13 @@ function CopySnippetsInner({ snippets }: CopySnippetsProps) {
             {s.title}
             <button
               className={`${styles.snipCopy} ${copied === i ? styles.snipCopyDone : ''}`}
-              onClick={() => copy(i, s.code)}
+              onClick={() => copy(i, formatSnippet(s.code))}
               type="button"
             >
               {copied === i ? 'Đã copy ✓' : 'Copy'}
             </button>
           </div>
-          <pre className={styles.snipPre}>{s.code}</pre>
+          <pre className={styles.snipPre}>{formatSnippet(s.code)}</pre>
         </div>
       ))}
     </>

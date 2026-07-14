@@ -7,8 +7,10 @@ interface ChecklistItem {
   text: string
 }
 
+type ChecklistInput = ChecklistItem | string
+
 interface ChecklistProps {
-  items: ChecklistItem[]
+  items: ChecklistInput[]
   storageKey?: string
   completeMessage?: React.ReactNode
   progressMessage?: (completed: number, total: number) => React.ReactNode
@@ -78,7 +80,9 @@ export function Checklist({
           onClick={() => handleToggle(index)}
         >
           <div className={styles.checklistBox}>✓</div>
-          <div className={styles.checklistText}>{item.text}</div>
+          <div className={styles.checklistText}>
+            {typeof item === 'string' ? item : (item as ChecklistItem).text}
+          </div>
         </div>
       ))}
       <div className={styles.checklistFoot}>

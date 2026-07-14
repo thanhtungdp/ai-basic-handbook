@@ -1,32 +1,27 @@
-'use client';
+'use client'
 
-import { usePathname, useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
-import { usePostHog } from 'posthog-js/react';
-import { Suspense } from 'react';
+import { usePathname } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import posthog from 'posthog-js'
 
-function PageViewTracker() {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const posthog = usePostHog();
+let initialized = false
 
-  useEffect(() => {
-    if (pathname && posthog) {
-      let url = window.origin + pathname;
-      if (searchParams.toString()) {
-        url = url + `?${searchParams.toString()}`;
-      }
-      posthog.capture('$pageview', { $current_url: url });
-    }
-  }, [pathname, searchParams, posthog]);
-
-  return null;
+export function markPostHogInitialized() {
+  initialized = true
 }
 
 export default function PostHogPageView() {
-  return (
-    <Suspense fallback={null}>
-      <PageViewTracker />
-    </Suspense>
-  );
+  const pathname = usePathname()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (!mounted || typeof window === 'undefined' || !initialized) return
+    posthog.capture('$pageview', { path: pathname })
+  }, [pathname, mounted])
+
+  return null
 }

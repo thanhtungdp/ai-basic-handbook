@@ -1,48 +1,33 @@
-'use client';
+'use client'
 
-import posthog from 'posthog-js';
-import { PostHogProvider as PHProvider } from 'posthog-js/react';
-import { useEffect } from 'react';
-import { useUser } from '@clerk/nextjs';
+import { usePathname } from 'next/navigation'
+import posthog from 'posthog-js'
+import { PostHogProvider as PostHogNextProvider } from 'posthog-js/react'
+import { useEffect, useState } from 'react'
+import { markPostHogInitialized } from '@/components/analytics/posthog-pageview'
 
+// PostHog provider without Clerk dependency
 export function PostHogAnalyticsProvider({ children }: { children: React.ReactNode }) {
-  useEffect(() => {
-    const key = process.env.NEXT_PUBLIC_POSTHOG_KEY;
-    if (!key) return;
-
-    posthog.init(key, {
-      api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://eu.i.posthog.com',
-      person_profiles: 'identified_only',
-      capture_pageview: false, // we track pageviews manually
-      capture_pageleave: true,
-    });
-  }, []);
-
-  return (
-    <InnerProvider>{children}</InnerProvider>
-  );
-}
-
-/**
- * Inner provider that has access to Clerk's useUser hook.
- * Identifies the user in PostHog whenever they sign in.
- */
-function InnerProvider({ children }: { children: React.ReactNode }) {
-  const { user, isSignedIn } = useUser();
+  const [mounted, setMounted] = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
-    if (isSignedIn && user) {
-      const email = user.primaryEmailAddress?.emailAddress;
-      const fullName = user.fullName || `${user.firstName ?? ''} ${user.lastName ?? ''}`.trim();
+    setMounted(true)
+  }, [])
 
-      posthog.identify(user.id, {
-        email: email,
-        name: fullName,
-      });
-    } else {
-      posthog.reset();
+  useEffect(() => {
+    if (!mounted) return
+    if (typeof window !== 'undefined') {
+      const key = process.env.NEXT_PUBLIC_POSTHOG_KEY
+      if (key) {
+        posthog.init(key, {
+          api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://app.posthog.com',
+          loaded: () => {},
+        })
+        markPostHogInitialized()
+      }
     }
-  }, [isSignedIn, user]);
+  }, [mounted])
 
-  return <PHProvider client={posthog}>{children}</PHProvider>;
+  return <PostHogNextProvider client={posthog}>{children}</PostHogNextProvider>
 }

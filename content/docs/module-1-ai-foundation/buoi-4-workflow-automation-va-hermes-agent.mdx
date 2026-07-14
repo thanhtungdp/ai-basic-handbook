@@ -1,0 +1,224 @@
+---
+title: "Buổi 4 — Workflow Automation & Hermes Agent"
+description: Thiết kế prompt template dùng lại được, sketch workflow no-code, và hiểu sự khác biệt giữa Claude (session-based), ChatGPT Work (background tasks), và Hermes Agent (always-on 24/7).
+lesson:
+  number: "04"
+  duration: 180
+  module: "1"
+---
+
+import { Callout } from '@/components/handbook/shared'
+import {
+  CopySnippets,
+  Checklist,
+  ConceptCards,
+  InfoCards,
+} from '@/components/handbook/interactive'
+
+## Mục tiêu buổi học
+
+Sau buổi này, mỗi học viên có thể:
+
+- Xây prompt template dùng lại được cho quy trình lặp.
+- Sketch 1 workflow input → AI processing → structured output.
+- Phân biệt 3 mô hình: Claude (session), ChatGPT Work (background tasks), Hermes Agent (always-on).
+- Biết khi nào chọn mô hình nào cho use case của mình.
+
+## Kiến thức trọng tâm
+
+### 1. Prompt Template — Từ 1 prompt thành quy trình
+
+Prompt 1 lần → Prompt template = **biến số + cấu trúc cố định**.
+
+<Callout>
+  <p><strong>Khác biệt:</strong> Prompt thường viết cho 1 việc cụ thể. Prompt template có "khe" để điền input mới — dùng lại được mọi lần.</p>
+</Callout>
+
+**Ví dụ:**
+
+| | Prompt 1 lần | Prompt Template |
+|---|---|---|
+| Input | "Tóm tắt email này: [paste email]" | "Tóm tắt email: `{{EMAIL_CONTENT}}`" |
+| Dùng lại | Không — viết lại | Có — thay `{{EMAIL_CONTENT}}` mỗi lần |
+| Mở rộng | Khó | Dễ — thêm biến `{{OUTPUT_FORMAT}}`, `{{TONE}}` |
+
+### 2. Workflow — Input → AI → Structured Output
+
+Mọi workflow AI có 3 phần:
+
+<InfoCards
+  cards={[
+    {
+      icon: '📥',
+      title: 'Input',
+      when: 'Dữ liệu vào',
+      desc: 'Raw notes, email, file, API response.',
+    },
+    {
+      icon: '🤖',
+      title: 'AI Processing',
+      when: 'Claude xử lý',
+      desc: 'Dùng prompt template + Skill + Project knowledge.',
+    },
+    {
+      icon: '📤',
+      title: 'Structured Output',
+      when: 'Kết quả ra',
+      desc: 'Bảng, JSON, document — format cố định.',
+    },
+  ]}
+/>
+
+<Callout variant="orange">
+  <p><strong>Quy tắc:</strong> Input càng có cấu trúc → AI càng ít đoán mò → Output càng chính xác.</p>
+</Callout>
+
+### 3. Ba mô hình làm việc với AI
+
+| | Claude | ChatGPT Work | Hermes Agent |
+|---|---|---|---|
+| **Bản chất** | Session-based assistant | Background tasks trong session | Always-on agent 24/7 |
+| **Chạy khi nào** | Khi bạn mở chat | Khi bạn giao task — chạy nền | Luôn luôn — kể cả khi bạn ngủ |
+| **Kênh giao tiếp** | Web interface | Web interface + API | Telegram, CLI, API, webhook |
+| **Tự ghi nhớ** | Project knowledge | Project / Custom Instructions | Memory + Skill + Session Search |
+| **Chạy định kỳ** | Không | Có giới hạn | Cron + Webhook — đầy đủ |
+| **Phù hợp** | Phân tích, viết, tư vấn | Research, tạo file, task nền | Tự động hóa vận hành hằng ngày |
+
+<ConceptCards
+  concepts={[
+    {
+      term: 'Session-based',
+      desc: 'Mở chat → hỏi → trả lời → đóng',
+      example: <>Claude: bạn mở, hỏi, nhận, đóng <span>— agent nghỉ khi bạn nghỉ</span>.</>,
+    },
+    {
+      term: 'Background tasks',
+      desc: 'Giao task → chạy nền → trả sau',
+      example: <>ChatGPT Work: giao "tìm 5 đối thủ" <span>— chạy nền vài phút</span>.</>,
+    },
+    {
+      term: 'Always-on',
+      desc: 'Chạy 24/7 — nhận lệnh bất lúc',
+      example: <>Hermes: cron 7:30 mỗi sáng gửi briefing <span>— bạn không cần mở</span>.</>,
+    },
+  ]}
+/>
+
+<Callout variant="orange">
+  <p><strong>ChatGPT Work</strong> là bước tiến lớn — chạy task nền, tạo file, duyệt web. Nhưng nó vẫn dừng ở "session mở rộng". <strong>Hermes Agent</strong> chạy liên tục như nhân viên online — nhận lệnh qua Telegram, tự chạy lịch, tự ghi nhớ, báo lại khi cần duyệt.</p>
+</Callout>
+
+### 4. Khi nào chọn mô hình nào?
+
+| Use case | Mô hình | Lý do |
+|---|---|---|
+| Viết email quan trọng, cần suy nghĩ | Claude | Chất lượng cao, tương tác trực tiếp |
+| Tìm dữ liệu thị trường, crawl web | ChatGPT Work | Web search real-time, có nguồn |
+| Mỗi sáng tóm tắt email + gửi briefing | Hermes Agent | Cron 7:30 tự chạy, không cần mở |
+| Phân tích báo cáo dài 50 trang | Claude | Context window lớn, phân tích sâu |
+| Theo dõi giá đối thủ mỗi giờ | Hermes Agent | Cron mỗi giờ, alert qua Telegram |
+| Tạo presentation từ outline | ChatGPT Work | Tạo file nền, xong báo |
+
+## Hands-on lab
+
+### Bước 1 — Mở rộng Skill thành Prompt Template (25 phút)
+
+Lấy Skill từ Buổi 3, biến thành prompt template có biến số:
+
+<CopySnippets
+  snippets={[
+    {
+      title: 'PROMPT TEMPLATE — Tóm tắt email',
+      code: 'Role: Trợ lý vận hành\\n\\nContext: [{{BUSINESS_NAME}}] — business [{{BUSINESS_DESCRIPTION}}]\\n\\nTask: Tóm tắt email dưới đây.\\n\\nInput: {{EMAIL_CONTENT}}\\n\\nFormat output:\\n| Email | Người gửi | Mục đích | Action | Deadline |\\n+ 3 câu tóm tắt tổng.\\n\\nLưu ý:\\n- {{TONE}}: chuyên nghiệp / thân mật\\n- {{LANGUAGE}}: tiếng Việt\\n- Nếu email có thông tin nhạy cảm, redact.',
+    },
+  ]}
+/>
+
+Thay biến số `{{...}}` bằng giá trị thật, gửi cho Claude. So sánh với kết quả Buổi 3 — giống không?
+
+### Bước 2 — Sketch Workflow (25 phút)
+
+Chọn 1 quy trình lặp từ bài tập về nhà. Vẽ workflow:
+
+```
+[INPUT] → [CLAUDE PROCESSING] → [OUTPUT] → [KIỂM TRA]
+```
+
+<CopySnippets
+  snippets={[
+    {
+      title: 'WORKORK TEMPLATE — Điền quy trình của bạn',
+      code: 'Workflow: [TÊN QUY TRÌNH]\\n\\nInput (raw):\\n- [Dữ liệu vào gì? Ví dụ: note họp, email, file CSV]\\n\\nClaude processing:\\n- Prompt template: [paste template]\\n- Skill dùng: [Tên Skill nếu có]\\n- Project knowledge: [Có dùng Project không?]\\n\\nOutput (structured):\\n- Format: [Bảng / JSON / Document]\\n- Ví dụ output: [1 ví dụ cụ thể]\\n\\nKiểm tra:\\n- [ ] Output đúng format?\\n- [ ] Thông tin verify được?\\n- [ ] Cần CEO duyệt trước khi gửi?\\n\\nTần suất:\\n- [ ] 1 lần / ngày / tuần / tháng\\n- [ ] Có nên tự động hóa bằng cron không?',
+    },
+  ]}
+/>
+
+### Bước 3 — Class Debate: Claude vs ChatGPT Work vs Hermes Agent (20 phút)
+
+Chia 3 nhóm, mỗi nhóm bảo vệ 1 mô hình:
+
+| Nhóm | Bảo vệ | Lập luận chính |
+|---|---|---|
+| A | Claude | Chất lượng cao, tương tác trực tiếp, phân tích sâu |
+| B | ChatGPT Work | Web search real-time, tạo file, chạy nền |
+| C | Hermes Agent | Always-on 24/7, cron + Telegram, tự ghi nhớ |
+
+Mỗi nhóm có 5 phút thuyết trình + 5 phút phản biện.
+
+**Câu hỏi tranh luận:**
+1. Nếu bạn là CEO 1 người, mô hình nào tiết kiệm thời gian nhất?
+2. Việc nào KHÔNG nên tự động hóa?
+3. Khi nào agent cần hỏi CEO trước khi hành động?
+
+### Bước 4 — No-Code Automation Demo (20 phút)
+
+Quan sát instructor demo 1 automation đơn giản:
+
+```
+Trigger: Mỗi sáng 7:30
+  → Action: Hermes Agent chạy Skill tóm tắt email
+  → Output: Gửi briefing qua Telegram
+  → CEO đọc, duyệt, reply
+```
+
+Thảo luận: quy trình nào của bạn có thể tự động hóa tương tự?
+
+### Bước 5 — Team Practice: Sketch Automation (20 phút)
+
+Mỗi team sketch 1 automation cho use case của mình:
+
+<CopySnippets
+  snippets={[
+    {
+      title: 'AUTOMATION SKETCH',
+      code: 'Use case: [TÊN]\\n\\nTrigger: [Khi nào chạy? Thời gian / sự kiện]\\n\\nAgent làm gì:\\n1. [Bước 1]\\n2. [Bước 2]\\n3. [Bước 3]\\n\\nOutput gửi đâu: [Telegram / Email / Sheet]\\n\\nCEO duyệt khi nào: [Trước khi gửi ra ngoài / Sau khi review]\\n\\nMô hình AI: [Claude / ChatGPT Work / Hermes Agent]\\nLý do chọn: [Vì sao?]',
+    },
+  ]}
+/>
+
+## Checklist kết thúc buổi
+
+<Checklist
+  items={[
+    'Tôi đã biến Skill thành prompt template có biến số',
+    'Tôi đã sketch 1 workflow input → AI → output',
+    'Tôi phân biệt được Claude, ChatGPT Work, Hermes Agent',
+    'Tôi đã tham gia debate và biết khi nào chọn mô hình nào',
+    'Tôi đã sketch 1 automation cho use case của mình',
+  ]}
+  storageKey="kada_buoi_04_checklist"
+  completeMessage={<><strong>Hoàn thành Buổi 4 ✓</strong> Sẵn sàng cho Mini-Project.</>}
+/>
+
+## Bài tập về nhà (chuẩn bị Buổi 5)
+
+1. **Hoàn thiện automation sketch** — nộp bản final.
+2. **Chuẩn bị requirement sheet** cho mini-project:
+   - Tên dự án
+   - Vấn đề giải quyết
+   - Mục tiêu
+   - Scope (gì làm được, gì không)
+   - Success criteria (khi nào biết đạt)
+3. **Chuẩn bị workflow pack** — gộp prompt template + structured content + Skill từ Buổi 2–4.
+
+> Buổi 5: Team Mini-Project — gộp mọi thứ thành 1 requirement sheet + workflow pack, present trước lớp.

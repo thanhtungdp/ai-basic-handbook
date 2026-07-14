@@ -1,0 +1,203 @@
+---
+title: "Buổi 3 — Structured Content, Context & Skills"
+description: Hiểu context window, topic clustering, search engines vs answer engines, và xây reusable Claude Skill — biến quy trình lặp thành capability dùng lại được.
+lesson:
+  number: "03"
+  duration: 180
+  module: "1"
+---
+
+import { Callout } from '@/components/handbook/shared'
+import {
+  CopySnippets,
+  Checklist,
+  ConceptCards,
+  InfoCards,
+} from '@/components/handbook/interactive'
+
+## Mục tiêu buổi học
+
+Sau buổi này, mỗi học viên có thể:
+
+- Giải thích cách Claude dùng context window và Project knowledge.
+- Biến tài liệu lộn xộn thành topic cluster + metadata table.
+- Phân biệt search engines vs answer engines.
+- Xây 1 reusable Claude Skill cho quy trình lặp.
+
+## Kiến thức trọng tâm
+
+### 1. Context Window — Claude "nhớ" gì trong 1 cuộc trò chuyện?
+
+<ConceptCards
+  concepts={[
+    {
+      term: 'Context Window',
+      desc: 'Khoảng chữ Claude nhớ trong 1 session',
+      example: <>Cuộc trò chuyện dài quá → Claude quên đầu cuộc <span>— cần tóm tắt lại</span>.</>,
+    },
+    {
+      term: 'Project Knowledge',
+      desc: 'Ngữ cảnh dài hạn lưu trong Project',
+      example: <>Upload SOP, bảng giá, mô tả sản phẩm <span>— mỗi chat mới tự hiểu</span>.</>,
+    },
+    {
+      term: 'Custom Instructions',
+      desc: 'Quy tắc mặc định cho mọi chat',
+      example: <>"Trả lời tiếng Việt, ngắn, có checklist" <span>— không cần lặp lại</span>.</>,
+    },
+  ]}
+/>
+
+<Callout>
+  <p><strong>Quy tắc:</strong> Thông tin dùng 1 lần → paste vào chat. Thông tin dùng nhiều lần → lưu vào Project.</p>
+</Callout>
+
+### 2. Topic Clustering — Biến tài liệu lộn xộn thành cấu trúc
+
+Tài liệu thô (note họp, email thread, báo cáo rời rạc) → Claude có thể nhóm thành topic cluster có cấu trúc.
+
+**Ví dụ:** 20 trang note họp → Claude nhóm thành:
+
+| Cluster | Chủ đề | Entity | Metadata |
+|---|---|---|---|
+| Khách hàng | Tên, nhu cầu, trạng thái | customer_id, stage | last_contact, value |
+| Sản phẩm | Tính năng, giá, roadmap | product_id, status | priority, eta |
+| Vận hành | Quy trình, bottleneck | process_id, owner | frequency, risk |
+
+<Callout variant="orange">
+  <p><strong>Tại sao quan trọng?</strong> Structured input → AI output tốt hơn. Claude không phải đoán mò — nó có cấu trúc để bám theo.</p>
+</Callout>
+
+### 3. Search Engines vs Answer Engines
+
+| | Search Engine (Google) | Answer Engine (Claude/ChatGPT) |
+|---|---|---|
+| **Output** | Danh sách link | Câu trả lời tổng hợp |
+| **Bạn làm gì** | Click từng link, tự tổng hợp | Đọc câu trả lời, verify |
+| **Khi nào dùng** | Cần tìm nguồn chính xác | Cần tổng hợp nhanh |
+| **Rủi ro** | Tốn thời gian | Hallucination — cần kiểm chứng |
+
+<Callout>
+  <p><strong>Thực chiến:</strong> Dùng Answer Engine tổng hợp → Search Engine verify nguồn. Không dùng 1 cái thay cái còn lại.</p>
+</Callout>
+
+### 4. Claude Skill — Gói quy trình dùng lại
+
+<InfoCards
+  cards={[
+    {
+      icon: '📝',
+      title: 'Skill là gì?',
+      when: 'Định nghĩa',
+      desc: 'Một bộ instructions + capability Claude gọi khi cần — khác prompt 1 lần ở chỗ dùng lại được.',
+    },
+    {
+      icon: '🔄',
+      title: 'Khi nào build Skill?',
+      when: 'Quy trình lặp ≥ 3 lần',
+      desc: 'Nếu bạn làm cùng việc 3+ lần với format giống nhau → biến thành Skill.',
+    },
+    {
+      icon: '⚖️',
+      title: 'Skill vs Project vs Prompt',
+      when: 'Chọn đúng công cụ',
+      desc: 'Prompt = 1 lần. Project = ngữ cảnh. Skill = quy trình đóng gói.',
+    },
+  ]}
+/>
+
+## Hands-on lab
+
+### Bước 1 — Context Window Demo (15 phút)
+
+<CopySnippets
+  snippets={[
+    {
+      title: 'TEST — Context Window giới hạn',
+      code: 'Hãy đếm từ đầu cuộc trò chuyện đến giờ. Sau đó hỏi anh: "Bạn còn nhớ câu đầu tiên anh nói không?". Nếu nhớ, trích lại. Nếu không, giải thích vì sao.',
+    },
+  ]}
+/>
+
+Quan sát: Claude nhớ được bao nhiêu? Khi nào bắt đầu quên?
+
+### Bước 2 — Set up Project Knowledge (20 phút)
+
+1. Mở Project từ Buổi 1.
+2. Upload 2–3 file:
+   - Mô tả sản phẩm (từ Buổi 2)
+   - Sales page draft (từ Buổi 2)
+   - 1 tài liệu lộn xộn (bài tập về nhà)
+3. Thêm Custom Instructions:
+
+<CopySnippets
+  snippets={[
+    {
+      title: 'PROJECT INSTRUCTIONS — Cập nhật',
+      code: 'Bạn là trợ lý vận hành cho business [TÊN]. Sử dụng file tham khảo trong Project để trả lời. Nếu thông tin không có trong file, ghi "cần bổ sung". Trả lời tiếng Việt, ngắn, thực chiến. Mỗi output có: kết luận, bước làm, bước tiếp theo.',
+    },
+  ]}
+/>
+
+### Bước 3 — Topic Clustering Lab (30 phút)
+
+Dùng tài liệu lộn xộn đã chuẩn bị (bài tập về nhà Buổi 2):
+
+<CopySnippets
+  snippets={[
+    {
+      title: 'PROMPT — Topic Clustering',
+      code: 'Role: Chuyên gia structured content\\n\\nContext: Anh gửi cho em [TÀI LIỆU LỘN XỘN]. Đây là [note họp / email thread / báo cáo].\\n\\nTask: Nhóm nội dung thành topic cluster. Với mỗi cluster:\\n1. Tên cluster\\n2. Chủ đề chính\\n3. Danh sách entity (tên người, sản phẩm, quy trình)\\n4. Metadata table: entity | thuộc tính | giá trị\\n\\nFormat: Mỗi cluster 1 section, có bảng metadata.',
+    },
+  ]}
+/>
+
+Kết quả mong muốn: tài liệu lộn xộn → 3–5 cluster có cấu trúc, mỗi cluster có bảng metadata.
+
+### Bước 4 — Build Claude Skill (35 phút)
+
+Chọn 1 quy trình lặp (từ bài tập về nhà). Ví dụ:
+- "Tóm tắt email hàng ngày"
+- "Tạo social post từ blog"
+- "Chuyển note họp thành action items"
+
+<CopySnippets
+  snippets={[
+    {
+      title: 'SKILL — Template xây Skill',
+      code: '## Skill: [TÊN QUY TRÌNH]\\n\\n### Khi nào dùng\\n[Khi nào Claude nên gọi skill này]\\n\\n### Input cần có\\n- [Danh sách input]\\n\\n### Các bước\\n1. [Bước 1]\\n2. [Bước 2]\\n3. [Bước 3]\\n\\n### Output mong muốn\\n- [Định dạng output]\\n\\n### Lưu ý\\n- [Edge case, khi nào hỏi lại user]',
+    },
+    {
+      title: 'VÍ DỤ — Skill tóm tắt email',
+      code: '## Skill: Tóm tắt email hàng ngày\\n\\n### Khi nào dùng\\nKhi user gửi nhiều email và cần tóm tắt nhanh.\\n\\n### Input cần có\\n- Nội dung email (paste hoặc upload)\\n\\n### Các bước\\n1. Đọc từng email, xác định: người gửi, mục đích, cần hành động gì.\\n2. Nhóm email theo: cần trả lời ngay / chỉ tham khảo / follow-up.\\n3. Tạo danh sách action items với deadline.\\n\\n### Output mong muốn\\nBảng: | Email | Mục đích | Action | Deadline |\\n+ 3 câu tóm tắt tổng.\\n\\n### Lưu ý\\n- Nếu email có thông tin nhạy cảm, redact trước khi tóm tắt.\\n- Nếu không rõ mục đích, ghi "cần làm rõ".',
+    },
+  ]}
+/>
+
+### Bước 5 — Thử Skill (15 phút)
+
+1. Lưu Skill vào Claude Project (Custom Instructions hoặc file).
+2. Gửi 1 input mới (không phải input đã build Skill).
+3. Kiểm tra: Claude có gọi đúng format không? Output đúng chuẩn không?
+
+## Checklist kết thúc buổi
+
+<Checklist
+  items={[
+    'Tôi giải thích được context window và khi nào Claude quên',
+    'Tôi đã set up Project với file + instructions',
+    'Tôi đã cluster 1 tài liệu lộn xộn thành topic + metadata table',
+    'Tôi đã build 1 reusable Skill và test với input mới',
+    'Tôi phân biệt được Skill vs Project vs Prompt',
+  ]}
+  storageKey="kada_buoi_03_checklist"
+  completeMessage={<><strong>Hoàn thành Buổi 3 ✓</strong> Sẵn sàng học workflow automation + Hermes Agent.</>}
+/>
+
+## Bài tập về nhà (chuẩn bị Buổi 4)
+
+1. **Hoàn thiện Skill** — phản ánh test, nộp bản final.
+2. **Mở rộng topic cluster** — thêm 1 tài liệu nữa, xem Skill có hoạt động không.
+3. **Chuẩn bị 1 quy trình lặp** bạn muốn tự động hóa (ví dụ: "mỗi sáng tóm tắt email", "mỗi tuần tạo báo cáo"). Buổi 4 sẽ thiết kế automation.
+
+> Buổi 4: Workflow automation + giới thiệu Hermes Agent — always-on background agent 24/7.

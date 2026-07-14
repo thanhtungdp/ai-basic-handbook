@@ -1,0 +1,193 @@
+---
+title: "Buổi 5 — Team Mini-Project"
+description: Gộp 4 buổi học thành 1 requirement sheet + workflow pack hoàn chỉnh, present trước lớp, nhận scored feedback — chốt Module 1.
+lesson:
+  number: "05"
+  duration: 180
+  module: "1"
+---
+
+import { Callout } from '@/components/handbook/shared'
+import {
+  CopySnippets,
+  Checklist,
+  InfoCards,
+} from '@/components/handbook/interactive'
+
+## Mục tiêu buổi học
+
+Sau buổi này, mỗi team:
+
+- Có 1 requirement sheet hoàn chỉnh: goal, scope, success criteria.
+- Có 1 workflow pack: prompt template + structured content + Skill.
+- Present trước lớp trong 10 phút.
+- Nhận scored feedback theo rubric.
+
+## Cấu trúc buổi
+
+| Thời gian | Hoạt động | Phương pháp |
+|---|---|---|
+| 08:30–10:00 | Requirement Sheet Workshop | Coaching + Hands-on |
+| 10:00–10:15 | Break | — |
+| 10:15–11:45 | Workflow Pack Assembly | Hands-on + Critical Feedback |
+| 11:45–13:00 | Lunch | — |
+| 13:00–14:30 | Rehearsal & Peer Review | Coaching + Peer Critique |
+| 14:30–14:45 | Break | — |
+| 14:45–16:15 | Team Presentations & Wrap-Up | Critical Feedback + Coaching |
+
+## Phần 1 — Requirement Sheet Workshop (90 phút)
+
+### Requirement Sheet là gì?
+
+1 trang duy nhất — đủ để người khác hiểu bạn muốn làm gì, làm thế nào, và khi nào đạt.
+
+<InfoCards
+  cards={[
+    {
+      icon: '🎯',
+      title: 'Goal',
+      when: 'Mục tiêu',
+      desc: '1 câu — giải quyết vấn đề gì, cho ai.',
+    },
+    {
+      icon: '📐',
+      title: 'Scope',
+      when: 'Phạm vi',
+      desc: 'Gì làm được, gì không. Rõ biên giới.',
+    },
+    {
+      icon: '✅',
+      title: 'Success Criteria',
+      when: 'Khi nào đạt',
+      desc: '3–5 tiêu chí đo được. Không "cảm thấy".',
+    },
+    {
+      icon: '📦',
+      title: 'Deliverables',
+      when: 'Output cụ thể',
+      desc: 'Prompt template, Skill, workflow sketch, sample output.',
+    },
+  ]}
+/>
+
+### Template Requirement Sheet
+
+<CopySnippets
+  snippets={[
+    {
+      title: 'REQUIREMENT SHEET',
+      code: '## Tên dự án\\n[Tên]\\n\\n## Vấn đề\\n[Mô tả vấn đề giải quyết — 2-3 câu]\\n\\n## Mục tiêu\\n[1 câu — kết quả mong muốn]\\n\\n## Scope\\nNên làm:\\n- [Điều 1]\\n- [Điều 2]\\n\\nKhông làm:\\n- [Điều 1]\\n- [Điều 2]\\n\\n## Success Criteria\\n1. [Tiêu chí 1 — đo được]\\n2. [Tiêu chí 2 — đo được]\\n3. [Tiêu chí 3 — đo được]\\n\\n## Deliverables\\n- [ ] Prompt template\\n- [ ] Structured content / topic cluster\\n- [ ] Reusable Skill\\n- [ ] Workflow sketch (input → AI → output)\\n- [ ] Sample output (1 ví dụ thật)\\n\\n## Công cụ AI dùng\\n- Claude: [dùng cho gì]\\n- ChatGPT Work: [dùng cho gì]\\n- Hermes Agent: [dùng cho gì — nếu có]',
+    },
+  ]}
+/>
+
+### Hoạt động
+
+1. Mỗi team dùng Claude để refine requirement sheet (15 phút).
+2. Instructor circulate, critique từng team (25 phút).
+3. Team revise dựa trên feedback (20 phút).
+4. Final requirement sheet — upload vào Claude Artifact (10 phút).
+
+## Phần 2 — Workflow Pack Assembly (90 phút)
+
+Workflow pack = gộp mọi thứ từ Buổi 2–4 thành 1 bundle.
+
+<CopySnippets
+  snippets={[
+    {
+      title: 'WORKFLOW PACK — Template',
+      code: '## Workflow Pack: [TÊN DỰ ÁN]\\n\\n### 1. Prompt Template\\n[Paste prompt template từ Buổi 4]\\n\\n### 2. Structured Content\\n[Topic cluster + metadata table từ Buổi 3]\\n\\n### 3. Reusable Skill\\n[Skill definition từ Buổi 3]\\n\\n### 4. Workflow Sketch\\n```\\n[INPUT] → [CLAUDE/CHATGPT/HERMES] → [OUTPUT] → [KIỂM TRA]\\n```\\n\\n### 5. Sample Output\\n[1 ví dụ output thật — đã qua kiểm chứng]\\n\\n### 6. Automation Potential\\n- Có thể tự động hóa không? [Có/Không]\\n- Nếu có: trigger gì? Output gửi đâu?\\n- Mô hình AI: Claude / ChatGPT Work / Hermes Agent',
+    },
+  ]}
+/>
+
+### Hoạt động
+
+1. Mỗi team assemble workflow pack trong Claude Artifact (45 phút).
+2. Instructor circulate, troubleshoot, critique (30 phút).
+3. Team finalize (15 phút).
+
+## Phần 3 — Rehearsal & Peer Review (90 phút)
+
+### Rehearsal (30 phút)
+
+Mỗi team rehearse presentation:
+- **10 phút thuyết trình**: problem → solution → workflow pack → demo output
+- **5 phút Q&A**
+
+### Peer Review (30 phút)
+
+Mỗi team review 1 team khác theo rubric:
+
+| Tiêu chí | Điểm (1-5) | Nhận xét |
+|---|---|---|
+| Requirement rõ ràng | | |
+| Workflow pack đầy đủ | | |
+| Output đúng format | | |
+| Thông tin kiểm chứng được | | |
+| Trình bày rõ, đúng giờ | | |
+
+### Finalize (30 phút)
+
+Team revise dựa trên peer feedback trước presentation.
+
+## Phần 4 — Team Presentations & Wrap-Up (90 phút)
+
+### Presentation Format
+
+Mỗi team:
+- **10 phút**: thuyết trình
+- **5 phút**: Q&A từ lớp + instructor
+- **3 phút**: instructor feedback + score
+
+### Rubric chấm điểm
+
+| Tiêu chí | Trọng số | Mô tả |
+|---|---|---|
+| Attendance | 20% | Đi đủ 5 buổi |
+| Practical Exercises | 40% | Buổi 1–4 bài tập |
+| Mini Project | 40% | Requirement sheet + workflow pack + presentation |
+
+**Mini Project (40%) chia thành:**
+- Requirement sheet rõ ràng: 10%
+- Workflow pack đầy đủ: 15%
+- Sample output chất lượng: 10%
+- Trình bày + Q&A: 5%
+
+### Wrap-Up Discussion
+
+1. **Khó khăn lớn nhất** qua Module 1?
+2. **Thay đổi tư duy** gì sau 5 buổi?
+3. **Điều gì bất ngờ** nhất?
+4. **Điều gì** bạn sẽ áp dụng ngay tuần sau?
+5. Cohort observations logged — handoff cho Module 2 instructor.
+
+## Checklist kết thúc buổi
+
+<Checklist
+  items={[
+    'Team có requirement sheet hoàn chỉnh',
+    'Team có workflow pack: prompt template + skill + workflow sketch',
+    'Team có sample output đã kiểm chứng',
+    'Team đã present trong 10 phút + Q&A',
+    'Team đã nhận scored feedback',
+  ]}
+  storageKey="kada_buoi_05_checklist"
+  completeMessage={<><strong>Hoàn thành Module 1 ✓</strong> 5 buổi AI Foundation hoàn thành. Sẵn sàng cho Module 5 — Capstone.</>}
+/>
+
+## Tổng kết Module 1
+
+Qua 5 buổi, bạn đã đi từ:
+
+| Buổi | Có gì |
+|---|---|
+| 1 | Claude account + Project + hiểu LLM |
+| 2 | Sales page draft + hallucination checklist |
+| 3 | Structured content + reusable Skill |
+| 4 | Prompt template + workflow + hiểu 3 mô hình AI |
+| 5 | Requirement sheet + workflow pack + presentation |
+
+**Từ tư duy "hỏi AI" → tư duy "thiết kế quy trình có AI".**
+
+> Module 5 — Capstone: biến mọi thứ thành sản phẩm thật có business model, go-to-market, và demo công khai.

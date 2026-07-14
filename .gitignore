@@ -33,3 +33,6 @@ next-env.d.ts
 emails/sender/__pycache__/
 .env.local
 *.dump
+
+# clerk configuration (can include secrets)
+/.clerk/

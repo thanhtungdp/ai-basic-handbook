@@ -6,14 +6,11 @@ import {
   MarkdownCopyButton,
   ViewOptionsPopover,
 } from "fumadocs-ui/layouts/docs/page";
-import { ProgressBar } from '@/components/handbook/shared'
 import { createRelativeLink } from "fumadocs-ui/mdx";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { LessonMeta } from "@/components/handbook/interactive";
 import { getMDXComponents } from "@/components/mdx";
-import { DoneButton, LessonTracker } from "@/components/tracking";
-import { checkAdminUnlock, getLockStatus } from "@/lib/course-schedule";
 import { gitConfig } from "@/lib/shared";
 import { getPageImage, getPageMarkdownUrl, source } from "@/lib/source";
 
@@ -54,23 +51,10 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
   const MDX = page.data.body;
   const markdownUrl = getPageMarkdownUrl(page).url;
 
-  // Build slug string for schedule lookup
+  // Build slug string
   const slug = params.slug?.join("/") ?? "";
 
-  // Check admin unlock via query params
-  const searchParams = await props.searchParams;
-  const adminUnlocked = checkAdminUnlock(
-    searchParams as Record<string, string | string[] | undefined>,
-    slug,
-  );
-
-  // Check lock status
-  const lockStatus = getLockStatus(slug);
-
-  // Determine if we should show locked view
-  const isLocked = lockStatus.locked && !adminUnlocked;
-
-  // KADA Program: all pages are public, no auth required
+  // KADA Program: all pages are public, no tracking, no DB
 
   const lesson = page.data.lesson;
   const showLessonMeta = Boolean(lesson && !lesson.hideMeta);
@@ -107,15 +91,11 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
       </DocsDescription>}
       {!showLessonMeta && copyAddons}
       <DocsBody>
-        <ProgressBar />
-        <LessonTracker slug={slug} isLocked={isLocked}>
-          <MDX
-            components={getMDXComponents({
-              a: createRelativeLink(source, page),
-            })}
-          />
-        </LessonTracker>
-        {!isLocked && lesson && <DoneButton slug={slug} />}
+        <MDX
+          components={getMDXComponents({
+            a: createRelativeLink(source, page),
+          })}
+        />
       </DocsBody>
     </DocsPage>
   );

@@ -4,7 +4,7 @@ export default function HomePage() {
   return (
     <div className="flex flex-col items-center justify-center text-center px-4 py-16 max-w-3xl mx-auto">
       <span className="text-sm font-medium text-orange-500 mb-3">
-        Hermes Handbook
+        KADA Program
       </span>
       <h1 className="text-4xl sm:text-5xl font-bold mb-4 leading-tight">
         Xây đội AI tự chủ cho Solo CEO

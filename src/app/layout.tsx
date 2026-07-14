@@ -15,8 +15,8 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL('https://hermes-handbook.nousresearch.com'),
   title: {
-    default: 'Hermes Handbook — Xây đội AI tự chủ cho Solo CEO',
-    template: '%s — Hermes Handbook',
+    default: 'KADA Program — AI Training thực chiến',
+    template: '%s — KADA Program',
   },
   description:
     'Handbook thực chiến giúp Solo CEO xây đội AI tự chủ: ra lệnh qua Telegram, biến việc lặp thành agent tự chạy, và trong 4 tuần có 1–2 agent làm việc thật mỗi ngày.',

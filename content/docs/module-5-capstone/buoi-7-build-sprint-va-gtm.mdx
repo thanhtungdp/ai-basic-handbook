@@ -1,0 +1,231 @@
+---
+title: "Buổi 7 — Build Sprint & Go-to-Market Strategy"
+description: Build end-to-end, QA, định giá, go-to-market, sản xuất promo video + social media images — biến product thành package có business model.
+lesson:
+  number: "07"
+  duration: 180
+  module: "5"
+---
+
+import { Callout } from '@/components/handbook/shared'
+import {
+  CopySnippets,
+  Checklist,
+  InfoCards,
+} from '@/components/handbook/interactive'
+
+
+  CopySnippets,
+  Checklist,
+  InfoCards,
+  ConceptCards,
+} from '@/components/handbook/interactive'
+
+## Mục tiêu buổi học
+
+Sau buổi này, mỗi team:
+
+- Có build hoàn chỉnh, QA-tested, deploy được.
+- Có pricing + go-to-market strategy rõ ràng.
+- Có promo video draft (script + shot list + recording).
+- Có social media image set (product screenshots, key visuals, quote cards).
+
+## Cấu trúc buổi
+
+| Thời gian | Hoạt động | Phương pháp |
+|---|---|---|
+| 08:30–10:00 | Build Sprint — Integration & Debugging | Coaching + Hands-on |
+| 10:00–10:15 | Break | — |
+| 10:15–11:45 | QA & Deployment Rehearsal | Coaching + Hands-on |
+| 11:45–13:00 | Lunch | — |
+| 13:00–14:30 | Pricing & Go-to-Market Strategy | Direct Instruction + Coaching |
+| 14:30–14:45 | Break | — |
+| 14:45–16:15 | Marketing Content Production | Hands-on + Coaching |
+
+## Phần 1 — Build Sprint (90 phút)
+
+### Mục tiêu
+
+Build hết MVP scope từ Buổi 6. Không thêm feature mới — chỉ làm cái đã chốt.
+
+<blockquote>
+  **Quy tắc Build Sprint:** Chỉ build cái đã scope. Feature mới → ghi vào "v2 backlog". Không scope creep.
+</blockquote>
+
+### Cách tổ chức
+
+1. **20 phút đầu**: mỗi member setup environment, chia task.
+2. **50 phút giữa**: build song song — frontend, backend, AI integration.
+3. **20 phút cuối**: integrate các phần, fix bugs chính.
+
+### Dùng AI hỗ trợ build
+
+<CopySnippets
+  snippets={[
+    {
+      title: 'CLAUDE — Debug code',
+      code: 'Role: Senior developer\\n\\nContext: Anh đang build [FEATURE] với [TECH STACK]. Lỗi: [PASTE ERROR].\\n\\nTask: \\n1. Giải thích vì sao lỗi. 2. Cách fix. 3. Cách phòng tránh lặp lại.\\n\\nFormat: 3 section rõ ràng.',
+    },
+    {
+      title: 'CHATGPT WORK — Tìm API/docs',
+      code: 'Tìm giúp tôi documentation chính thức của [LIBRARY/API] — cách [USE CASE]. Trả về với link nguồn.',
+    },
+  ]}
+/>
+
+### Instructor Role
+
+- Circulate, triage blockers.
+- Nếu team stuck > 15 phút → intervene.
+- Nếu team finished early → coach thêm polish.
+
+## Phần 2 — QA & Deployment Rehearsal (90 phút)
+
+### QA Checklist
+
+<InfoCards
+  cards={[
+    {
+      icon: '🧪',
+      title: 'Functional QA',
+      when: 'Feature chạy đúng?',
+      desc: 'Test từng feature trong demo flow. Click từng bước.',
+    },
+    {
+      icon: '📱',
+      title: 'Responsive QA',
+      when: 'Mobile / tablet OK?',
+      desc: 'Test trên 3 kích thước màn hình.',
+    },
+    {
+      icon: '🐛',
+      title: 'Edge Cases',
+      when: 'Input lạ thì sao?',
+      desc: 'Empty input, special chars, large data.',
+    },
+    {
+      icon: '🚀',
+      title: 'Deploy Rehearsal',
+      when: 'Deploy được không?',
+      desc: 'Run deploy 1 lần — confirm không lỗi.',
+    },
+  ]}
+/>
+
+### QA Template
+
+<CopySnippets
+  snippets={[
+    {
+      title: 'QA CHECKLIST',
+      code: '## QA Report: [TÊN PRODUCT]\\n\\n### Functional\\nFunctional: Feature 1/2/3 test. Responsive: Desktop/Tablet/Mobile. Edge: Empty/Special/Large. Deploy: success/URL. Bugs: list with severity.',
+    },
+  ]}
+/>
+
+### Instructor Spot-Check
+
+- Chạy demo flow từng team.
+- Check AI integration thật (không mock).
+- Flag bugs critical → phải fix trước Buổi 8.
+
+## Phần 3 — Pricing & Go-to-Market Strategy (90 phút)
+
+### Pricing Framework
+
+| Model | Ý tưởng | Ví dụ |
+|---|---|---|
+| **Value-based** | Giá theo giá trị khách nhận | Khách tiết kiệm 1.000đ/tháng → giá 99k/tháng hợp lý |
+| **Cost-plus** | Giá = chi phí + margin | Server 5USD/user + margin 60% → giá 8USD/user |
+| **Competitor-based** | Giá theo thị trường | Đối thủ 29USD → mình 25USD hoặc 39USD – premium |
+| **Freemium** | Free + paid tier | Free 100 users → 29USD/tháng cho team features |
+
+<blockquote>
+  **Thực chiến:** Chọn 1 model chính — không kết hợp quá nhiều. Mỗi model có 1 con số cụ thể.
+</blockquote>
+
+### Dùng Claude để validate pricing
+
+
+**PROMPT — Pricing Strategy**
+
+```text
+Role: Chuyên gia pricing strategy\\n\\nContext: Product [TÊN] cho [TỆP]. Giá đối thủ: [LIST]. Giá trị khách nhận: [MÔ TẢ]. Chi phí: [CHI PHÍ].\\n\\nTask: Đề xuất 3 pricing models. Với mỗi model:\\n1. Tên model + giá cụ thể. 2. Vì sao phù hợp. 3. Risk nếu sai. 4. Unit economics (revenue per user — cost per user = margin)\\n\\nFormat: Bảng so sánh 3 models.
+```
+
+
+### Go-to-Market Strategy
+
+| Kênh | Phù hợp khi | Chi phí | Tốc độ |
+|---|---|---|---|
+| Content marketing | Có expertise, dài hạn | Thấp | Chậm |
+| Paid ads | Cần user nhanh | Cao | Nhanh |
+| Community/Social | Tệp niche, engagement | Thấp | Trung bình |
+| Partnership | Có partner sẵn | Trung bình | Trung bình |
+| Direct sales | B2B, high-ticket | Cao | Chậm nhưng chắc |
+
+Mỗi team chọn **1 kênh chính + 1 kênh phụ**. Không làm 5 kênh cùng lúc.
+
+## Phần 4 — Marketing Content Production (90 phút)
+
+### Promo Video — Demo Story Framework
+
+Video ngắn (60–90 giây) — không phải trailer phim. Cấu trúc:
+
+
+*(InfoCards replaced with markdown)*
+
+
+### Dùng Claude viết script
+
+
+**PROMPT — Promo Video Script**
+
+```text
+Role: Video scriptwriter\\n\\nContext: Product [TÊN] cho [TỆP]. Problem: [PASTE]. Differentiator: [PASTE].\\n\\nTask: Viết script promo video 60 giây:\\nHook (5s): 1 câu hỏi gây tò mò. Solution (15s): giới thiệu product. Demo (30s): screen recording 4 click chính. CTA (10s): 1 hành động.\\n\\nFormat: 2 cột: | Time | Voiceover + Visual |
+```
+
+
+### Social Media Images
+
+3 loại images cần có:
+
+| Loại | Mục đích | Cách làm |
+|---|---|---|
+| Product screenshot | Show product thật | Screenshot từ build |
+| Key visual | Thu hút trên social | Design 1 hình có headline + product |
+| Quote card | Social proof | Testimonial giả định + branding |
+
+### Dùng AI tạo images
+
+<CopySnippets
+  snippets={[
+    {
+      title: 'CHATGPT/CLAUDE — Key visual brief',
+      code: 'Tạo 1 key visual cho social media post:\\nProduct: [TÊN]. Headline: [1 câu]. Style: [minimalist / bold / corporate]. Size: 1200x630px. Color: [brand colors]. Include: product name + headline + subtle product screenshot',
+    },
+  ]}
+/>
+
+### Hoạt động
+
+1. **Script video** (20 phút) — Claude viết script, team edit.
+2. **Record video** (30 phút) — screen recording + voiceover.
+3. **Social images** (25 phút) — screenshot + key visual + quote card.
+4. **Review** (15 phút) — instructor spot-check, feedback.
+
+## Checklist kết thúc buổi
+
+
+*(Checklist component)*
+}
+/>
+
+## Bài tập về nhà (chuẩn bị Buổi 8)
+
+1. **Polish build** — fix bugs từ QA, polish UI.
+2. **Final edit promo video** — cắt, thêm text overlay, music (nếu có).
+3. **Chuẩn bị portfolio** — update GitHub README, CV, project description.
+4. **Rehearse demo** — chạy full demo flow + business model Q&A.
+
+> Buổi 8: Final Demo — public showcase, business model Q&A, portfolio clinic, mock interview.

@@ -1,0 +1,251 @@
+---
+title: "Buổi 6 — Capstone Kick-off & Business Model Canvas"
+description: Form team, define problem statement, draft Business Model Canvas, scope architecture — biến ý tưởng thành product có business model rõ ràng.
+lesson:
+  number: "06"
+  duration: 180
+  module: "5"
+---
+
+import { Callout } from '@/components/handbook/shared'
+import {
+  CopySnippets,
+  Checklist,
+  InfoCards,
+  ConceptCards,
+} from '@/components/handbook/interactive'
+
+## Mục tiêu buổi học
+
+Sau buổi này, mỗi team:
+
+- Form team (3–4 người), define problem statement rõ ràng.
+- Draft Business Model Canvas (BMC) phiên bản đầu.
+- Scope architecture end-to-end: web / API / mobile / data / deploy.
+- Biết scope có achievable trong 2 ngày build hay không.
+
+## Cấu trúc buổi
+
+| Thời gian | Hoạt động | Phương pháp |
+|---|---|---|
+| 08:30–10:00 | Team Formation & Problem Definition | Critical Questioning + Coaching |
+| 10:00–10:15 | Break | — |
+| 10:15–11:45 | Business Model Canvas Workshop | Coaching + Hands-on |
+| 11:45–13:00 | Lunch | — |
+| 13:00–14:30 | Architecture Scoping | Critical Feedback + Coaching |
+| 14:30–14:45 | Break | — |
+| 14:45–16:15 | Canvas & Scope Review | Critical Feedback + Peer Review |
+
+## Phần 1 — Team Formation & Problem Definition (90 phút)
+
+### Form Team
+
+- 3–4 người/team.
+- Mỗi team chọn 1 problem statement từ mini-project (Buổi 5) hoặc ý tưởng mới.
+- Phân role: Product Lead, Tech Lead, Design/Marketing, Business/Strategy.
+
+### Problem Definition — Socratic Questioning
+
+Instructor hỏi từng team 5 câu:
+
+1. **Khách hàng của bạn là ai?** (cụ thể, không "ai cũng dùng được")
+2. **Họ đang đau vì gì?** (pain point thật, không tưởng tượng)
+3. **Giải pháp hiện tại của họ là gì?** (và vì sao không đủ?)
+4. **Bạn khác gì?** (differentiator thật, không "tốt hơn")
+5. **Nếu không có sản phẩm này, họ làm sao?** (baseline behavior)
+
+<Callout>
+  <p><strong>Quy tắc:</strong> Nếu không trả lời được 5 câu → problem chưa rõ → phải trả lời lại.</p>
+</Callout>
+
+### Dùng Claude để refine problem statement
+
+<CopySnippets
+  snippets={[
+    {
+      title: 'PROMPT — Refine Problem Statement',
+      code: 'Role: Chuyên gia product strategy\\n\\nContext: Team chúng tôi muốn xây [SẢN PHẨM] cho [TỆP KHÁCH].\\n\\nTask: Phân tích problem statement dưới đây, chỉ ra:\\n1. Có rõ ràng không?\\n2. Có đo được không?\\n3. Pain point có thật không?\\n4. Differentiator có thuyết phục không?\\n\\nProblem statement: [PASTE]\\n\\nFormat: Bảng đánh giá + 3 gợi ý cải thiện.',
+    },
+  ]}
+/>
+
+## Phần 2 — Business Model Canvas Workshop (90 phút)
+
+### BMC là gì?
+
+9 khối — 1 trang đủ để mô tả toàn bộ business model.
+
+<InfoCards
+  cards={[
+    {
+      icon: '👥',
+      title: 'Customer Segments',
+      when: 'Ai là khách?',
+      desc: 'Tệp khách cụ thể, segment, persona.',
+    },
+    {
+      icon: '💎',
+      title: 'Value Proposition',
+      when: 'Bạn giải quyết gì?',
+      desc: 'Giá trị cốt lõi — vì sao khách chọn bạn.',
+    },
+    {
+      icon: '📣',
+      title: 'Channels',
+      when: 'Tiếp cận khách thế nào?',
+      desc: 'Website, social, sales direct, partner.',
+    },
+    {
+      icon: '🤝',
+      title: 'Customer Relationships',
+      when: 'Quan hệ kiểu gì?',
+      desc: 'Self-service, automated, personal support.',
+    },
+    {
+      icon: '💰',
+      title: 'Revenue Streams',
+      when: 'Tiền từ đâu?',
+      desc: 'Subscription, one-time, freemium, commission.',
+    },
+    {
+      icon: '🔧',
+      title: 'Key Resources',
+      when: 'Cần gì để chạy?',
+      desc: 'Tech, data, team, IP.',
+    },
+    {
+      icon: '⚙️',
+      title: 'Key Activities',
+      when: 'Làm gì mỗi ngày?',
+      desc: 'Phát triển, marketing, ops, support.',
+    },
+    {
+      icon: '🤝',
+      title: 'Key Partners',
+      when: 'Ai giúp bạn?',
+      desc: 'Supplier, platform, distributor.',
+    },
+    {
+      icon: '📉',
+      title: 'Cost Structure',
+      when: 'Tốn bao nhiêu?',
+      desc: 'Fixed, variable, unit economics.',
+    },
+  ]}
+/>
+
+### Dùng Claude để draft BMC
+
+<CopySnippets
+  snippets={[
+    {
+      title: 'PROMPT — Business Model Canvas',
+      code: 'Role: Chuyên gia business model\\n\\nContext: Sản phẩm [TÊN] cho [TỆP KHÁCH]. Problem: [PASTE]. Differentiator: [PASTE].\\n\\nTask: Draft Business Model Canvas với 9 khối. Với mỗi khối:\\n- 3 dòng mô tả cụ thể\\n- 1 câu "risk" (rủi ro nếu sai)\\n\\nFormat: 9 section rõ ràng, mỗi section có heading + mô tả + risk.',
+    },
+  ]}
+/>
+
+### Hoạt động
+
+1. Mỗi team draft BMC trong Claude Artifact (45 phút).
+2. Instructor circulate, challenge từng khối (30 phút).
+3. Team revise (15 phút).
+
+<Callout variant="orange">
+  <p><strong>Focus:</strong> Revenue Streams + Cost Structure phải có số cụ thể. Không "freemium" chung chung — phải có giá cụ thể, unit economics ước tính.</p>
+</Callout>
+
+## Phần 3 — Architecture Scoping (90 phút)
+
+### Từ Business Model → Technical Scope
+
+BMC cho biết **cái gì**. Architecture scope cho biết **làm thế nào**.
+
+<ConceptCards
+  concepts={[
+    {
+      term: 'Scope',
+      desc: 'Chọn đúng tech stack',
+      example: <>Web app? Mobile? API only? <span>Chọn 1 — không làm hết</span>.</>,
+    },
+    {
+      term: 'Achievable',
+      desc: 'Build được trong 2 ngày',
+      example: <>1 ngày build + 1 ngày QA <span>— không scope quá lớn</span>.</>,
+    },
+    {
+      term: 'MVP',
+      desc: 'Đủ để demo, không hơn',
+      example: <>Demo click-through flow <span>— không cần production-ready</span>.</>,
+    },
+  ]}
+/>
+
+### Architecture Scope Template
+
+<CopySnippets
+  snippets={[
+    {
+      title: 'ARCHITECTURE SCOPE',
+      code: '## Product\\n[Tên] — [1 câu mô tả]\\n\\n## Tech Stack\\n- Frontend: [Next.js / React / plain HTML]\\n- Backend: [Next.js API / Express / none — static]\\n- Database: [Postgres / SQLite / none — mock data]\\n- Deploy: [Vercel / Netlify / local demo]\\n\\n## Features (MVP — 2 ngày build)\\n1. [Feature 1 — must have]\\n2. [Feature 2 — must have]\\n3. [Feature 3 — nice to have]\\n\\n## Out of scope\\n- [Điều 1 — không làm]\\n- [Điều 2 — không làm]\\n\\n## Demo flow\\n1. User vào → thấy [gì]\\n2. User click [gì] → xảy ra [gì]\\n3. User thấy kết quả [gì]\\n\\n## Dùng AI ở đâu\\n- [Feature nào dùng Claude / ChatGPT / Hermes]\\n- [Cách gọi: API / paste manual / pre-generated]',
+    },
+  ]}
+/>
+
+### Instructor Critique
+
+Instructor review từng team:
+- Scope có achievable trong 2 ngày không?
+- Tech stack có phù hợp skill team không?
+- Demo flow có đủ thuyết phục không?
+- AI integration có thật không (không fake)?
+
+<Callout>
+  <p>Nếu scope quá lớn → cắt. Nếu scope quá nhỏ → thêm 1 feature. Cân bằng là key.</p>
+</Callout>
+
+## Phần 4 — Canvas & Scope Review (90 phút)
+
+### Team Present (5 phút/team)
+
+Mỗi team present:
+1. Problem statement (1 phút)
+2. Business Model Canvas (2 phút)
+3. Architecture scope (2 phút)
+
+### Peer + Instructor Feedback
+
+| Tiêu chí | Điểm (1-5) | Nhận xét |
+|---|---|---|
+| Problem rõ ràng | | |
+| BMC đủ 9 khối, có số | | |
+| Revenue + Cost cụ thể | | |
+| Scope achievable 2 ngày | | |
+| Demo flow thuyết phục | | |
+
+### Finalize
+
+Team revise dựa trên feedback → chốt scope cho Day 2 build sprint.
+
+## Checklist kết thúc buổi
+
+<Checklist
+  items={[
+    'Team đã form (3-4 người) với role rõ ràng',
+    'Problem statement rõ, đo được, pain thật',
+    'BMC đủ 9 khối, revenue + cost có số cụ thể',
+    'Architecture scope achievable trong 2 ngày',
+    'Demo flow rõ, AI integration thật',
+  ]}
+  storageKey="kada_buoi_06_checklist"
+  completeMessage={<><strong>Hoàn thành Buổi 6 ✓</strong> Sẵn sàng cho Build Sprint.</>}
+/>
+
+## Bài tập về nhà (chuẩn bị Buổi 7)
+
+1. **Chốt tech stack** — confirm mọi người trong team biết dùng.
+2. **Chia task** — ai làm frontend, backend, AI, marketing.
+3. **Chuẩn bị environment** — cài đặt tool, tạo repo, setup deploy.
+4. **Draft pricing strategy** — 3 lựa chọn pricing models để discuss Buổi 7.
+
+> Buổi 7: Build Sprint + Go-to-Market — build hết, QA, pricing, promo video, social images.

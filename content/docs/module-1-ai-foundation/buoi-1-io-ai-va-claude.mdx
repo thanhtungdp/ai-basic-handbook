@@ -1,0 +1,170 @@
+---
+title: "Buổi 1 — AI là gì & Claude cơ bản"
+description: Hiểu cách LLM tạo text, dùng Claude lần đầu, tạo Project, biết hallucination là gì — và biết ChatGPT Work / Claude / Hermes Agent khác nhau thế nào.
+lesson:
+  number: "01"
+  duration: 180
+  module: "1"
+---
+
+import { Callout } from '@/components/handbook/shared'
+import {
+  CopySnippets,
+  Checklist,
+  ConceptCards,
+  InfoCards,
+} from '@/components/handbook/interactive'
+
+## Mục tiêu buổi học
+
+Sau buổi này, bạn có thể:
+
+- Giải thích cách LLM tạo text (không phải "tra cứu" mà là "dự đoán từ tiếp theo").
+- Phân biệt 3 nền tảng: **Claude**, **ChatGPT (kể cả ChatGPT Work)**, và **Hermes Agent**.
+- Tạo tài khoản Claude, thiết lập Project đầu tiên, gửi prompt có cấu trúc.
+- Áp dụng 2 nguyên tắc Responsible AI khi đánh giá output.
+
+## Kiến thức trọng tâm
+
+### 1. LLM hoạt động thế nào?
+
+LLM không phải công cụ tìm kiếm. Nó là mô hình **dự đoán từ tiếp theo** dựa trên xác suất.
+
+> Bạn gõ "Trời hôm nay rất..." → LLM dự đoán "nóng" (70%), "đẹp" (20%), "tối" (5%).
+
+Điều này dẫn đến **hallucination** — LLM sinh ra thông tin nghe hợp lý nhưng sai事实. Vì nó sinh text theo pattern, không phải tra cứu事实.
+
+<Callout>
+  <p><strong>Điểm cốt lõi:</strong> LLM sinh text theo pattern xác suất. Khi cần sự thật, <strong>phải kiểm chứng</strong>.</p>
+</Callout>
+
+### 2. Ba nền tảng — ba mô hình làm việc
+
+| | Claude | ChatGPT + ChatGPT Work | Hermes Agent |
+|---|---|---|---|
+| **Bản chất** | Session-based assistant | Session-based + background tasks | Always-on agent 24/7 |
+| **Khi nào dùng** | Hỏi-đáp, viết, phân tích | Hỏi-đáp + chạy task nền (tạo file, tìm web) | Tự động hóa việc lặp mỗi ngày |
+| **Mạnh nhất** | Chất lượng viết, phân tích dài | Kết nối nhiều tool qua ChatGPT Work | Chạy liên tục qua Telegram, cron, webhook |
+| **Yếu điểm** | Dừng khi bạn đóng tab | Phụ thuộc hệ sinh thái OpenAI | Cần setup ban đầu |
+
+<Callout variant="orange">
+  <p><strong>ChatGPT Work</strong> là bước tiến mới của OpenAI — cho phép ChatGPT chạy tác vụ nền (tạo file, duyệt web, lên lịch). Nhưng nó vẫn dừng ở "session mở rộng". <strong>Hermes Agent</strong> chạy liên tục 24/7 như một nhân viên online, nhận lệnh qua Telegram, tự ghi nhớ, tự chạy lịch.</p>
+</Callout>
+
+### 3. Claude Ecosystem — tour nhanh
+
+<InfoCards
+  cards={[
+    {
+      icon: '💬',
+      title: 'Claude.ai',
+      when: 'Chat cơ bản',
+      desc: 'Nơi bạn hỏi-đáp, viết, phân tích.',
+    },
+    {
+      icon: '📁',
+      title: 'Projects',
+      when: 'Lưu ngữ cảnh dài hạn',
+      desc: 'Upload file, viết instructions — mỗi chat bắt đầu đúng ngữ cảnh.',
+    },
+    {
+      icon: '🎨',
+      title: 'Artifacts',
+      when: 'Tạo output dạng file',
+      desc: 'Code, document, bảng — xem trước ngay trong chat.',
+    },
+    {
+      icon: '🔧',
+      title: 'Skills',
+      when: 'Gói quy trình dùng lại',
+      desc: 'Gói instructions + capability để Claude gọi khi cần.',
+    },
+  ]}
+/>
+
+### 4. Responsible AI — 2 nguyên tắc đủ dùng lúc bắt đầu
+
+<ConceptCards
+  concepts={[
+    {
+      term: 'Kiểm chứng thông tin',
+      desc: 'LLM có thể hallucinate',
+      example: <>Claude nói "thị trường X đạt $5B" — <span>phải có nguồn</span>, không tin mù.</>,
+    },
+    {
+      term: 'Bảo vệ dữ liệu nhạy cảm',
+      desc: 'Không đưa thông tin cá nhân/khách hàng vào prompt',
+      example: <>Không paste email, số điện thoại khách <span>vào prompt công khai</span>.</>,
+    },
+  ]}
+/>
+
+## Hands-on lab
+
+### Bước 1 — Tạo tài khoản Claude
+
+1. Vào [claude.ai](https://claude.ai), đăng ký tài khoản.
+2. Tour giao diện: chat, Projects, Artifacts.
+
+### Bước 2 — Tạo Project đầu tiên
+
+Project = không gian làm việc có ngữ cảnh dài hạn.
+
+1. Vào **Projects** → **Create Project**.
+2. Đặt tên: *"Business Operations Assistant"*.
+3. Trong **Custom Instructions**, paste:
+
+<CopySnippets
+  snippets={[
+    {
+      title: 'PROJECT INSTRUCTIONS',
+      code: 'Bạn là trợ lý vận hành cho một business nhỏ. Trả lời tiếng Việt, ngắn gọn, thực chiến. Mỗi câu trả lời cần có: kết luận, checklist/bước làm, và bước tiếp theo. Không nói chung chung — luôn gắn vào use case cụ thể.',
+    },
+  ]}
+/>
+
+4. Upload 1–2 file tham khảo (báo giá mẫu, SOP, mô tả sản phẩm).
+
+### Bước 3 — Gửi prompt có cấu trúc đầu tiên
+
+<CopySnippets
+  snippets={[
+    {
+      title: 'PROMPT ĐẦU TIÊN — Phân tích 1 use case AI',
+      code: 'Ngữ cảnh: Anh làm business [mô tả ngắn 1 câu].\\n\\nNhiệm vụ: Phân tích 3 việc anh đang lặp lại nhiều nhất, và gợi ý cách AI có thể giúp từng việc.\\n\\nĐịnh dạng: Bảng gồm | Việc | Tần suất | AI giúp thế nào | Rủi ro |\\n\\nGiới hạn: Chỉ chọn việc có thể kiểm tra đúng/sai. Không gợi ý việc quá rủi ro.',
+    },
+  ]}
+/>
+
+### Bước 4 — Thử ChatGPT Work (nếu có tài khoản ChatGPT Plus/Team)
+
+1. Vào [chatgpt.com](https://chatgpt.com).
+2. Thử giao Task cho ChatGPT Work: *"Tìm giúp anh 3 đối thủ cạnh tranh của [sản phẩm] và tóm tắt điểm khác biệt."*
+3. Quan sát: ChatGPT chạy task nền, trả kết quả sau vài phút.
+4. So sánh trải nghiệm với Claude.
+
+<Callout>
+  <p><strong>Thảo luận:</strong> Claude trả lời ngay, chất lượng cao. ChatGPT Work chạy nền nhưng cần đợi. Hermes Agent chạy nền <strong>luôn luôn</strong> — kể cả khi bạn ngủ.</p>
+</Callout>
+
+## Checklist kết thúc buổi
+
+<Checklist
+  items={[
+    'Tôi giải thích được LLM dự đoán từ tiếp theo và hallucination là gì',
+    'Tôi phân biệt được Claude, ChatGPT Work, Hermes Agent',
+    'Tôi có tài khoản Claude và đã tạo Project đầu tiên',
+    'Tôi đã gửi 1 prompt có cấu trúc và nhận output đúng định dạng',
+    'Tôi biết 2 nguyên tắc Responsible AI cơ bản',
+  ]}
+  storageKey="kada_buoi_01_checklist"
+  completeMessage={<><strong>Hoàn thành Buổi 1 ✓</strong> Sẵn sàng học prompting chuyên sâu + market research.</>}
+/>
+
+## Bài tập về nhà (chuẩn bị Buổi 2)
+
+1. **Chọn 1 sản phẩm giả định** để dùng xuyên suốt Buổi 2 (ví dụ: "SaaS quản lý công nợ cho SME", "Dịch vụ thiết kế brand cho F&B").
+2. **Liệt kê 5 việc bạn đang lặp lại** liên quan đến sản phẩm đó.
+3. **Đọc trước**: chuẩn bị 1 đoạn mô tả sản phẩm (3–5 câu) để dùng trong market research.
+
+> Buổi 2: prompting chuyên sâu + nghiên cứu thị trường + viết sales page với Claude.

@@ -1,0 +1,225 @@
+---
+title: "Buổi 2 — Prompting chuyên sâu & Market Research"
+description: Role-Context-Task-Format framework, nghiên cứu thị trường với Claude, kiểm chứng hallucination, viết sales page draft — và so sánh với ChatGPT Work cho research tasks.
+lesson:
+  number: "02"
+  duration: 180
+  module: "1"
+---
+
+import { Callout } from '@/components/handbook/shared'
+import {
+  CopySnippets,
+  Checklist,
+  ConceptCards,
+  InfoCards,
+  ComparisonTable,
+} from '@/components/handbook/interactive'
+
+## Mục tiêu buổi học
+
+Sau buổi này, mỗi team có thể:
+
+- Dùng framework **Role-Context-Task-Format** để viết prompt nghiên cứu.
+- Dùng Claude research thị trường: quy mô, đối thủ, pain points.
+- Kiểm chứng kết quả qua **hallucination checklist**.
+- Viết sales page draft: headline, value prop, benefits, social proof, CTA.
+- Biết khi nào dùng Claude vs ChatGPT Work cho research.
+
+## Kiến thức trọng tâm
+
+### 1. Framework Role-Context-Task-Format
+
+Prompt tốt = 4 phần rõ ràng.
+
+| Phần | Câu hỏi | Ví dụ |
+|---|---|---|
+| **Role** | AI đóng vai gì? | "Bạn là chuyên gia market research" |
+| **Context** | Bối cảnh gì? | "Sản phẩm X cho tệp Y, thị trường VN" |
+| **Task** | Làm gì cụ thể? | "Phân tích 5 đối thủ, so sánh giá" |
+| **Format** | Trả về dạng gì? | "Bảng: Tên \| Giá \| Điểm mạnh \| Điểm yếu" |
+
+<Callout>
+  <p>Thiếu 1 phần → Claude tự đoán → output không như ý. Đủ 4 phần → Claude làm như nhân viên đã được brief.</p>
+</Callout>
+
+### 2. Market Research với Claude vs ChatGPT Work
+
+| | Claude | ChatGPT Work |
+|---|---|---|
+| **Phù hợp** | Phân tích sâu, tổng hợp nhiều nguồn | Tìm kiếm web real-time, crawl dữ liệu |
+| **Cách dùng** | Paste dữ liệu vào → phân tích | Giao task "tìm và tổng hợp" → chạy nền |
+| **Kiểm chứng** | Cần hallucination checklist | Có link nguồn, dễ verify hơn |
+| **Tốc độ** | Nhanh (phân tích ngay) | Chậm hơn (chạy task nền) |
+
+<Callout variant="orange">
+  <p><strong>Chiến lược tốt:</strong> Dùng ChatGPT Work tìm dữ liệu thô (web search) → paste vào Claude phân tích sâu + viết sales page.</p>
+</Callout>
+
+### 3. Hallucination Checklist
+
+5 bước kiểm chứng mọi output AI:
+
+<ConceptCards
+  concepts={[
+    {
+      term: '1. Có nguồn không?',
+      desc: 'Claude/ChatGPT có trích nguồn không',
+      example: <>Nếu nói "thị trường $5B" — <span>phải có link</span> hoặc ghi rõ "ước tính".</>,
+    },
+    {
+      term: '2. Nước có tồn tại?',
+      desc: 'Kiểm tra tên đối thủ/thông tin có thật không',
+      example: <>Google search tên đối thủ <span>— xem có website không</span>.</>,
+    },
+    {
+      term: '3. Số có đúng không?',
+      desc: 'Verify số liệu bằng search độc lập',
+      example: <>Claude nói "giá $29/tháng" <span>— vào website đối thủ check</span>.</>,
+    },
+    {
+      term: '4. Có logic không?',
+      desc: 'Output có tự mâu thuẫn không',
+      example: <>Nói "thị trường nhỏ" nhưng "tăng trưởng 50%" <span>— kiểm tra lại</span>.</>,
+    },
+    {
+      term: '5. Khi sai thì sao?',
+      desc: 'Sai thì yêu cầu Claude sửa',
+      example: <>"Số liệu này sai, thực tế là X. Hãy phân tích lại." <span>Claude sẽ điều chỉnh</span>.</>,
+    },
+  ]}
+/>
+
+### 4. Anatomy của Sales Page
+
+5 phần không thể thiếu:
+
+<InfoCards
+  cards={[
+    {
+      icon: '🎯',
+      title: 'Headline',
+      when: '3 giây đầu',
+      desc: '1 câu — khách hiểu ngay bạn bán gì, cho ai.',
+    },
+    {
+      icon: '💎',
+      title: 'Value Proposition',
+      when: '10 giây tiếp',
+      desc: 'Vì sao chọn bạn, không phải đối thủ.',
+    },
+    {
+      icon: '✅',
+      title: 'Benefits',
+      when: '30 giây tiếp',
+      desc: '3–5 lợi ích cụ thể, có quantifiable.',
+    },
+    {
+      icon: '⭐',
+      title: 'Social Proof',
+      when: 'Building trust',
+      desc: 'Testimonial, số khách, case study, rating.',
+    },
+    {
+      icon: '👉',
+      title: 'Call-to-Action',
+      when: 'Closing',
+      desc: '1 hành động rõ: đăng ký, gọi, mua.',
+    },
+  ]}
+/>
+
+## Hands-on lab
+
+### Bước 1 — Chọn sản phẩm (10 phút)
+
+Mỗi team chọn 1 sản phẩm giả định (từ bài tập về nhà Buổi 1). Ghi lại:
+- Tên sản phẩm
+- Tệp khách hàng
+- Giá dự kiến
+
+### Bước 2 — Market Research với Claude (30 phút)
+
+<CopySnippets
+  snippets={[
+    {
+      title: 'PROMPT — Competitor Analysis',
+      code: 'Role: Chuyên gia market research\\n\\nContext: Sản phẩm [TÊN] cho tệp [TỆP KHÁCH] tại thị trường Việt Nam.\\n\\nTask: Phân tích 5 đối thủ cạnh tranh trực tiếp. Với mỗi đối thủ:\\n- Tên + website\\n- Mô hình giá\\n- 2 điểm mạnh\\n- 2 điểm yếu\\n- Khác biệt cốt lõi vs sản phẩm của tôi\\n\\nFormat: Bảng markdown. Nếu không chắc thông tin, ghi "cần verify".',
+    },
+    {
+      title: 'PROMPT — Customer Pain Points',
+      code: 'Role: Chuyên gia nghiên cứu khách hàng\\n\\nContext: Tệp khách [TỆP] đang gặp vấn đề gì khi [BỐI CẢNH]?\\n\\nTask: Liệt kê 7 pain points cụ thể, xếp theo mức độ phổ biến. Với mỗi pain point:\\n- Mô tả (1 câu)\\n- Tần suất gặp (thường xuyên / đôi khi / hiếm)\\n- Hậu quả nếu không giải quyết\\n\\nFormat: Bảng. Ghi rõ "cần verify" nếu không chắc.',
+    },
+    {
+      title: 'PROMPT — Market Size ước tính',
+      code: 'Role: Chuyên gia phân tích thị trường\\n\\nContext: Thị trường [NGÀNH] tại Việt Nam.\\n\\nTask: Ước tính quy mô thị trường và tốc độ tăng trưởng. Dựa vào dữ liệu公開 nếu có, hoặc ước tính từ dân số + tỷ lệ mục tiêu.\\n\\nFormat: 3 đoạn: (1) Ước tính quy mô, (2) Tốc độ tăng trưởng, (3) Nguồn tham khảo. Ghi "ước tính" nếu không có số liệu chính thức.',
+    },
+  ]}
+/>
+
+> **Sau mỗi prompt**: chạy hallucination checklist. Mark "cần verify" items → search Google kiểm tra.
+
+### Bước 3 — Cross-check với ChatGPT Work (15 phút)
+
+<CopySnippets
+  snippets={[
+    {
+      title: 'CHATGPT WORK — Tìm dữ liệu thực',
+      code: 'Tìm giúp tôi thông tin thực tế về [NGÀNH] tại Việt Nam: quy mô thị trường, 5 đối thủ lớn nhất, và đánh giá của khách hàng về họ. Trả về với link nguồn.',
+    },
+  ]}
+/>
+
+So sánh kết quả Claude vs ChatGPT Work:
+- Claude phân tích sâu hơn, tổng hợp tốt.
+- ChatGPT Work có link nguồn, verify dễ hơn.
+- Dùng kết quả ChatGPT Work để **bổ sung và kiểm chứng** Claude.
+
+### Bước 4 — Viết Sales Page Draft (40 phút)
+
+Dùng Claude để viết từng phần sales page:
+
+<CopySnippets
+  snippets={[
+    {
+      title: 'PROMPT — Headline + Value Prop',
+      code: 'Role: Copywriter chuyên nghiệp\\n\\nContext: Sản phẩm [TÊN] cho [TỆP KHÁCH]. Điểm khác biệt cốt lõi: [DIFFERENTIATOR].\\n\\nTask: Viết 5 lựa chọn headline + 3 lựa chọn value proposition.\\n\\nFormat: Danh sách đánh số. Mỗi headline ≤ 12 từ. Giọng tự tin, không sáo rỗng.',
+    },
+    {
+      title: 'PROMPT — Benefits + Social Proof + CTA',
+      code: 'Role: Copywriter chuyên nghiệp\\n\\nContext: Sản phẩm [TÊN]. Khách hàng mục tiêu: [TỆP]. Pain point chính: [PAIN].\\n\\nTask: Viết:\\n1. 5 benefits cụ thể (có quantifiable nếu được)\\n2. 3 đoạn social proof giả định (testimonial, số khách, case study)\\n3. 3 lựa chọn CTA\\n\\nFormat: 3 section rõ ràng. Giọng thân thiện, thẳng.',
+    },
+  ]}
+/>
+
+### Bước 5 — Critique & Assemble (25 phút)
+
+1. Assemble full sales page trong Claude Artifact.
+2. Đổi team — đọc và critique theo checklist:
+   - [ ] Headline rõ trong 3 giây?
+   - [ ] Value prop khác biệt thật sự?
+   - [ ] Benefits cụ thể, không chung chung?
+   - [ ] Social proof đáng tin?
+   - [ ] CTA rõ 1 hành động?
+
+## Checklist kết thúc buổi
+
+<Checklist
+  items={[
+    'Tôi dùng được framework Role-Context-Task-Format',
+    'Tôi đã research 5 đối thủ và check hallucination',
+    'Tôi đã cross-check kết quả Claude vs ChatGPT Work',
+    'Tôi có sales page draft đủ 5 phần',
+    'Tôi đã critique 1 team khác theo checklist',
+  ]}
+  storageKey="kada_buoi_02_checklist"
+  completeMessage={<><strong>Hoàn thành Buổi 2 ✓</strong> Sẵn sàng học structured content & Skills.</>}
+/>
+
+## Bài tập về nhà (chuẩn bị Buổi 3)
+
+1. **Hoàn thiện sales page** — phản ánh feedback critique, nộp bản final.
+2. **Chuẩn bị 1 tài liệu lộn xộn** — bất kỳ: báo cáo, note họp, email thread. Buổi 3 sẽ biến nó thành structured content.
+3. **Nghĩ 1 quy trình lặp** bạn muốn biến thành Claude Skill (ví dụ: "tóm tắt email", "tạo báo giá", "viết social post").
+
+> Buổi 3: structured content, topic clustering, Claude Skills — biến quy trình lặp thành capability dùng lại được.

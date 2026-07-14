@@ -1,0 +1,285 @@
+---
+title: "01 — Cài đặt & chạy Hermes lần đầu"
+description: Có một bản Hermes chạy được thật — hiểu nên cài ở đâu, chọn nhà cung cấp AI nào, và gửi được lệnh đầu tiên cho agent.
+lesson:
+  number: "01"
+  duration: 14
+  interactions: 5
+---
+
+import { Callout } from '@/components/handbook/shared'
+import {
+  InfoCards,
+  DecisionHelper,
+  ModelMatrix,
+  TerminalPlayground,
+  ExpectBehavior,
+  ConceptCards,
+  CopySnippets,
+  ErrorAccordion,
+  NextLessonCard,
+  Checklist,
+} from '@/components/handbook/interactive'
+import { checklist01Data } from '@/data/checklist-01-data'
+
+<VideoTracker videoId="OtNGkj6DbNs" slug="khoa-hoc-hermes-handbook/01-cai-dat-chay-lan-dau" title="Cài đặt & chạy Hermes lần đầu" />
+
+> ## 🎁 $50 Credit AI — GLM 5.2 & DeepSeek 4 Pro
+>
+> Khóa học tặng Bạn **$50 credit AI** để dùng với Hermes Agent.  
+> Mã API Key đã được gửi riêng qua email ngày **05/07** — vui lòng kiểm tra hộp thư.
+
+{/* <Image
+  src="/images/handbook/01-cai-dat-chay-lan-dau-setup-map.png"
+  alt="Sơ đồ cài đặt"
+  width={1536}
+  height={1024}
+  className="rounded-lg border border-border"/>
+   */}
+
+## Vấn đề kinh doanh
+
+Sau bài 00, bạn đã hiểu Hermes không phải chatbot — nó là nền tảng để xây agent tự chạy việc lặp. Nhưng trước khi chạy thật:
+
+<InfoCards
+  columns={2}
+  cards={[
+    {
+      icon: '📍',
+      title: 'Hermes chạy ở đâu?',
+      when: 'Câu hỏi 1',
+      desc: 'Trên máy cá nhân, một máy dư trong văn phòng, hay Cloud VPS online 24/7?',
+    },
+    {
+      icon: '🧠',
+      title: 'Dùng bộ não AI nào?',
+      when: 'Câu hỏi 2',
+      desc: 'OpenRouter, LLMGate, hoặc các nhà cung cấp model khác?',
+    },
+  ]}
+/>
+
+Nếu chọn sai từ đầu, bạn vẫn cài được, nhưng khi vận hành sẽ gặp vấn đề:
+
+- Máy tắt thì agent nghỉ làm.
+- Mạng chập chờn thì cron/webhook không ổn định.
+- Model yếu thì agent gọi tool sai, làm chậm, dễ phải sửa nhiều.
+- Model quá đắt thì chưa kịp thấy ROI đã ngại dùng.
+
+<Callout>
+  <p>Bài này không chỉ là “copy command để cài”. Bài này giúp bạn chọn cách setup phù hợp với giai đoạn kinh doanh.</p>
+</Callout>
+
+## Cài Hermes ở đâu?
+
+Ba cách phổ biến — chọn theo giai đoạn bạn đang ở.
+
+<InfoCards
+  cards={[
+    {
+      icon: '💻',
+      title: 'Máy cá nhân',
+      when: 'Mới học, mới thử, chưa chạy việc quan trọng',
+      pros: ['Dễ bắt đầu', 'Không tốn thêm VPS'],
+      cons: ['Máy tắt là agent dừng', 'Khó chạy 24/7'],
+    },
+    {
+      icon: '🖥️',
+      title: 'Máy dư online 24/7',
+      when: 'Có mini PC / server nhỏ luôn bật',
+      pros: ['Chủ động', 'Chi phí thấp nếu đã có máy'],
+      cons: ['Tự lo mạng, điện', 'Tự bảo trì'],
+    },
+    {
+      icon: '☁️',
+      title: 'Cloud VPS',
+      when: 'Muốn agent chạy ổn định mỗi ngày',
+      flag: 'KHI CHẠY THẬT',
+      featured: true,
+      pros: ['Online 24/7, hợp production', 'Dễ nối webhook / Telegram'],
+      cons: ['Có chi phí hằng tháng'],
+    },
+  ]}
+/>
+
+<Callout variant="orange">
+  <p>Học thì máy cá nhân. Chạy thật thì VPS.</p>
+</Callout>
+
+Ở Việt Nam, hướng khuyến nghị cho người học là VPS Hermes tại [tino.vn/vps-hermes](https://tino.vn/vps-hermes) — dễ bắt đầu với người không chuyên kỹ thuật, online 24/7, hợp để chạy Telegram gateway, cron, webhook.
+
+## Cách quyết định nhanh
+
+Trả lời 3 câu — công cụ chọn giúp bạn máy cá nhân hay VPS.
+
+<DecisionHelper />
+
+## Nhà cung cấp AI cho Hermes
+
+Hermes là nhân viên AI có tay chân & sổ tay. Model AI là bộ não. Hermes cần một model AI phía sau để suy nghĩ, lập kế hoạch, gọi tool và trả lời bạn. Với người học, có 2 hướng dễ bắt đầu:
+
+<InfoCards
+  columns={2}
+  cards={[
+    {
+      icon: '🔀',
+      title: 'OpenRouter',
+      when: 'Muốn truy cập nhiều model qua một cổng phổ biến',
+      desc: 'Dễ thử nhiều model khác nhau.',
+    },
+    {
+      icon: '⚡',
+      title: 'LLMGate',
+      when: 'Tối ưu chi phí, dễ quy đổi cho người dùng VN',
+      desc: <>Quy đổi dễ hiểu: <strong>1 VND = 1 credit nội bộ</strong>. Tham khảo <a href="https://llmgate.app" target="_blank" rel="noopener">llmgate.app</a>.</>,
+    },
+  ]}
+/>
+
+Điểm quan trọng không phải model nào rẻ nhất, mà là: agent có gọi tool đúng không, có biết lập kế hoạch không, có bám yêu cầu không, có tự kiểm tra kết quả không — và chi phí có đủ thấp để dùng hằng ngày không.
+
+## Gợi ý model khi làm việc
+
+Chọn model theo vai trò — không phải model nào cũng hợp mọi việc. Bấm việc bạn cần làm (bên phải) — công cụ sẽ chỉ ra model nên dùng trên ma trận.
+
+<ModelMatrix />
+
+Không cần bắt đầu với 10 model. CEO chỉ cần một setup đơn giản: model chính cho vận hành **GPT 5.5**, model cho chiến lược / giao diện **Opus 4.8**, model backup **GLM 5.2** hoặc **DeepSeek 4-Pro**.
+
+## Cài Hermes ở mức tối giản
+
+4 bước. Bấm từng lệnh để chạy thử trong terminal mô phỏng.
+
+Ở mức CEO, quy trình cài gồm: ① chuẩn bị nơi chạy → ② cài Hermes → ③ chọn provider/model → ④ chạy lệnh đầu tiên. Bấm các lệnh bên dưới theo thứ tự.
+
+<TerminalPlayground />
+
+<Callout>
+  <p>Mục tiêu bước này không phải tối ưu mọi cấu hình — mà là Hermes trả lời được, dùng đúng model, và sẵn sàng nhận việc đầu tiên.</p>
+</Callout>
+
+## Chạy phiên Hermes đầu tiên
+
+Lệnh tốt khiến Hermes hỏi lại bạn — chứ không trả lời chung chung.
+
+<ExpectBehavior
+  prompt="Anh là CEO một business nhỏ. Hãy đóng vai trợ lý vận hành AI của anh. Trước khi làm việc, hãy hỏi anh 5 câu để hiểu business, việc lặp hằng ngày, và việc đầu tiên nên giao cho em."
+  questions={[
+    'Business của anh bán gì?',
+    'Mỗi tuần anh lặp lại việc nào nhiều nhất?',
+    'Việc nào có mẫu đầu ra rõ?',
+    'Việc nào sai vẫn kiểm soát được bằng bước duyệt?',
+    'Bắt đầu với sales, content, ops hay admin?',
+  ]}
+/>
+
+Nếu Hermes hỏi được như vậy, nghĩa là agent đã đi đúng hướng: **không chỉ trả lời, mà đang chuẩn bị nhận việc vận hành.**
+
+## 3 khái niệm đủ dùng lúc mới bắt đầu
+
+Chưa cần hiểu toàn bộ kỹ thuật — chỉ cần nắm 3 khái niệm này.
+
+<ConceptCards
+  concepts={[
+    {
+      term: 'Session',
+      desc: 'Một cuộc làm việc với Hermes',
+      example: <>Hôm nay bạn cùng Hermes <span>tạo báo giá</span>.</>,
+    },
+    {
+      term: 'Memory',
+      desc: 'Điều Hermes nhớ lâu dài',
+      example: <>Bạn thích trả lời <span>ngắn, tiếng Việt</span>, cần file PDF.</>,
+    },
+    {
+      term: 'Skill',
+      desc: 'Cách làm được ghi lại để dùng lại',
+      example: <>Quy trình <span>tạo báo giá, viết blog</span>, tóm tắt email.</>,
+    },
+  ]}
+/>
+
+Thứ tự đi trong khóa: ① session để làm thử → ② memory để Hermes hiểu bạn → ③ skill để khỏi học lại quy trình → ④ cron/webhook để việc lặp tự chạy.
+
+## Bài tập thực hành
+
+Sau khi cài, làm 3 bài test nhỏ. Copy & gửi cho Hermes.
+
+<CopySnippets
+  snippets={[
+    {
+      title: 'TEST 1 · KIỂM TRA TIẾNG VIỆT & VAI TRÒ',
+      code: 'Từ giờ em là trợ lý vận hành AI cho Solo CEO. Hãy trả lời bằng tiếng Việt, ngắn gọn, thực chiến. Nhiệm vụ của em là giúp anh biến việc lặp thành quy trình có thể giao cho agent.',
+    },
+    {
+      title: 'TEST 2 · NHỜ HERMES PHÂN LOẠI VIỆC LẶP',
+      code: 'Dưới đây là 10 việc anh đang làm lặp lại. Hãy phân loại việc nào nên dùng prompt, việc nào nên biến thành skill, việc nào nên chạy định kỳ bằng cron, và việc nào cần anh duyệt trước khi gửi ra ngoài.\n\nDanh sách việc:\n1. ...\n2. ...',
+    },
+    {
+      title: 'TEST 3 · NHỜ HERMES GHI NHỚ PREFERENCE',
+      code: 'Hãy nhớ rằng anh thích câu trả lời tiếng Việt, ngắn, thực chiến, có checklist và bước tiếp theo rõ ràng.',
+    },
+  ]}
+/>
+
+- ✓ Đạt TEST 1: Hermes trả lời đúng vai trò, đúng tiếng Việt, không quá dài.
+- ✓ Đạt TEST 2: Hermes trả về bảng rõ ràng, có lý do, có bước tiếp theo.
+- ✓ Đạt TEST 3: Hermes xác nhận đã ghi nhớ preference phù hợp.
+
+## Checklist kiểm tra
+
+Bạn đạt yêu cầu bài này nếu hoàn thành các mục.
+
+<Checklist
+  items={checklist01Data}
+  storageKey="hermes_handbook_01_checklist"
+  completeMessage={<><strong>Hoàn thành bài 01 ✓</strong> Hermes đã chạy được — sẵn sàng học ra lệnh kiểu CEO.</>}
+/>
+
+## Lỗi thường gặp
+
+Bấm từng lỗi để xem dấu hiệu & cách xử lý.
+
+<ErrorAccordion
+  items={[
+    {
+      icon: '🔌',
+      error: 'Chưa có API key / provider',
+      sign: 'Hermes mở được nhưng không gọi được model.',
+      fix: <>Kiểm tra lại provider trong <b>hermes setup</b>.</>,
+    },
+    {
+      icon: '🐌',
+      error: 'Chọn model quá yếu',
+      sign: 'Hermes trả lời lan man, gọi tool kém.',
+      fix: <>Đổi sang <b>model mạnh hơn</b> cho execution (GPT 5.5).</>,
+    },
+    {
+      icon: '💤',
+      error: 'Máy cá nhân tắt',
+      sign: 'Agent không phản hồi khi bạn cần.',
+      fix: <>Chuyển sang <b>VPS</b> khi chạy thật.</>,
+    },
+    {
+      icon: '🧰',
+      error: 'Chưa bật tool cần dùng',
+      sign: 'Hermes nói không thể làm việc với file/web/email.',
+      fix: <>Kiểm tra <b>toolset</b> và cấu hình liên quan.</>,
+    },
+    {
+      icon: '🌀',
+      error: 'Muốn làm quá nhiều ngay',
+      sign: 'Setup bị rối.',
+      fix: <>Chỉ cần <b>chạy được agent đầu tiên</b> trước.</>,
+    },
+  ]}
+/>
+
+## Bước tiếp theo
+
+{/* <NextLessonCard
+  kicker="Bài tiếp theo · 02"
+  title="Ra lệnh kiểu CEO"
+  desc="Nói sao để Hermes hiểu đúng việc, biết đầu vào/đầu ra, tiêu chuẩn kiểm tra, và khi nào phải hỏi lại CEO."
+  cta="Bài 02 (sắp ra)"
+/> */}

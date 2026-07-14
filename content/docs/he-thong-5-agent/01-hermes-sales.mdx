@@ -1,0 +1,239 @@
+---
+title: "01 — Hermes Sales"
+description: Trợ lý Báo giá & Email, tạo báo giá, email, hợp đồng và đồng bộ CRM/Excel
+---
+
+import Image from 'next/image'
+
+# 01 — Hermes Sales
+
+<Image
+  src="/images/agents/sales-agent.png"
+  alt="Hermes Sales — trợ lý báo giá, email và CRM cho Solo CEO"
+  width={1536}
+  height={1024}
+  className="rounded-lg border border-border"
+/>
+
+> Mục tiêu của case này: setup **Hermes Sales** như một trợ lý sales ops chuyên tạo báo giá, email gửi khách, hợp đồng nháp và cập nhật CRM/Excel — giúp CEO không còn tự copy-paste từng báo giá.
+
+{/* IMAGE_BRIEF:
+type: sales-agent-workflow
+placement: đầu case Hermes Sales
+purpose: minh họa quy trình từ thông tin khách đến báo giá/email/CRM
+concept: Customer info + price table + template → Hermes Sales → quote PDF + email draft + contract draft + CRM update pending approval
+style: sales ops workflow, đen trắng + cam #F86000, premium business dashboard
+ratio: 16:9
+*/}
+
+## Vấn đề kinh doanh
+
+Báo giá là việc nhỏ nhưng ăn thời gian rất đều:
+
+- Đọc nhu cầu khách.
+- Tìm bảng giá.
+- Chọn template đúng.
+- Tính tổng tiền, chiết khấu, VAT, điều khoản.
+- Xuất DOCX/PDF.
+- Viết email gửi kèm.
+- Cập nhật CRM/Excel.
+- Nhắc follow-up nếu khách chưa phản hồi.
+
+Một báo giá có thể chỉ mất 15–30 phút. Nhưng nếu mỗi tuần có 10–20 báo giá, CEO đang mất cả ngày chỉ để thao tác. Sai một dòng giá hoặc điều khoản còn nguy hiểm hơn: mất uy tín, mất margin, hoặc phải sửa hợp đồng.
+
+**Hermes Sales** biến quy trình này thành năng lực lặp lại: nhận input → tạo báo giá nháp → kiểm tra → soạn email → cập nhật trạng thái → chờ CEO duyệt.
+
+## Hermes Sales là ai?
+
+Hermes Sales là agent thuộc phòng Sales, chuyên xử lý phần **báo giá & email thương mại**.
+
+Nó không thay CEO chốt deal. Nó thay CEO làm phần thao tác có quy trình.
+
+| Hermes Sales làm | CEO vẫn quyết |
+|---|---|
+| Tạo báo giá nháp | Giá cuối, chiết khấu đặc biệt |
+| Soạn email gửi kèm | Có gửi khách hay không |
+| Chuẩn bị hợp đồng draft | Điều khoản nhạy cảm |
+| Cập nhật CRM/Excel theo rule | Thay đổi dữ liệu quan trọng |
+| Nhắc báo giá quá hạn follow-up | Ưu tiên deal chiến lược |
+
+## Profile Hermes đề xuất
+
+| Mục | Gợi ý |
+|---|---|
+| Profile slug | `hermes-sales` |
+| Phòng ban | Sales |
+| Model chính | GPT 5.5 cho tool use, file, kiểm tra nhiều bước |
+| Model backup | GLM 5.2 hoặc DeepSeek 4-Pro |
+| Giao diện | Telegram qua Hermes Core hoặc gọi trực tiếp |
+| Tool ưu tiên | File, DOCX/PDF, Gmail draft, Sheets/Excel, CRM, browser |
+| Quyền mặc định | Tạo draft/file, chưa gửi khách nếu chưa duyệt |
+
+## Cách setup profile
+
+```bash
+hermes profile create hermes-sales --no-skills
+hermes -p hermes-sales config set model.provider custom
+hermes -p hermes-sales config set model.default gpt-5.5
+hermes -p hermes-sales config set agent.reasoning_effort medium
+```
+
+Nếu đang học/lab, có thể clone profile đã có sẵn provider/tool:
+
+```bash
+hermes profile create hermes-sales --clone-from default
+```
+
+## Persona/SOUL mẫu
+
+```text
+Bạn là Hermes Sales — trợ lý báo giá, email sales, hợp đồng nháp và CRM/Excel cho Solo CEO.
+
+Bạn xử lý các việc: tạo báo giá từ thông tin khách, kiểm tra số liệu, soạn email gửi kèm, chuẩn bị hợp đồng nháp, cập nhật trạng thái CRM/Excel theo rule được duyệt.
+
+Bạn không tự gửi email, không tự đổi giá/chiết khấu, không tự cam kết điều khoản pháp lý nếu chưa có xác nhận rõ từ CEO.
+
+Mọi kết quả trả về cần gồm:
+1. File/output đã tạo.
+2. Email draft nếu có.
+3. Các giả định đang dùng.
+4. Điểm cần CEO duyệt.
+5. Bước follow-up tiếp theo.
+```
+
+## Workspace đề xuất
+
+```text
+/hermes-business-os/agents/sales
+  /inputs
+  /quotes
+  /contracts
+  /emails
+  /templates
+  /crm-updates
+  /logs
+```
+
+| Folder | Dùng để làm gì? |
+|---|---|
+| `inputs` | Brief khách, yêu cầu báo giá |
+| `templates` | Mẫu báo giá, email, hợp đồng |
+| `quotes` | DOCX/PDF báo giá |
+| `contracts` | Hợp đồng nháp |
+| `emails` | Email draft |
+| `crm-updates` | Log thay đổi CRM/Excel chờ duyệt |
+| `logs` | Lịch sử xử lý báo giá |
+
+## Input cần có
+
+- Tên khách/công ty.
+- Người nhận và vai trò.
+- Nhu cầu chính.
+- Sản phẩm/dịch vụ cần báo giá.
+- Số lượng/gói/duration.
+- Bảng giá hoặc rule tính giá.
+- Template báo giá/hợp đồng.
+- Điều khoản thanh toán, hiệu lực báo giá.
+- Trạng thái CRM hiện tại.
+
+Nếu thiếu giá, điều khoản hoặc thông tin người nhận, Hermes Sales phải hỏi lại trước.
+
+## Output mong muốn
+
+Một lần xử lý chuẩn nên trả về:
+
+```text
+Status: Waiting for Approval
+Files:
+- quotes/quote-abc-20260626.pdf
+- quotes/quote-abc-20260626.docx
+
+Email draft:
+[subject + body]
+
+CRM/Excel update đề xuất:
+- Status: Quote Drafted
+- Next follow-up: +2 ngày
+
+Cần anh duyệt:
+- Giá gói Pro 12 tháng.
+- Có gửi email này cho anh Minh không?
+```
+
+<Image
+  src="/images/agents/quote-output-card.png"
+  alt="Output chuẩn Hermes Sales: báo giá + email draft + CRM update + approval"
+  width={1536}
+  height={1024}
+  className="rounded-lg border border-border"
+/>
+
+## Skill cần tạo
+
+1. **Sales quotation skill** — tạo báo giá từ template.
+2. **Quote validation skill** — kiểm tra tổng tiền, VAT, chiết khấu, điều khoản.
+3. **Sales email draft skill** — email gửi kèm báo giá.
+4. **Contract draft skill** — tạo hợp đồng nháp từ template.
+5. **CRM update proposal skill** — đề xuất cập nhật CRM/Excel.
+
+Skill phải ngắn, theo checklist. Không lưu báo giá cụ thể hoặc thông tin deal tạm thời vào skill.
+
+## Automation gợi ý
+
+| Automation | Trigger | Output |
+|---|---|---|
+| Quote follow-up reminder | Mỗi sáng 8h | Báo giá gửi quá 2 ngày chưa phản hồi |
+| Weekly quote summary | Thứ Sáu 16h | Tổng hợp báo giá đã tạo/gửi/chờ duyệt |
+| Contract missing info check | Khi tạo hợp đồng | Báo thiếu điều khoản hoặc dữ liệu pháp lý |
+
+## Approval rule
+
+```text
+Hermes Sales được tạo báo giá, hợp đồng nháp, email draft và đề xuất cập nhật CRM.
+Không được tự gửi email/báo giá/hợp đồng cho khách nếu chưa có duyệt rõ.
+Không được tự thay đổi giá, chiết khấu, điều khoản pháp lý hoặc trạng thái deal quan trọng nếu chưa có rule.
+```
+
+## Bài test đầu tiên
+
+```text
+Tạo báo giá nháp cho khách ABC.
+Khách: Công ty ABC, người nhận anh Minh.
+Nhu cầu: gói triển khai AI Sales Assistant 3 tháng.
+Giá: 30 triệu/tháng, thanh toán 50% khi ký, 50% sau nghiệm thu tháng đầu.
+Yêu cầu output: bảng báo giá, email gửi kèm dưới 180 từ, và đề xuất cập nhật CRM.
+Chưa gửi khách. Nếu có thông tin thiếu thì hỏi lại anh.
+```
+
+Kết quả đạt nếu Hermes Sales:
+
+- Tạo cấu trúc báo giá rõ.
+- Kiểm tra tổng tiền.
+- Soạn email đúng tone.
+- Nêu giả định/thiếu sót.
+- Đánh dấu chờ CEO duyệt.
+
+## Checklist production
+
+- [ ] Có template báo giá/hợp đồng chuẩn.
+- [ ] Có bảng giá hoặc rule tính giá rõ.
+- [ ] Có workspace sales.
+- [ ] Có skill tạo báo giá và kiểm tra số liệu.
+- [ ] Có rule không tự gửi khách.
+- [ ] Có CRM/Excel field mapping.
+- [ ] Có log báo giá đã tạo/gửi/chờ duyệt.
+- [ ] Có automation nhắc follow-up.
+
+## Lỗi thường gặp
+
+| Lỗi | Dấu hiệu | Cách sửa |
+|---|---|---|
+| Cho agent tự đổi giá | Báo giá sai margin | Giá/chiết khấu phải có rule hoặc CEO duyệt |
+| Template không chuẩn | File xuất xấu, thiếu điều khoản | Chuẩn hóa template trước |
+| Không log CRM update | Không biết báo giá đang ở trạng thái nào | Luôn có crm-update proposal |
+| Email quá sales | Khách cảm thấy bị ép | Dùng tone chuyên nghiệp, ngắn, CTA rõ |
+| Lưu deal cụ thể vào skill | Skill nhanh stale | Skill chỉ lưu quy trình |
+
+## Bước tiếp theo
+
+Sau Hermes Sales, setup **Hermes Funnel** để không chỉ tạo báo giá tốt, mà còn không bỏ sót lead, nhắc follow-up đúng lúc và chuẩn bị thông tin trước khi sales gọi khách.

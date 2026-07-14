@@ -1,0 +1,129 @@
+---
+title: "Nếu không rành kỹ thuật"
+description: "Onboarding 15 phút cho CEO hoàn toàn không biết code — hiểu đủ để vận hành Hermes"
+---
+
+import Image from 'next/image'
+
+
+# Nếu không rành kỹ thuật
+
+> Bạn là CEO, không phải developer.  
+> Bạn không cần hiểu hết Hermes.  
+> Bạn cần hiểu đủ để ra lệnh, duyệt, và kiểm soát.
+
+<Image
+  src="/images/handbook/khong-ranh-ky-thuat-hero.png"
+  alt="Hình minh họa"
+  width={1536}
+  height={1024}
+  className="rounded-lg border border-border"
+/>
+
+---
+
+## CEO cần hiểu 5 khái niệm
+
+| Khái niệm | Giải thích CEO | Giải thích kỹ thuật |
+|---|---|---|
+| **Agent** | Nhân viên AI nhận việc và làm | AI agent có tool, memory, skill |
+| **Skill** | Sổ tay hướng dẫn agent làm việc | Stored procedure / workflow template |
+| **Memory** | Agent nhớ ngữ cảnh, không cần dạy lại | Persistent memory store |
+| **Tool** | Tay chân agent — dùng file, web, API | Tool integrations (file, browser, terminal...) |
+| **Cron** | Lịch làm việc tự động | Scheduled job (cron expression) |
+
+**Đó là tất cả.** 5 khái niệm này đủ để CEO vận hành Hermes.
+
+---
+
+## 15 phút đầu tiên
+
+### Phút 1–5: Hiểu Telegram là giao diện chính
+
+CEO không cần mở terminal, không cần code editor. Mọi giao tiếp qua Telegram.
+
+| CEO làm | Agent làm |
+|---|---|
+| Nhắn lệnh qua Telegram | Nhận, xử lý, trả kết quả qua Telegram |
+| Duyệt (gửi "OK") | Thực hiện |
+| Hỏi (gửi câu hỏi) | Trả lời |
+
+**Telegram = giao diện ra lệnh.** Hết.
+
+### Phút 5–10: Hiểu "ra lệnh kiểu CEO"
+
+| ❌ Ra lệnh mơ hồ | ✅ Ra lệnh kiểu CEO |
+|---|---|
+| "Viết báo giá" | "Tạo báo giá cho Công ty A, gói Starter 10 user, terms 14 ngày, gửi draft qua Telegram" |
+| "Tạo content" | "Viết 3 bài LinkedIn về chủ đề X, theo brand voice, gửi draft chờ duyệt" |
+| "Kiểm tra email" | "Đọc email hôm nay, tóm tắt 3 cái quan trọng, đánh dấu khẩn cấp" |
+
+Công thức:
+> **Động từ + Đối tượng + Thông tin cụ thể + Kênh trả kết quả**
+
+### Phút 10–15: Hiểu approval rule
+
+Mỗi việc agent làm thuộc 1 trong 3 loại:
+
+| Loại | Ví dụ | CEO làm gì? |
+|---|---|---|
+| **Tự làm** | Tổng hợp báo cáo, nhắc việc, phân loại lead | Không cần làm gì — đọc kết quả |
+| **Báo sau** | Tạo draft email, draft content | Xem kết quả, nếu OK thì thôi |
+| **Hỏi trước** | Gửi email cho khách, thay giá, xóa file | Duyệt "OK" rồi agent mới làm |
+
+---
+
+## Việc nào CEO tự làm, việc nào nhờ setup?
+
+| CEO tự làm qua Telegram | Nhờ người setup (1 lần) |
+|---|---|
+| Ra lệnh, duyệt, kiểm tra | Cài Hermes lên VPS |
+| Viết prompt, tạo skill | Setup API key + provider |
+| Đọc Daily Brief, Weekly Review | Kết nối Telegram bot |
+| Chọn use case ưu tiên | Cấu hình cron ban đầu |
+| Review output, cho feedback | Setup permission/tool |
+
+**Sau khi setup xong (30–60 phút), CEO không cần người kỹ thuật nữa** — trừ khi thêm tool mới hoặc gặp lỗi.
+
+---
+
+## Câu hỏi thường gặp của CEO không kỹ thuật
+
+### "Tôi có cần học code không?"
+
+Không. Hermes có CLI, nhưng CEO dùng qua Telegram. Lệnh là tiếng Việt, không phải code.
+
+### "Nếu agent làm sai怎么办?"
+
+Agent có approval rule. Việc rủi ro cao → agent hỏi trước. CEO duyệt "OK" mới làm. Việc rủi ro thấp → agent làm, CEO xem sau.
+
+### "Tôi có cần VPS không?"
+
+Giai đoạn học: không cần. Chạy trên máy cá nhân.
+
+Khi production (agent chạy hằng ngày, nhận lệnh qua Telegram, cron 8h sáng): cần VPS online 24/7.
+
+### "Nếu tôi không biết setup?"
+
+Nhờ người rành setup trong 30–60 phút. Sau đó CEO tự vận hành.
+
+Xem: [01 — Cài đặt & chạy Hermes lần đầu](/docs/khoa-hoc-hermes-handbook/01-cai-dat-chay-lan-dau)
+
+### "Agent có tự gửi email cho khách không?"
+
+Chỉ khi CEO duyệt. Mặc định: agent soạn draft → gửi CEO qua Telegram → CEO duyệt "OK" → agent gửi.
+
+---
+
+## Checklist 15 phút
+
+- [ ] Hiểu 5 khái niệm: agent, skill, memory, tool, cron
+- [ ] Biết Telegram là giao diện chính
+- [ ] Biết công thức ra lệnh: Động từ + Đối tượng + Thông tin + Kênh
+- [ ] Biết 3 loại approval: tự làm, báo sau, hỏi trước
+- [ ] Biết việc nào tự làm, việc nào nhờ setup
+
+---
+
+> **Tóm lại:** CEO không cần biết code. CEO cần biết **ra lệnh rõ, duyệt đúng lúc, kiểm soát kết quả**.  
+> Hermes lo phần còn lại.

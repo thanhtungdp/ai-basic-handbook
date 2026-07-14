@@ -1,0 +1,209 @@
+---
+title: "Receivable & Cashflow Watchdog"
+description: Use case Hermes giúp CEO không quên thu tiền và biết trước khi thiếu tiền
+---
+
+import Image from 'next/image'
+
+# Receivable & Cashflow Watchdog
+
+> Mục tiêu: Hermes không thay kế toán, nhưng đảm bảo CEO không bao giờ bị mù dòng tiền.
+
+<Image
+  src="/images/use-cases/uc-cashflow-watchdog-dashboard.png"
+  alt="cho CEO thấy Hermes như radar dòng tiền, biết trước khi thiếu"
+  width={1536}
+  height={1024}
+  className="rounded-lg border border-border"
+/>
+
+## 1. Vấn đề kinh doanh
+
+Solo CEO thường không chết vì thiếu báo cáo tài chính đẹp. Chết vì:
+
+- **Quên nhắc khách thanh toán** — invoice gửi xong, CEO quên theo dõi, 30 ngày sau mới nhớ, khách đã quên luôn.
+- **Không biết tuần tới thiếu tiền hay dư tiền** — quyết định chi tiêu dựa trên cảm giác, không dựa trên số.
+- **Invoice quá hạn không phát hiện sớm** — khoản quá hạn 15 ngày mới thấy, lúc đó đã khó thu hơn nhiều.
+- **Chỉ xem tiền khi đã có vấn đề** — không có visibility thường xuyên, đến khi thiếu tiền thì đã muộn.
+
+Vấn đề cốt lõi: CEO không thiếu khả năng quản lý tài chính — thiếu **visibility thường xuyên**. Không ai nhắc CEO mỗi ngày "khoản này đến hạn", không ai tổng hợp mỗi tuần "tuần này tiền vào bao nhiêu, ra bao nhiêu, có thiếu không". CEO phải tự mở sheet, tự kiểm tra — và CEO không có thời gian làm điều đó mỗi ngày.
+
+Hermes cần trở thành **watchdog dòng tiền**: chạy hằng ngày, hằng tuần, báo cáo khi cần, cảnh báo khi rủi ro — mà không cần CEO nhớ mở sheet.
+
+## 2. Khi nào CEO dùng
+
+CEO dùng use case này theo nhịp định kỳ và theo tình huống:
+
+- **Hằng ngày (receivable check)** — Hermes Daily tự chạy, báo khoản nào đến hạn trong 3 ngày, khoản nào đã quá hạn, khoản nào cần CEO gọi trực tiếp.
+- **Hằng tuần (cashflow brief)** — Hermes Daily tổng hợp vào sáng thứ Hai, báo tuần này tiền vào dự kiến bao nhiêu, tiền ra bao nhiêu, có thiếu hụt không.
+- **Khi cần quyết định chi tiêu** — CEO hỏi Hermes "tuần này có đủ tiền thuê thêm người không?", Hermes trả lời dựa trên dữ liệu công nợ + bank statement.
+- **Khi cần nhắc khách thanh toán** — Hermes đã soạn email nhắc draft, CEO duyệt và gửi.
+
+Tần suất: hằng ngày + hằng tuần là mặc định. CEO chỉ cần tương tác khi có cảnh báo hoặc cần duyệt email nhắc.
+
+## 3. Agent phụ trách
+
+| Agent | Vai trò trong receivable & cashflow |
+|---|---|
+| Hermes Daily | Chạy checklist công nợ hằng ngày, soạn email nhắc, tạo weekly cashflow brief |
+| Hermes Core | Escalation khi khoản quá hạn nghiêm trọng, tổng hợp báo cáo cho CEO |
+| Hermes Sales | Cung cấp data deal, payment terms, kỳ vọng thanh toán từ pipeline |
+| Hermes Voice | Soạn email nhắc thanh toán theo tone phù hợp (nhắc nhẹ → nhắc mạnh → escalation) |
+
+Hermes Daily là agent chính: chạy cron hằng ngày, đọc sheet, phân loại, soạn draft. Hermes Core chỉ can thiệp khi cần escalation (khoản quá hạn 30+ ngày, số tiền lớn, khách quan trọng).
+
+## 4. Input cần có
+
+- **Sheet công nợ/invoice** — danh sách invoice, khách nợ, số tiền, ngày phát hành, ngày đến hạn, trạng thái.
+- **Bank statement** (nếu có) — tiền thực tế vào/ra, để đối chiếu với công nợ.
+- **Deal pipeline** — deal sắp chốt, giá trị, kỳ vọng thanh toán, giúp forecast tiền vào.
+- **Payment terms** — điều khoản từng khách: thanh toán 7/14/30 ngày, chia đợt, tạm ứng.
+- **Lịch chi tiêu** — chi phí cố định (lương, thuê mặt bằng, SaaS), chi phí biến đổi đã biết, kế hoạch chi sắp tới.
+
+Nếu thiếu sheet công nợ, Hermes sẽ yêu cầu CEO cung cấp trước khi chạy. Sheet có thể là Google Sheets, Excel, hoặc export từ kế toán.
+
+## 5. Output mong muốn
+
+**Hằng ngày — Receivable check:**
+
+- Danh sách khoản đến hạn trong 3 ngày tới + email nhắc draft cho từng khoản.
+- Danh sách khoản quá hạn + mức độ (1–7 ngày, 8–15 ngày, 16–30 ngày, 30+ ngày).
+- Khoản nào cần CEO gọi trực tiếp (quá hạn 15+ ngày hoặc số tiền lớn).
+- Đề xuất hành động: nhắc email, gọi điện, gửi thông báo chính thức.
+
+**Hằng tuần — Cashflow brief (1 trang):**
+
+- **Cash in** dự kiến tuần này: khoản nào sẽ thu, số bao nhiêu, xác suất cao/thấp.
+- **Cash out** dự kiến tuần này: chi phí cố định + chi phí biến đổi đã biết.
+- **Net position**: dư hay thiếu, bao nhiêu.
+- **Risk alert**: khoản nào rủi ro không thu được, chi phí bất thường.
+- **Action đề xuất**: thu gấp khoản nào, hoãn chi gì, ưu tiên chốt deal nào.
+
+Output được gửi qua Telegram mỗi sáng — CEO đọc trong 2 phút, biết tình hình dòng tiền cả ngày/cả tuần.
+
+## 6. Workflow Hermes
+
+```text
+[Cron hằng ngày — 8h sáng]
+    ↓
+Hermes Daily đọc sheet công nợ/invoice
+    ↓
+Phân loại: sắp đến hạn / quá hạn / đã thu
+    ↓
+Soạn email nhắc cho từng khoản (tone theo mức độ)
+    ↓
+Báo CEO: khoản nào cần gọi trực tiếp
+    ↓
+CEO duyệt email nhắc (Telegram: "OK gửi" hoặc chỉnh)
+    ↓
+Hermes gửi email nhắc
+    ↓
+[Cron hằng tuần — sáng thứ Hai]
+    ↓
+Hermes Daily tổng hợp: cash in + cash out + net + risk
+    ↓
+Soạn cashflow brief 1 trang
+    ↓
+Gửi CEO qua Telegram
+    ↓
+CEO đọc → quyết định action (thu/hoãn chi/ưu tiên deal)
+```
+
+Toàn bộ quy trình hằng ngày tự động từ lúc đọc sheet đến lúc draft sẵn: 3–5 phút. CEO chỉ cần 2–5 phút duyệt email nhắc và đọc cảnh báo.
+
+## 7. Prompt mẫu
+
+**Ví dụ 1 — Gửi sheet, yêu cầu phân tích công nợ:**
+
+```text
+Đây là sheet công nợ tháng này: [link/file].
+Hãy phân loại:
+- Khoản đến hạn trong 3 ngày tới
+- Khoản quá hạn (1-7, 8-15, 16-30, 30+ ngày)
+- Khoản cần tôi gọi trực tiếp
+Rồi soạn email nhắc cho từng nhóm, tôi duyệt trước khi gửi.
+```
+
+**Ví dụ 2 — Yêu cầu cashflow brief tuần:**
+
+```text
+Tuần này tôi cần biết:
+- Tiền vào dự kiến bao nhiêu (từ sheet công nợ + deal sắp chốt)
+- Tiền ra dự kiến bao nhiêu (lương + SaaS + chi phí đã biết)
+- Có thiếu không? Nếu thiếu, cần thu gấp khoản nào?
+Soạn cashflow brief 1 trang gửi tôi sáng thứ Hai.
+```
+
+**Ví dụ 3 — Kiểm tra nhanh dòng tiền trước khi quyết định:**
+
+```text
+Tuần này tôi muốn thuê thêm 1 freelancer giá $X/tháng.
+Check cashflow hiện tại có đủ không?
+Nếu thiếu, cần thu khoản nào trước?
+```
+
+## 8. Approval rule
+
+| Việc | Ai làm | Cần duyệt? |
+|---|---|---|
+| Đọc sheet, phân loại khoản | Hermes tự làm | Không |
+| Soạn email nhắc thanh toán | Hermes soạn draft | CEO duyệt trước khi gửi |
+| Phân loại khoản cần CEO gọi | Hermes tự đánh giá | Không — chỉ gợi ý, CEO quyết định gọi |
+| Tạo cashflow brief hằng tuần | Hermes tự làm | Không — gửi thẳng cho CEO |
+| Chuyển tiền | **Không tự làm** | Không bao giờ |
+| Gửi email nhắc khách | Hermes gửi sau khi CEO duyệt | Có |
+| Xóa/chỉnh sửa dữ liệu kế toán | **Không tự làm** | Không bao giờ |
+| Quyết định hoãn chi/thu gấp | Hermes đề xuất, CEO quyết định | CEO quyết định |
+
+Nguyên tắc: agent chỉ **cảnh báo, soạn draft, đề xuất**. Mọi hành động gửi ra ngoài (email nhắc, quyết định tài chính) cần CEO duyệt.
+
+## 9. Checklist kiểm tra
+
+Sau khi Hermes chạy receivable check / cashflow brief, CEO kiểm tra:
+
+- [ ] Khoản quá hạn đã có email nhắc draft?
+- [ ] Email nhắc đúng tone (nhắc nhẹ cho 1–7 ngày, mạnh hơn cho 16–30 ngày)?
+- [ ] Cashflow brief đúng số (đối chiếu với sheet thực tế)?
+- [ ] Risk alert có evidence (khoản nào, bao nhiêu, vì sao rủi ro)?
+- [ ] Action đề xuất khả thi (không chung chung như "thu tiền nhanh hơn")?
+- [ ] Khoản cần CEO gọi đã được nêu rõ (khách nào, số bao nhiêu, quá hạn bao lâu)?
+- [ ] Hermes Daily đã chạy cron đúng giờ?
+
+Nếu bất kỳ mục nào không đạt, CEO yêu cầu Hermes sửa hoặc bổ sung.
+
+## 10. Bước nâng cấp
+
+| Giai đoạn | Mô tả | Nỗ lực CEO |
+|---|---|---|
+| **Thủ công** | CEO gửi sheet qua Telegram, Hermes phân tích, CEO duyệt email nhắc | Thấp — gửi 1 file, duyệt vài email |
+| **Cron hằng ngày + skill receivable-watchdog** | Tạo skill chuyên công nợ, cron tự đọc sheet mỗi sáng, tự phân loại, tự soạn draft | Rất thấp — chỉ duyệt email nhắc |
+| **Kết nối bank API/ERP** | Tự động đọc bank statement, đối chiếu invoice, cảnh báo real-time khi tiền vào/không vào | Gần như zero — CEO chỉ nhận cảnh báo và duyệt |
+
+Mục tiêu cuối: CEO mở Telegram sáng thứ Hai, thấy cashflow brief sẵn sàng. Mỗi sáng thấy receivable check. Khi khoản quá hạn, thấy alert ngay. Không bao giờ bị mù dòng tiền.
+
+## Guardrail tài chính
+
+Hermes trong use case này có ranh giới rõ:
+
+**Hermes được làm:**
+
+- Chuẩn bị báo cáo công nợ, cashflow brief.
+- Soạn email nhắc thanh toán draft.
+- Cảnh báo rủi ro thiếu hụt, khoản quá hạn.
+- Đề xuất hành động: thu gấp, hoãn chi, ưu tiên deal.
+
+**Hermes không được làm:**
+
+- Tự chuyển tiền hoặc thực hiện giao dịch tài chính.
+- Xóa hoặc chỉnh sửa dữ liệu kế toán.
+- Gửi email nhắc khách khi chưa có duyệt CEO.
+- Tự quyết định hoãn chi, cắt giảm, hoặc cam kết tài chính.
+
+Hermes là **watchdog**, không phải người giữ tiền. Watchdog sủa khi thấy rủi ro — nhưng không tự mở cổng.
+
+## Common mistakes
+
+- **Gửi email nhắc khi chưa duyệt** — email sai tone, sai thông tin, khách phật ý. Luôn duyệt trước khi gửi, đặc biệt với khách lớn hoặc khoản nhạy cảm.
+- **Báo số sai vì sheet không cập nhật** — sheet công nợ cũ, Hermes phân loại dựa trên data sai. Cần kiểm tra ngày cập nhật sheet trước khi chạy.
+- **Cashflow brief chung chung** — chỉ nói "tiền ra nhiều hơn vào" mà không nêu khoản nào, số bao nhiêu, hành động gì. CEO cần số cụ thể, action cụ thể.
+- **Quên escalation khoản lớn** — khoản quá hạn 30+ ngày mà vẫn chỉ gửi email nhắc nhẹ. Phải escalate: báo CEO gọi trực tiếp, cân nhắc gửi thông báo chính thức.

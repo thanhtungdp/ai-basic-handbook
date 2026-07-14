@@ -1,0 +1,222 @@
+---
+title: "04 — Kết nối tool"
+description: Hermes chỉ thật sự thành nhân viên AI khi được nối với công cụ làm việc — nhưng mọi kết nối phải có quyền hạn, phạm vi và điểm duyệt rõ ràng.
+lesson:
+  number: "04"
+  duration: 20
+  interactions: 7
+---
+
+import { Callout } from '@/components/handbook/shared'
+import {
+  CopySnippets,
+  NextLessonCard,
+  ChatAgentToggle04,
+  ToolHub04,
+  ToolRoadmap04,
+  TelegramRules04,
+  FolderTree04,
+  GmailLevels04,
+  SheetDemo04,
+  WebResearchChecklist04,
+  PermissionMatrix04,
+  RiskFlow04,
+  ToolStackWorksheet04,
+  Lesson04Checklist,
+  ErrorTable04,
+} from '@/components/handbook/interactive'
+
+## Vấn đề kinh doanh
+
+Nếu Hermes chỉ “trả lời hay”, CEO vẫn phải tự làm phần còn lại.
+
+Tự mở file, tự copy sang email, tự cập nhật sheet, tự kiểm tra web, tự gửi tài liệu, tự nhớ lịch chạy báo cáo. Đó là khác biệt giữa **AI chat** và **AI agent**. Bấm để so sánh:
+
+<ChatAgentToggle04 />
+
+<Callout>
+  <p>Chat AI tạo nội dung. Agent có tool có thể làm việc trong hệ thống thật. Có rule + approval thì agent vận hành an toàn.</p>
+</Callout>
+
+## Tool là gì trong Hermes?
+
+Model là bộ não. Hermes là hệ điều phối. Tool là *tay chân* — khả năng hành động.
+
+Bấm từng tool quanh Hermes để xem nó làm được gì và dùng cho việc nào:
+
+<ToolHub04 />
+
+Câu nhớ nhanh:
+
+```text
+Không có tool: Hermes tư vấn.
+Có tool: Hermes vận hành.
+Có rule + approval: Hermes vận hành an toàn.
+```
+
+## Nguyên tắc kết nối: ít nhưng đúng
+
+Đừng bật hết. Bắt đầu bằng 1–2 tool tạo ROI rõ nhất, theo từng giai đoạn.
+
+Bấm từng chặng trên lộ trình để xem nên nối tool gì và vì sao:
+
+<ToolRoadmap04 />
+
+## Telegram — giao diện CEO nên dùng đầu tiên
+
+Ra lệnh bằng điện thoại, nhận kết quả ngay trong chat, duyệt nhanh.
+
+Với Telegram, mỗi loại việc nên có một quyền hạn rõ. Bấm từng loại việc:
+
+<TelegramRules04 />
+
+<CopySnippets snippets={[
+  { title: 'CÂU LỆNH QUYỀN HẠN NÊN DÙNG', code: 'Mọi việc gửi ra ngoài, sửa dữ liệu quan trọng, hoặc phát sinh chi phí đều phải hỏi anh trước.' }
+]} />
+
+## File & folder — nơi agent làm việc an toàn nhất
+
+Trước khi nối email hay sheet, cho Hermes một “không gian làm việc”.
+
+Bấm từng folder để xem dùng vào việc gì:
+
+<FolderTree04 />
+
+<CopySnippets snippets={[
+  { title: 'PROMPT LÀM VIỆC CÓ CẤU TRÚC', code: 'Đọc file `/inputs/demo-abc.md`, tạo email follow-up theo template trong `/templates/follow-up.md`, lưu kết quả vào `/outputs/follow-up-abc.md`. Chưa gửi email.' }
+]} />
+
+Bắt đầu bằng file/folder vì: dễ kiểm tra, ít rủi ro hơn email/database, tạo quy trình rõ, và dễ biến thành skill sau này.
+
+## Gmail — bắt đầu bằng draft, chưa gửi
+
+Email giá trị cao nhưng rủi ro cao. Sai một email có thể mất cơ hội bán hàng.
+
+Kéo mức quyền email từ an toàn → rủi ro để thấy khuyến nghị:
+
+<GmailLevels04 />
+
+<CopySnippets snippets={[
+  { title: 'PROMPT CÓ APPROVAL', code: 'Hãy chuẩn bị email gửi khách ABC. Sau khi draft xong, hỏi anh xác nhận bằng câu: “Anh có muốn em gửi email này không?” Chỉ gửi nếu anh trả lời rõ “gửi”.' }
+]} />
+
+## Google Sheets — bảng điều phối cho agent
+
+Phù hợp với quy trình dữ liệu dạng bảng: pipeline, content calendar, báo cáo.
+
+Đây là một sheet pipeline mẫu. Bấm từng hành động bên dưới để xem quyền hạn khuyến nghị:
+
+<SheetDemo04 />
+
+<CopySnippets snippets={[
+  { title: 'PROMPT XỬ LÝ PIPELINE', code: 'Đọc sheet pipeline sales. Tìm các lead trạng thái “Demo xong” nhưng chưa follow-up sau 2 ngày. Trả về danh sách ưu tiên và draft email cho từng lead. Chưa cập nhật sheet cho đến khi anh duyệt.' }
+]} />
+
+## Web / browser — nghiên cứu nhưng không bịa
+
+Rủi ro lớn nhất khi research là bịa thông tin hoặc lẫn lộn chắc / chưa chắc.
+
+Luôn yêu cầu Hermes tách rõ **fact** và **giả định**, ghi nguồn. Tự chấm 5 mục checklist research:
+
+<WebResearchChecklist04 />
+
+<CopySnippets snippets={[
+  { title: 'PROMPT RESEARCH AN TOÀN', code: 'Hãy nghiên cứu khách hàng ABC từ website và nguồn công khai để chuẩn bị cho cuộc gọi sales. Trả về bảng gồm: thông tin đã xác minh, giả định cần kiểm tra, dấu hiệu nhu cầu, 5 câu hỏi nên hỏi. Không bịa; nếu không chắc thì ghi “chưa xác minh”.' }
+]} />
+
+## Ma trận quyền hạn theo tool
+
+Gom lại tất cả: tool nào được làm gì, ô nào cần CEO duyệt.
+
+Mỗi ô là một mức quyền: **Cho phép**, **Cần duyệt**, **Không tự làm**. Bấm ô để xem giải thích.
+
+<PermissionMatrix04 />
+
+## Thiết kế approval flow
+
+Quy trình để Hermes biết: lúc nào tự làm, lúc nào phải hỏi.
+
+Không có approval flow → agent hỏi quá nhiều, hoặc tự làm quá nhiều. Bấm từng mức rủi ro:
+
+<RiskFlow04 />
+
+<CopySnippets snippets={[
+  { title: 'CÂU RULE NÊN DÙNG TRONG MỌI AGENT', code: 'Em được tự xử lý việc rủi ro thấp. Với việc gửi ra ngoài, sửa dữ liệu quan trọng, hoặc phát sinh chi phí, em phải hỏi anh trước. Nếu không chắc mức rủi ro, hãy dừng và hỏi.' }
+]} />
+
+## Bài tập thực hành
+
+Chọn 1 use case, thiết kế tool stack và approval flow. Lưu trong trình duyệt.
+
+<ToolStackWorksheet04 />
+
+<CopySnippets snippets={[
+  { title: 'MẪU RULE CHO USE CASE FOLLOW-UP', code: 'Use case: Follow-up lead sau demo.\nHermes được đọc sheet pipeline, đọc ghi chú demo, tạo email draft.\nHermes chưa được gửi email nếu chưa có xác nhận rõ từ anh.\nHermes chưa được sửa giá hoặc điều khoản trong sheet.\nNếu thiếu thông tin quan trọng, hỏi lại tối đa 3 câu.' }
+]} />
+
+## Checklist kiểm tra
+
+Bạn đạt yêu cầu bài này nếu hoàn thành các mục.
+
+<Lesson04Checklist />
+
+## Hermes Operator Challenge
+
+**Mục tiêu:** thiết kế tool stack tối giản cho một use case, không bật tool theo cảm hứng.
+
+### Output cần nộp
+
+Tạo file:
+
+```text
+tool-approval-map.md
+```
+
+Trong đó chọn 1 use case và mapping tool/quyền hạn rõ ràng.
+
+| Use case | Tool cần dùng | Hermes tự làm | Hermes chỉ draft | CEO phải duyệt | Rủi ro |
+|---|---|---|---|---|---|
+|  |  |  |  |  |  |
+
+### Prompt copy dùng ngay
+
+```text
+Anh muốn thiết kế tool stack an toàn cho use case sau:
+[use case]
+
+Các tool/kênh anh có hoặc muốn dùng:
+[Telegram, file, Gmail, Sheet, web/browser, CRM...]
+
+Hãy đề xuất bảng:
+- Tool nào thật sự cần
+- Tool nào chưa cần bật
+- Hermes được tự làm gì
+- Hermes chỉ được draft gì
+- Việc nào CEO bắt buộc duyệt
+- Rủi ro nếu cấu hình sai
+- Bài test đầu tiên để kiểm tra tool hoạt động
+```
+
+### Tiêu chuẩn hoàn thành
+
+- [ ] Chọn được 1 use case cần tool thật.
+- [ ] Biết tool nào cần bật trước, tool nào để sau.
+- [ ] Có approval rule trước khi gửi email/tin nhắn/dữ liệu ra ngoài.
+- [ ] Có workspace file/folder hoặc kênh Telegram rõ.
+- [ ] Có bài test an toàn trước khi chạy thật.
+
+## Lỗi thường gặp
+
+Năm lỗi hay gặp khi kết nối tool. Bấm để xem dấu hiệu & cách sửa.
+
+<ErrorTable04 />
+
+## Bước tiếp theo
+
+<NextLessonCard
+  kicker="Bài tiếp theo · 05"
+  title="Tự động hóa với cron & webhook"
+  desc="Biến hành động lặp thành tự động hóa: chọn việc nào agent tự chạy, việc nào cần duyệt, rồi dùng cron/webhook để quy trình lặp chạy đúng lịch hoặc đúng sự kiện."
+  cta="Bài 05"
+  href="/docs/khoa-hoc-hermes-handbook/05-tu-dong-hoa-quy-trinh-lap"
+/>

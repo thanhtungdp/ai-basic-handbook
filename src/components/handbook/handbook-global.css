@@ -1,0 +1,37 @@
+/* ============================================================
+   HERMES HANDBOOK — Global Styles for Dark Mode Support
+   This file contains global selectors that CSS Modules doesn't allow.
+
+   Theme mechanism: Fumadocs' RootProvider uses next-themes with the
+   default `attribute="class"`, so <html> gets a `.dark` / `.light`
+   class (system preference is resolved into that class too). Key the
+   dark palette off `.dark` — do NOT use [data-theme] or a raw
+   prefers-color-scheme media query, or light mode leaks dark colors.
+   ============================================================ */
+
+:root {
+  --hb-terracotta: hsl(22, 90%, 52%);
+  --hb-terracotta-hover: hsl(22, 90%, 52%);
+  --hb-terracotta-soft: #F2E3D6;
+  --hb-ink: #1F2421;
+  --hb-cream: #F7F4EF;
+  --hb-surface: #FBF9F5;
+  --hb-white: #FFFFFF;
+  --hb-border: #E7E1D7;
+  --hb-muted: #5C635D;
+  --hb-charcoal: #1F2421;
+}
+
+/* Dark mode — next-themes sets `.dark` on <html> */
+.dark {
+  --hb-terracotta: hsl(22, 90%, 52%);
+  --hb-terracotta-hover: hsl(22, 90%, 52%);
+  --hb-terracotta-soft: #2c1c10;
+  --hb-ink: #F7F4EF;
+  --hb-cream: #1F2421;
+  --hb-surface: #16140f;
+  --hb-white: #0f0d09;
+  --hb-border: #3a352c;
+  --hb-muted: #9b9382;
+  --hb-charcoal: #F7F4EF;
+}

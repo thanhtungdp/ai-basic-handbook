@@ -1,0 +1,207 @@
+---
+title: "02 — Hermes Funnel"
+description: Quản lý Lead & Nhắc hẹn, phân loại lead, follow-up và research lead
+---
+
+import Image from 'next/image'
+
+# 02 — Hermes Funnel
+
+<Image
+  src="/images/agents/research-agent.png"
+  alt="Hermes Funnel — quản lý lead, research và follow-up pipeline"
+  width={1536}
+  height={1024}
+  className="rounded-lg border border-border"
+/>
+
+> Mục tiêu của case này: setup **Hermes Funnel** như một quản lý lead AI — phân loại lead, tìm hiểu khách, nhắc follow-up, tạo kịch bản/email nháp và đẩy việc nóng lên cho CEO.
+
+{/* IMAGE_BRIEF:
+type: funnel-agent-board
+placement: đầu case Hermes Funnel
+purpose: minh họa pipeline lead có agent tự phân loại và nhắc hẹn
+concept: lead inbox → qualify → research → follow-up draft → reminder/escalation; dashboard pipeline Kanban
+style: CRM/funnel dashboard, đen trắng + cam #F86000
+ratio: 16:9
+*/}
+
+## Vấn đề kinh doanh
+
+Nhiều business không thiếu lead. Họ thiếu hệ thống xử lý lead đều.
+
+Lead rơi rụng vì:
+
+- Không phân loại nóng/ấm/lạnh.
+- Không tìm hiểu khách trước khi gọi.
+- Quên follow-up sau demo.
+- Không có kịch bản email tiếp theo.
+- Không biết lead nào đáng ưu tiên hôm nay.
+
+**Hermes Funnel** giúp CEO giữ pipeline không bị rò rỉ.
+
+## Hermes Funnel là ai?
+
+Hermes Funnel là agent thuộc phòng Sales, đứng trước Hermes Sales.
+
+| Funnel xử lý | Sales xử lý |
+|---|---|
+| Lead mới, phân loại, research | Báo giá, email thương mại, hợp đồng |
+| Nhắc hẹn, follow-up sequence | Tạo file báo giá/hợp đồng |
+| Customer brief trước call | Email gửi kèm báo giá |
+
+## Profile Hermes đề xuất
+
+| Mục | Gợi ý |
+|---|---|
+| Profile slug | `hermes-funnel` |
+| Phòng ban | Sales |
+| Model chính | GPT 5.5 cho điều phối + web/tool |
+| Model tiết kiệm | GLM 5.2 cho báo cáo lead định kỳ |
+| Tool ưu tiên | Sheets/CRM, Gmail draft, Calendar, Web/browser, Telegram |
+| Quyền mặc định | Đọc/phân loại/draft; chưa gửi email hoặc sửa deal quan trọng |
+
+## Setup profile
+
+```bash
+hermes profile create hermes-funnel --no-skills
+hermes -p hermes-funnel config set model.provider custom
+hermes -p hermes-funnel config set model.default gpt-5.5
+hermes -p hermes-funnel config set agent.reasoning_effort medium
+```
+
+## Persona/SOUL mẫu
+
+```text
+Bạn là Hermes Funnel — quản lý lead, nhắc hẹn và follow-up cho Solo CEO.
+
+Bạn đọc lead từ form/CRM/Sheet, phân loại nóng/ấm/lạnh, research thông tin công khai, đề xuất bước tiếp theo, tạo email follow-up dạng draft và báo lead cần CEO xử lý.
+
+Bạn không tự gửi email, không tự thay đổi giá trị deal quan trọng, không bịa dữ liệu research. Thông tin chưa chắc phải ghi “chưa xác minh”.
+
+Mọi báo cáo cần ưu tiên: lead nóng, lead quá hạn, việc cần CEO làm hôm nay.
+```
+
+## Workspace đề xuất
+
+```text
+/hermes-business-os/agents/funnel
+  /leads
+  /research
+  /follow-ups
+  /scripts
+  /reports
+  /logs
+```
+
+## Input cần có
+
+- Lead form hoặc sheet CRM.
+- Nguồn lead.
+- Ngành/quy mô công ty.
+- Website/domain/LinkedIn nếu có.
+- Trạng thái pipeline.
+- Lịch hẹn/demo.
+- Ghi chú cuộc gọi.
+- Rule scoring lead.
+
+## Output mong muốn
+
+- Lead score: nóng/ấm/lạnh.
+- Customer brief.
+- Kịch bản follow-up.
+- Email draft.
+- Next action và deadline.
+- Alert nếu lead nóng/quá hạn.
+
+Format trả về:
+
+```text
+Lead: ABC
+Score: Hot
+Lý do: đã demo, có budget, deadline trong tháng này
+Next action: gửi follow-up + đề xuất lịch kỹ thuật
+Email draft: ...
+Cần CEO duyệt: gửi email hay chỉnh offer?
+- Thông tin chưa xác minh: quy mô team sales
+```
+
+<Image
+  src="/images/agents/lead-brief-card.png"
+  alt="Lead brief card chuẩn: score, reason, next action, email draft, approval"
+  width={1536}
+  height={1024}
+  className="rounded-lg border border-border"
+/>
+
+## Skill cần tạo
+
+1. **Lead qualification skill** — rule nóng/ấm/lạnh.
+2. **Lead research brief skill** — tách fact/giả định/chưa xác minh.
+3. **Follow-up sequence skill** — email theo từng trạng thái lead.
+4. **Appointment reminder skill** — nhắc hẹn/demo/follow-up.
+5. **Pipeline priority skill** — chọn việc sales cần làm hôm nay.
+
+## Automation gợi ý
+
+| Automation | Trigger | Output |
+|---|---|---|
+| New lead brief | Có lead mới | Customer brief + score |
+| Demo follow-up draft | Sau demo 2 ngày | Email draft chờ duyệt |
+| Daily lead priority | 8h sáng | Lead nóng/quá hạn cần xử lý |
+| No-response reminder | 3 ngày sau email | Nhắc follow-up tiếp |
+
+## Approval rule
+
+```text
+Hermes Funnel được đọc CRM/Sheet, phân loại lead, research nguồn công khai, tạo follow-up draft và nhắc hẹn.
+Không tự gửi email nếu chưa duyệt.
+Không tự xóa lead hoặc đổi deal stage quan trọng nếu chưa có rule.
+Không bịa thông tin research; nếu không chắc ghi “chưa xác minh”.
+```
+
+## Bài test đầu tiên
+
+```text
+Dưới đây là 5 lead mới. Hãy phân loại nóng/ấm/lạnh, nêu lý do, đề xuất bước tiếp theo, và draft email follow-up đầu tiên cho từng lead. Nếu lead có website, hãy nêu thông tin cần research. Chưa gửi email.
+```
+
+Kết quả đạt nếu Hermes Funnel:
+
+- Phân loại có lý do.
+- Không bịa dữ kiện.
+- Có next action rõ.
+- Email draft phù hợp trạng thái lead.
+- Đẩy lead nóng lên đầu.
+
+## Dashboard funnel tối giản
+
+| Lead | Score | Stage | Next action | Deadline | Owner | Alert |
+|---|---|---|---|---|---|---|
+| ABC | Hot | Demo done | Follow-up | Today | CEO | Quá hạn 2 ngày |
+
+Dashboard tốt giúp Hermes Daily/Core gom việc chờ CEO dễ hơn.
+
+## Checklist production
+
+- [ ] Có nguồn lead rõ: form/CRM/Sheet.
+- [ ] Có rule lead scoring.
+- [ ] Có follow-up sequence cơ bản.
+- [ ] Có workspace lưu research/follow-up.
+- [ ] Có approval rule cho email.
+- [ ] Có daily lead priority automation.
+- [ ] Có cách escalate lead nóng/quá hạn.
+
+## Lỗi thường gặp
+
+| Lỗi | Dấu hiệu | Cách sửa |
+|---|---|---|
+| Lead score cảm tính | Agent phân loại không nhất quán | Viết rule scoring cụ thể |
+| Research bịa | Customer brief nghe hay nhưng sai | Bắt buộc tách fact/chưa xác minh |
+| Follow-up quá nhiều | Khách thấy spam | Thiết kế cadence rõ |
+| Không có next action | Báo cáo xong CEO vẫn phải nghĩ | Mỗi lead cần next action + deadline |
+| Không nối với Sales | Lead nóng không thành báo giá | Handoff rõ sang Hermes Sales |
+
+## Bước tiếp theo
+
+Sau Funnel + Sales, bạn đã có xương sống sales engine. Tiếp theo nên setup **Hermes Daily** để mỗi sáng CEO biết lead nào nóng, báo giá nào chờ duyệt, và việc nào cần xử lý ngay.

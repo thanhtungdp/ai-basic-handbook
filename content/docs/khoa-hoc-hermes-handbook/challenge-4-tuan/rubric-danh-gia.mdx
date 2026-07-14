@@ -1,0 +1,132 @@
+---
+title: "Rubric đánh giá 4 tuần"
+description: "Bảng tiêu chí giúp CEO biết mình đang ở đâu và cần làm gì tiếp theo"
+---
+
+import Image from 'next/image'
+
+
+# Rubric đánh giá 4 tuần
+
+> CEO không cần đo "học xong chưa".  
+> CEO cần biết: **mình đang ở đâu, cần làm gì tiếp.**
+
+<Image
+  src="/images/handbook/rubric-danh-gia-hero.png"
+  alt="Hình minh họa"
+  width={1536}
+  height={1024}
+  className="rounded-lg border border-border"
+/>
+
+---
+
+## Cách dùng rubric này
+
+Cuối mỗi tuần, CEO tự đánh giá theo bảng dưới.  
+Mục tiêu: đạt mức **Đạt** trở lên vào cuối tuần đó.  
+Mức **Tốt** là mục tiêu nâng cao. Mức **Xuất sắc** là exemplary.
+
+---
+
+## Bảng rubric tổng
+
+| Mức | Tuần 1 | Tuần 2 | Tuần 3 | Tuần 4 |
+|---|---|---|---|---|
+| **Chưa đạt** | Chưa có danh sách việc lặp | Chưa có SOP | Chưa có automation | Chưa có agent chạy thật |
+| **Đạt** | Có top 3 use case | Có 1 skill chạy được | Có 1 cron/job | Có 1 agent chạy hằng ngày |
+| **Tốt** | Có input/output chuẩn cho 3 use case | Skill chạy lại tốt 2 lần | Có approval flow | Có dashboard/log |
+| **Xuất sắc** | Biết chọn ROI, giải thích vì sao | Skill dùng nhiều lần, có pitfall | Agent tự báo cáo | Có 2 agent vận hành |
+
+---
+
+## Tuần 1 — Bản đồ việc lặp
+
+| Tiêu chí | Chưa đạt | Đạt | Tốt | Xuất sắc |
+|---|---|---|---|---|
+| Danh sách việc lặp | dưới 10 việc | 20+ việc | 30+ việc, nhóm theo loại | 50+ việc, có phân loại + tần suất |
+| ROI scoring | Chưa chấm | Chấm 3 tiêu chí | Chấm + xếp hạng | Chấm + giải thích vì sao chọn top 3 |
+| Input/Output | Chưa rõ | Có 1 use case rõ I/O | 3 use case rõ I/O | 3 use case + có tiêu chuẩn đúng/sai |
+| Agent Brief | Chưa có | Có draft | Có brief hoàn chỉnh | Có brief + approval rule |
+
+### Nếu chưa đạt tuần 1
+
+- Chưa có danh sách → dành 30 phút viết ra mọi việc lặp trong tuần qua
+- Chưa chấm ROI → dùng Template 1 (Repeated Work Map)
+- Chưa có I/O → chọn 1 việc, viết: input gì, output gì, đúng/sai trông thế nào
+
+---
+
+## Tuần 2 — SOP thành skill
+
+| Tiêu chí | Chưa đạt | Đạt | Tốt | Xuất sắc |
+|---|---|---|---|---|
+| SOP | Chưa có | Có SOP 1 việc | SOP rõ 5+ bước | SOP + checklist + pitfall |
+| Skill | Chưa tạo | Tạo được | Chạy 2 lần không lỗi | Chạy nhiều lần, có prompt mẫu |
+| Checklist | Chưa có | Có 3 tiêu chí | Có 5 tiêu chí | Có pitfall section |
+| Approval Rule | Chưa có | Có draft | Áp dụng được | Có rule + nâng/hạ cấp |
+
+### Nếu chưa đạt tuần 2
+
+- Chưa có SOP → làm 1 việc thủ công, ghi lại từng bước
+- Chưa có skill → dùng Template 3 (SOP → Skill) để tạo
+- Skill lỗi → chạy lại, sửa bước lỗi, chạy lại đến khi pass
+
+---
+
+## Tuần 3 — Tool & Automation
+
+| Tiêu chí | Chưa đạt | Đạt | Tốt | Xuất sắc |
+|---|---|---|---|---|
+| Cron/Job | Chưa có | Có 1 cron chạy | Cron chạy 3 ngày liên tiếp | Cron chạy + có log + có fallback |
+| Telegram | Chưa kết nối | Có 3 lệnh dùng hằng ngày | Có lệnh + response nhanh | Có lệnh + agent tự báo lỗi |
+| Approval Flow | Chưa có | Có rule cơ bản | Áp dụng đúng 3 loại | Có rule + tự nâng/hạ cấp |
+| Daily Brief | Chưa có | Có draft | Chạy 8h sáng 3 ngày | Chạy + CEO đọc 30 giây hiểu |
+
+### Nếu chưa đạt tuần 3
+
+- Chưa có cron → tạo Daily Brief cron đầu tiên, chạy 8h sáng
+- Chưa kết nối Telegram → setup Telegram bot (xem bài 01)
+- Cron lỗi → kiểm tra timezone, deliver target, API key
+
+---
+
+## Tuần 4 — Đội agent tự chủ
+
+| Tiêu chí | Chưa đạt | Đạt | Tốt | Xuất sắc |
+|---|---|---|---|---|
+| Agent chạy thật | Chưa có | 1 agent chạy hằng ngày | 2 agent chạy | 2+ agent + có ranh giới rõ |
+| Agent Profile | Chưa có | Có 1 profile | Có profile + memory + skill | Có org chart agent |
+| Escalation | Chưa có | Có rule "hỏi CEO" | Có rule + log | Có rule + log + tự nâng/hạ cấp |
+| Weekly Review | Chưa có | Có draft | Có review tuần 1 | Có review + kế hoạch tuần sau |
+
+### Nếu chưa đạt tuần 4
+
+- Chưa có agent chạy → quay lại tuần 2, đảm bảo 1 skill chạy được
+- Chưa có profile → tạo 1 profile cho agent ưu tiên
+- Agent chạy nhưng sai → kiểm tra approval rule, thêm checklist
+
+---
+
+## Tổng kết cuối khóa
+
+| Mức đạt | Ý nghĩa | Bước tiếp |
+|---|---|---|
+| **Tuần 1 đạt + Tuần 4 chưa đạt** | Đã có nền tảng, chưa có agent | Làm lại tuần 2–4 chậm hơn, tập 1 use case duy nhất |
+| **Tất cả đạt** | Đã có 1 agent chạy | [Sau 4 tuần](/docs/khoa-hoc-hermes-handbook/challenge-4-tuan/sau-4-tuan) |
+| **Tất cả tốt** | Có 2 agent + automation | Thêm agent thứ 3, tách profile |
+| **Tuần 4 xuất sắc** | Có đội agent vận hành | Review định kỳ, mở rộng use case |
+
+---
+
+## Checklist tự đánh giá
+
+- [ ] Tuần 1: có danh sách 20+ việc lặp + top 3 + 1 Agent Brief
+- [ ] Tuần 2: có 1 skill chạy được + approval rule
+- [ ] Tuần 3: có 1 cron chạy 3 ngày liên tiếp + Daily Brief
+- [ ] Tuần 4: có 1–2 agent chạy hằng ngày + Weekly Review
+- [ ] Cuối khóa: lập kế hoạch tuần 5–8
+
+---
+
+> **Nguyên tắc:** Rubric không để chấm điểm. Rubric để CEO biết **mình đang ở đâu và làm gì tiếp.**

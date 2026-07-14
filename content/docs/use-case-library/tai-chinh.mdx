@@ -1,0 +1,118 @@
+---
+title: "Finance & Cashflow Use Cases"
+description: Use case Hermes giúp CEO đảm bảo dòng tiền, công nợ và cảnh báo tài chính sớm
+---
+
+import Image from 'next/image'
+
+# Finance & Cashflow Use Cases
+
+> Mục tiêu: Hermes không thay kế toán, nhưng giúp CEO không bị mù dòng tiền.
+
+<Image
+  src="/images/use-cases/uc-cashflow-watchdog-dashboard.png"
+  alt="minh họa Hermes như radar dòng tiền cho CEO"
+  width={1536}
+  height={1024}
+  className="rounded-lg border border-border"
+/>
+
+## Mục tiêu kinh doanh
+
+Với Solo CEO, tài chính thường không chết vì thiếu báo cáo đẹp. Nó chết vì:
+
+- Quên nhắc khách thanh toán.
+- Không biết tuần tới thiếu tiền hay dư tiền.
+- Không nắm invoice nào quá hạn.
+- Chi phí nhỏ tích lại nhưng không được nhìn thấy.
+- Chỉ xem tiền khi đã có vấn đề.
+
+Hermes cần đóng vai trò **cashflow watchdog**: nhắc sớm, cảnh báo sớm, chuẩn bị hành động.
+
+## Use case đề xuất
+
+| STT | Use case | Mục tiêu | Output chính |
+|---|---|---|---|
+| F01 | Receivable Watchdog | Không quên thu tiền | Danh sách công nợ, email nhắc, mức ưu tiên |
+| F02 | Weekly Cashflow Brief | CEO biết tiền vào/ra tuần này | Cash in/out, risk, action cần làm |
+| F03 | Invoice Follow-up Assistant | Nhắc thanh toán chuyên nghiệp | Tin nhắn/email theo tone phù hợp |
+| F04 | Expense Review Agent | Nhìn chi phí bất thường | Danh sách chi phí, cảnh báo, đề xuất cắt giảm |
+| F05 | Revenue Forecast Lite | Ước lượng doanh thu sắp tới | Forecast theo deal/probability |
+| F06 | Payment Milestone Tracker | Theo dõi mốc thanh toán theo dự án | Milestone, due date, owner, status |
+
+## Use case ưu tiên viết chi tiết trước
+
+### F01 — Receivable Watchdog
+
+**Tình huống:** CEO có nhiều khoản phải thu nhưng không muốn tự kiểm tra sheet mỗi ngày.
+
+**Hermes giúp:**
+
+- Đọc sheet công nợ/invoice.
+- Phân loại khoản sắp đến hạn/quá hạn.
+- Soạn email nhắc thanh toán.
+- Báo khoản nào cần CEO gọi trực tiếp.
+
+**Artifact:** báo cáo công nợ + email nhắc thanh toán.
+
+---
+
+### F02 — Weekly Cashflow Brief
+
+**Tình huống:** CEO cần biết tuần này dòng tiền ổn không trước khi quyết định chi.
+
+**Hermes giúp:**
+
+- Tổng hợp tiền vào dự kiến.
+- Tổng hợp tiền ra dự kiến.
+- Cảnh báo thiếu hụt.
+- Đề xuất hành động: thu, hoãn chi, ưu tiên deal.
+
+**Artifact:** cashflow brief 1 trang.
+
+---
+
+### F06 — Payment Milestone Tracker
+
+**Tình huống:** Dự án chia nhiều đợt thanh toán, dễ quên mốc thu tiền.
+
+**Hermes giúp:**
+
+- Trích milestone từ hợp đồng/proposal.
+- Tạo lịch nhắc.
+- Cảnh báo khi milestone đến gần.
+- Soạn email xác nhận nghiệm thu/thanh toán.
+
+**Artifact:** payment milestone board.
+
+## Agent liên quan
+
+| Agent | Vai trò |
+|---|---|
+| Hermes Daily | Chạy nhắc định kỳ, briefing dòng tiền |
+| Hermes Core | Tổng hợp và escalation cho CEO |
+| Hermes Sales | Lấy dữ liệu deal, proposal, payment term |
+
+## Prompt mẫu cấp outline
+
+```text
+Đây là bảng công nợ/invoice tuần này: [dữ liệu].
+Hãy phân loại khoản sắp đến hạn, quá hạn, rủi ro cao,
+rồi soạn tin nhắn/email nhắc thanh toán cho từng nhóm.
+```
+
+## Guardrail tài chính
+
+Hermes chỉ nên:
+
+- Chuẩn bị báo cáo.
+- Soạn nhắc thanh toán.
+- Cảnh báo rủi ro.
+- Đề xuất hành động.
+
+Hermes không nên tự động:
+
+- Chuyển tiền.
+- Xóa dữ liệu kế toán.
+- Gửi nhắc thanh toán nhạy cảm khi chưa có duyệt.
+

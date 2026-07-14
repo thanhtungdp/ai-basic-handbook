@@ -1,0 +1,104 @@
+---
+title: "Operations & Customer Success Use Cases"
+description: Use case Hermes giúp CEO onboard khách hàng và chăm sóc khách hàng nhất quán
+---
+
+import Image from 'next/image'
+
+# Operations & Customer Success Use Cases
+
+> Mục tiêu: sau khi chốt khách, Hermes giúp doanh nghiệp giao hàng đúng, chăm sóc tốt, và phát hiện rủi ro sớm.
+
+<Image
+  src="/images/use-cases/uc-customer-onboarding-flow.png"
+  alt="cho CEO thấy quy trình sau khi chốt khách không bị rơi vào hỗn loạn"
+  width={1536}
+  height={1024}
+  className="rounded-lg border border-border"
+/>
+
+## Mục tiêu kinh doanh
+
+Nhiều Solo CEO bán được nhưng vận hành phía sau bị rối:
+
+- Khách ký xong nhưng onboarding chậm.
+- Thông tin bàn giao nằm rải rác.
+- CEO quên nhắc khách gửi dữ liệu.
+- Không phát hiện sớm khách không hài lòng.
+- Báo cáo tiến độ làm thủ công.
+
+Hermes cần trở thành lớp điều phối vận hành nhẹ.
+
+## Use case đề xuất
+
+| STT | Use case | Mục tiêu | Output chính |
+|---|---|---|---|
+| O01 | Client Onboarding Command Center | Onboard khách mới nhất quán | Checklist, kickoff agenda, data request |
+| O02 | Customer Handoff Summary | Chuyển từ sales sang delivery | Scope, cam kết, rủi ro, next action |
+| O03 | Weekly Client Status Report | Báo cáo tiến độ định kỳ | Done/doing/blocker/next week |
+| O04 | Customer Risk Watchdog | Phát hiện rủi ro churn/scope creep | Risk alert, evidence, action đề xuất |
+| O05 | Support Reply Drafting | Trả lời khách nhanh và đúng tone | Reply draft, escalation flag |
+| O06 | Delivery Checklist Tracker | Không bỏ sót việc giao hàng | Checklist, owner, deadline |
+
+## Use case ưu tiên viết chi tiết trước
+
+### O01 — Client Onboarding Command Center
+
+**Tình huống:** Khách vừa ký xong, CEO cần khởi động dự án ngay nhưng thông tin còn rời rạc.
+
+**Hermes giúp:**
+
+- Tạo kickoff agenda.
+- Tạo checklist dữ liệu cần khách gửi.
+- Tạo timeline 7/14/30 ngày đầu.
+- Soạn email welcome.
+- Nhắc các mốc quan trọng.
+
+**Artifact:** onboarding pack cho khách mới.
+
+---
+
+### O03 — Weekly Client Status Report
+
+**Tình huống:** CEO cần gửi báo cáo cho khách nhưng phải gom thông tin thủ công.
+
+**Hermes giúp:**
+
+- Tổng hợp log/file/task.
+- Viết báo cáo ngắn.
+- Nêu blocker và việc cần khách phản hồi.
+- Soạn email gửi báo cáo.
+
+**Artifact:** weekly client report + email draft.
+
+---
+
+### O04 — Customer Risk Watchdog
+
+**Tình huống:** Khách im lặng, chậm phản hồi, hoặc yêu cầu vượt scope.
+
+**Hermes giúp:**
+
+- Phát hiện tín hiệu rủi ro.
+- Tóm tắt bằng chứng.
+- Gợi ý hành động.
+- Nhắc CEO xử lý trước khi thành khủng hoảng.
+
+**Artifact:** customer risk alert.
+
+## Agent liên quan
+
+| Agent | Vai trò |
+|---|---|
+| Hermes Daily | Theo dõi nhắc việc, báo cáo định kỳ |
+| Hermes Core | Tổng hợp thông tin và điều phối |
+| Hermes Sales | Cung cấp handoff từ deal đã chốt |
+
+## Prompt mẫu cấp outline
+
+```text
+Khách hàng này vừa đồng ý triển khai: [thông tin].
+Hãy tạo onboarding pack gồm email welcome, kickoff agenda,
+checklist dữ liệu cần khách gửi, timeline 14 ngày đầu và rủi ro cần chú ý.
+```
+

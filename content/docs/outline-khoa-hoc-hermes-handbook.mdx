@@ -1,0 +1,244 @@
+---
+title: Outline khóa học Hermes Handbook
+description: Dàn ý tham khảo cho khóa học xây đội AI tự chủ cho Solo CEO bằng Hermes
+---
+
+# Outline khóa học Hermes Handbook
+
+> Tài liệu tham khảo nội bộ khi soạn nội dung chi tiết cho handbook/khóa học.  
+> Định vị: **Hermes Handbook giúp Solo CEO xây đội AI tự chủ: ra lệnh qua Telegram, biến việc lặp thành agent tự chạy, và trong 4 tuần có 1–2 agent làm việc thật mỗi ngày.**
+
+## Tên khóa học đề xuất
+
+**Hermes Handbook: Xây đội AI tự chủ cho Solo CEO**
+
+Các biến thể có thể dùng cho landing page:
+
+1. **4 tuần xây AI Operating System cho business 1 người**
+2. **Từ Prompt đến Agent: Vận hành doanh nghiệp bằng Hermes**
+3. **Hermes for Solo CEO: Ra lệnh một câu, agent tự chạy việc lặp**
+
+## Mục tiêu cuối khóa
+
+Người học không chỉ “biết dùng Hermes”, mà có:
+
+- 1–2 agent chạy việc thật mỗi ngày.
+- Bộ prompt CEO dùng được ngay.
+- Ít nhất 1 skill được tạo từ quy trình thật.
+- Ít nhất 1 automation định kỳ bằng cron/webhook.
+- Cấu trúc đội agent mini cho business 1 người.
+
+## Nguyên tắc thiết kế khóa học
+
+Không dạy Hermes như một công cụ chat. Dạy Hermes như một **hệ thống vận hành**.
+
+Mỗi chương cần tạo ra một artifact cụ thể:
+
+| Chương | Artifact |
+|---|---|
+| 00 | Bản đồ tư duy từ chat AI sang agent tự chủ |
+| 01 | Hermes chạy được |
+| 02 | Bộ prompt CEO |
+| 03 | Skill đầu tiên |
+| 04 | Tool/kênh kết nối |
+| 05 | Cron/automation đầu tiên |
+| 06 | Sơ đồ đội agent |
+
+## Dàn ý tổng thể
+
+| Phần | Tên chương | Mục tiêu |
+|---|---|---|
+| 00 | Tư duy Hermes: từ chat AI sang đội AI tự chủ | Người học hiểu Hermes khác ChatGPT ở điểm nào |
+| 01 | Cài đặt & chạy Hermes lần đầu | Từ số 0 đến agent đầu tiên trả lời trong 15 phút |
+| 02 | Ra lệnh kiểu CEO | Biết giao việc rõ đầu vào, đầu ra, tiêu chuẩn duyệt |
+| 03 | Dạy agent việc đầu tiên | Làm cùng agent một quy trình thật, rồi biến thành skill |
+| 04 | Kết nối tool để agent hành động thật | Telegram, Gmail, Sheets, file, web/browser |
+| 05 | Tự động hóa quy trình lặp | Biến việc định kỳ thành cron/checklist/approval flow |
+| 06 | Xây hệ thống Hermes cho business 1 người | Tách agent theo vai trò, dashboard, báo cáo, bàn giao |
+
+## 00 — Vì sao Solo CEO cần Hermes
+
+**Promise:** Người học hiểu mình không học thêm một app AI, mà đang xây năng lực vận hành mới.
+
+### Nội dung chính
+
+- Chat AI vs agent tự chạy.
+- Vì sao Solo CEO bị nghẽn ở việc lặp.
+- Việc nào nên giao cho Hermes.
+- 5 cấp độ tự động hóa:
+  1. Prompt
+  2. Checklist
+  3. Skill
+  4. Cron/webhook
+  5. Agent chuyên trách
+- Kết quả cuối khóa là gì.
+
+### Artifact
+
+Bản đồ 20–50 việc lặp của CEO.
+
+## 01 — Cài đặt & chạy Hermes lần đầu
+
+**Promise:** 15 phút có agent đầu tiên trả lời.
+
+### Nội dung chính
+
+- Cài Hermes.
+- Chọn model/provider.
+- Chạy phiên chat đầu tiên.
+- Hiểu session, memory, skill ở mức CEO.
+- Làm thử 3 việc nhỏ:
+  - Tóm tắt một file.
+  - Viết một email.
+  - Ghi nhớ một preference.
+
+### Artifact
+
+Hermes chạy được và trả lời đúng ngữ cảnh.
+
+## 02 — Ra lệnh tự nhiên — prompt kiểu CEO
+
+**Promise:** Biết giao việc để agent làm đúng, không phải sửa 10 lần.
+
+### Nội dung chính
+
+- Prompt kiểu nhân viên vận hành, không phải chatbot.
+- Công thức lệnh CEO:
+  - Bối cảnh
+  - Mục tiêu
+  - Dữ liệu đầu vào
+  - Tiêu chuẩn đầu ra
+  - Quyền hạn
+  - Khi nào phải hỏi lại
+- Mẫu lệnh cho các tình huống:
+  - Viết email
+  - Tạo báo giá
+  - Nghiên cứu khách hàng
+  - Lên lịch content
+
+### Artifact
+
+Bộ prompt CEO đầu tiên.
+
+## 03 — Dạy agent việc đầu tiên
+
+**Promise:** Làm cùng agent một lần, lần sau agent tự biết cách làm.
+
+### Nội dung chính
+
+- Chọn 1 việc thật có ROI cao:
+  - Báo giá
+  - Blog
+  - Email chăm sóc khách
+  - Báo cáo tuần
+- Làm mẫu cùng Hermes.
+- Sửa kết quả.
+- Ghi lại thành checklist.
+- Biến checklist thành skill.
+- Cách agent tự học sau mỗi lần làm.
+
+### Artifact
+
+1 skill đầu tiên dùng lại được.
+
+## 04 — Kết nối tool để agent hành động thật
+
+**Promise:** Agent không chỉ trả lời, mà bắt đầu hành động.
+
+### Nội dung chính
+
+- Telegram làm giao diện CEO.
+- File & folder làm nơi làm việc.
+- Gmail: soạn/kiểm tra/gửi có duyệt.
+- Google Sheets: đọc dữ liệu, cập nhật báo cáo.
+- Web/browser: nghiên cứu, kiểm tra website.
+- Nguyên tắc bảo mật:
+  - Việc nào cho tự làm.
+  - Việc nào cần CEO duyệt.
+
+### Artifact
+
+Hermes có ít nhất 1 kênh hành động thật.
+
+## 05 — Tự động hóa quy trình lặp
+
+**Promise:** Việc lặp không cần nhớ làm nữa.
+
+### Nội dung chính
+
+- Phân loại việc:
+  - Tự chạy.
+  - Chạy rồi chờ duyệt.
+  - Chỉ nhắc CEO.
+- Dùng cron cho việc định kỳ:
+  - Báo cáo sáng.
+  - Theo dõi lead.
+  - Tóm tắt email.
+  - Kiểm tra content pipeline.
+- Thiết kế approval flow.
+- Log, báo lỗi, escalation.
+
+### Artifact
+
+1 automation chạy theo lịch.
+
+## 06 — Xây hệ thống Hermes cho business 1 người
+
+**Promise:** Từ 1 agent thành đội AI mini.
+
+### Nội dung chính
+
+- Tách agent theo vai trò:
+  - Sales Agent
+  - Content Agent
+  - Research Agent
+  - Ops Agent
+  - Finance/Admin Agent
+- Thiết kế dashboard điều hành.
+- Chuẩn hóa thư mục, tài liệu, skill.
+- Quy tắc bàn giao giữa agent và CEO.
+- Checklist “agent sẵn sàng chạy 24/24”.
+
+### Artifact
+
+Bản thiết kế AI operating system cho business 1 người.
+
+## Phản biện chiến lược
+
+### 1. Nên có chương 00
+
+Nếu vào thẳng phần cài đặt, CEO dễ nghĩ đây là khóa học kỹ thuật. Chương 00 cần đóng khung lại:
+
+> Bạn không học Hermes để chat hay hơn. Bạn học Hermes để bớt phải tự vận hành.
+
+### 2. Không nên dạy quá nhiều tool ngay từ đầu
+
+CEO dễ bị ngợp nếu học Telegram, Gmail, Sheets, cron, webhook quá sớm. Nên đi theo thứ tự:
+
+1. Agent trả lời đúng.
+2. Agent làm đúng một việc.
+3. Agent nhớ cách làm.
+4. Agent hành động qua tool.
+5. Agent tự chạy theo lịch.
+
+### 3. Mỗi bài nên kết thúc bằng một hành động
+
+Không kết thúc bài bằng lý thuyết. Mỗi bài nên có:
+
+- Việc cần làm ngay.
+- Prompt mẫu.
+- Checklist kiểm tra.
+- Output cần nộp.
+
+## Cấu trúc chuẩn cho mỗi bài chi tiết
+
+Khi soạn nội dung chi tiết, mỗi bài nên theo format:
+
+1. **Vấn đề kinh doanh** — CEO đang mất thời gian/tiền ở đâu?
+2. **Tư duy agent** — việc này nên giao cho loại agent nào?
+3. **Input cần có** — CEO cần cung cấp gì?
+4. **Output mong muốn** — kết quả đúng trông như thế nào?
+5. **Câu lệnh mẫu** — prompt ngắn, dùng được ngay qua Telegram/CLI.
+6. **Cách Hermes tự học** — memory/skill/session/cron/profile nào được dùng?
+7. **Checklist kiểm tra** — làm sao biết agent chạy đúng?
+8. **Bước nâng cấp** — từ thủ công → bán tự động → tự động 24/24.

@@ -1,0 +1,4 @@
+'use client'
+import React from 'react'
+import { Checklist } from './Checklist'
+export function Lesson04Checklist(){return <Checklist storageKey="hermes04_check" items={[{text:'Hiểu tool là “tay chân” của Hermes.'},{text:'Biết kết nối theo use case, không bật theo cảm hứng.'},{text:'Chọn được 1–2 tool đầu tiên nên kết nối.'},{text:'Biết dùng Telegram như giao diện ra lệnh.'},{text:'Biết dùng file/folder làm workspace an toàn.'},{text:'Biết email nên bắt đầu bằng draft, chưa gửi tự động.'},{text:'Biết Sheets phù hợp làm bảng điều phối.'},{text:'Biết web/browser cần tách fact và giả định.'},{text:'Có approval flow đơn giản cho use case đầu tiên.'}]} completeMessage={<><strong>Hoàn thành bài 04 ✓</strong> Hermes đã sẵn sàng hành động qua tool một cách an toàn.</>} progressMessage={(n,t)=><>Đã đạt <strong>{n}/{t}</strong> mục. Tiếp tục nhé.</>}/>}

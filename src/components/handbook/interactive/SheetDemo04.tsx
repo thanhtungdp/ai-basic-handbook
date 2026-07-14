@@ -1,0 +1,5 @@
+'use client'
+import React,{useState}from'react'
+import styles from '../handbook.module.css'
+const acts=[['Đọc sheet','ok','Cho phép'],['Tóm tắt dữ liệu','ok','Cho phép'],['Đề xuất cập nhật','ok','Cho phép'],['Cập nhật trạng thái đơn giản','maybe','Cho phép nếu rule rõ'],['Xóa dòng / sửa giá trị quan trọng','appr','Phải duyệt']]
+export function SheetDemo04(){const[on,setOn]=useState<number|null>(null);return <div className={styles.sheet04}><table><thead><tr><th>Lead</th><th>Nguồn</th><th>Trạng thái</th><th>Bước tiếp theo</th><th>Deadline</th><th>Ghi chú</th></tr></thead><tbody><tr><td>ABC</td><td>Website</td><td><span>Demo xong</span></td><td>Follow-up</td><td>Thứ Sáu</td><td>Quan tâm dashboard</td></tr><tr><td>XYZ</td><td>Giới thiệu</td><td><span className={styles.cold04}>Mới</span></td><td>Gọi điện</td><td>Thứ Tư</td><td>Chưa rõ ngân sách</td></tr></tbody></table><div className={styles.sdActions04}>{acts.map(([n,cls,lab],i)=><button type="button" key={n} onClick={()=>setOn(i)} className={`${styles.sdAct04} ${on===i?styles.sdActOn04:''}`}><b>{n}</b><span className={styles[`sap_${cls}`]}>{lab}</span></button>)}</div></div>}

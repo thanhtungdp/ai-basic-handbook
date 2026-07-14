@@ -1,0 +1,222 @@
+---
+title: "03 — Dạy agent việc đầu tiên"
+description: Chọn một việc thật, làm cùng Hermes một lần, sửa kết quả — rồi biến cách làm đó thành skill, để lần sau agent không phải học lại từ đầu.
+lesson:
+  number: "03"
+  duration: 18
+  interactions: 7
+---
+
+import { Callout } from '@/components/handbook/shared'
+import {
+  TaskGroups,
+  AvoidBox,
+  CopySnippets,
+  NextLessonCard,
+  BeforeAfter03,
+  CriteriaStrip,
+  DecisionMatrix,
+  FiveStepLoop,
+  ChecklistAccordion,
+  SkillSorter,
+  ScopeExamples,
+  TaskPickWorksheet,
+  ErrorTable03,
+  Lesson03Checklist,
+  Lesson03Playground,
+  NoSkillMatrix,
+} from '@/components/handbook/interactive'
+
+Tất cả doanh nghiệp đều đến với vấn đề kinh doanh và bán hàng. Việc agent đầu tiên này là việc dạy agent cách chào giá dịch vụ cá nhân hóa, email chuyên nghiệp và độc đáo để giúp bạn tăng tỷ lệ chuyển đổi.
+
+<div className="video-container" style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', maxWidth: '100%', marginBottom: '2rem', borderRadius: '0.75rem', border: '1px solid var(--border)' }}>
+  <iframe
+    src="https://www.youtube-nocookie.com/embed/X3YEkWlnEME?rel=0&modestbranding=1"
+    title="Dạy agent việc đầu tiên — Chào giá dịch vụ cá nhân hóa"
+    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowFullScreen
+  />
+</div>
+
+## Tài liệu đính kèm
+
+> **Mẫu chào giá thực hành**  
+> Đây là template được sử dụng trong video để thực hành. Bạn có thể tham khảo, tải về, hoặc dùng chính mẫu chào giá hiện tại của doanh nghiệp mình.
+>
+> [Mở Google Docs — Mẫu chào giá](https://docs.google.com/document/d/1Qj6RZyWEm8lQmjxPojNlefOzzgEFvImiZ5Gg_GOReV4/edit?tab=t.0)
+
+## Vấn đề kinh doanh
+
+Nhiều CEO dùng AI theo kiểu: mỗi lần làm lại dạy lại từ đầu.
+
+Hôm nay nhờ AI viết email, phải nói lại tone. Ngày mai nhờ làm báo giá, phải nhắc lại format. Tuần sau viết blog, lại copy guideline cũ. Vẫn tiết kiệm thời gian — nhưng chưa tạo ra **năng lực vận hành tích lũy**.
+
+Hermes khác ở chỗ: sau khi làm một việc đủ tốt, bạn yêu cầu nó ghi lại cách làm thành **skill**. Bấm để thấy khác biệt:
+
+<BeforeAfter03 />
+
+<Callout>
+  <p>Skill là "sổ tay thao tác" của agent. Khi việc lặp lại xuất hiện, Hermes mở đúng sổ tay và làm theo — không bắt bạn brief lại từ con số 0.</p>
+</Callout>
+
+## Chọn việc đầu tiên để dạy agent
+
+Đủ nhỏ để làm xong trong 30–60 phút, nhưng đủ thật để có giá trị kinh doanh.
+
+Trước khi chọn, soi việc đó qua 5 tiêu chí. Bấm từng tiêu chí để xem câu hỏi kiểm tra:
+
+<CriteriaStrip />
+
+Năm nhóm việc phù hợp để bắt đầu — đều có đầu vào/đầu ra rõ và dễ duyệt:
+
+<TaskGroups />
+
+<AvoidBox />
+
+## Ma trận chọn việc · ROI × Rủi ro
+
+Việc tốt cho lần đầu nằm ở góc: ROI cao, rủi ro thấp hoặc kiểm soát được.
+
+Mỗi chấm là một việc. Bấm vào chấm để xem nên hay chưa nên giao. Vùng cam là vùng khuyến nghị.
+
+<DecisionMatrix />
+
+## Quy trình dạy agent một việc
+
+Một vòng lặp 5 bước. Bấm từng bước để xem CEO làm gì và Hermes làm gì.
+
+<FiveStepLoop />
+
+<Callout variant="orange">
+  <p>Đừng lưu skill quá sớm. Skill nên ghi lại cách làm đã qua một vòng review — không phải bản nháp đầu tiên.</p>
+</Callout>
+
+## Thực hành: dạy Hermes soạn email follow-up
+
+Đi hết một vòng dạy việc thật — bấm các bước theo thứ tự để xem Hermes phản ứng.
+
+Đây là mô phỏng. Bấm từng gợi ý bên dưới khung chat để dẫn dắt cuộc huấn luyện từ giao việc → cung cấp dữ liệu → review → rút checklist → lưu skill.
+
+<Lesson03Playground />
+
+## Từ kết quả sang checklist
+
+Khi bản draft đã đạt, yêu cầu Hermes rút ra checklist quy trình.
+
+<CopySnippets snippets={[
+  { title: 'CÂU LỆNH RÚT CHECKLIST', code: 'Bản email này đã đạt. Hãy rút ra checklist quy trình soạn email follow-up sau demo để lần sau em làm lại đúng. Checklist cần gồm: đầu vào bắt buộc, các bước xử lý, tiêu chuẩn đầu ra, lỗi cần tránh, khi nào phải hỏi lại CEO.' }
+]} />
+
+Checklist tốt mà Hermes trả về sẽ có dạng — bấm từng phần để mở:
+
+<ChecklistAccordion />
+
+## Lưu thành skill
+
+Skill ghi nhớ **cách làm** — không phải một email cụ thể.
+
+Trước khi lưu, tự phân loại: thứ nào thuộc về skill, thứ nào chỉ là dữ liệu tạm thời? Bấm **Lưu** hoặc **Bỏ** cho từng mục — rồi xem bạn đúng bao nhiêu.
+
+<SkillSorter />
+
+<CopySnippets snippets={[
+  { title: 'CÂU LỆNH LƯU SKILL', code: 'Hãy lưu quy trình này thành một skill tên `sales-follow-up-after-demo`.\nSkill dùng khi anh yêu cầu soạn email follow-up sau buổi demo.\nTrong skill cần có: khi nào dùng, đầu vào cần có, quy trình từng bước, tiêu chuẩn đầu ra, lỗi cần tránh, checklist kiểm tra trước khi trả kết quả.' }
+]} />
+
+## Khi nào không nên lưu thành skill?
+
+Không phải việc gì cũng cần skill. Bấm từng tình huống để xem lý do.
+
+<NoSkillMatrix />
+
+Skill quá rộng vs skill dùng được:
+
+<ScopeExamples />
+
+## Mẫu prompt dạy agent một việc bất kỳ
+
+Một template áp dụng cho mọi use case — copy, thay nội dung trong ngoặc, gửi.
+
+<CopySnippets snippets={[
+  { title: 'TEMPLATE · DẠY MỘT QUY TRÌNH MỚI', code: 'Anh muốn dạy em một quy trình mới: [tên việc].\n\nBối cảnh kinh doanh: [việc này dùng khi nào, vì sao quan trọng]\nMục tiêu: [kết quả cuối cùng cần đạt]\nĐầu vào anh sẽ cung cấp: [dữ liệu / file / thông tin cần có]\nĐầu ra mong muốn: [format: email, bảng, file, checklist, báo cáo…]\nTiêu chuẩn đạt: [độ dài, tone, format, kiểm tra số liệu, không bịa]\nQuyền hạn: [em được tự làm gì, việc nào phải hỏi/đợi duyệt]\n\nCách học: Trước tiên hãy hỏi lại những thông tin còn thiếu. Sau khi tạo bản nháp, anh sẽ feedback. Khi bản nháp đạt, em hãy rút ra checklist và đề xuất lưu thành skill.' }
+]} />
+
+## Bài tập thực hành
+
+Chọn 1 việc thật, đi hết 7 bước. Đánh dấu khi xong — lưu trong trình duyệt.
+
+<TaskPickWorksheet />
+
+## Checklist kiểm tra
+
+Bạn đạt yêu cầu bài này nếu hoàn thành các mục.
+
+<Lesson03Checklist />
+
+## Lỗi thường gặp
+
+Năm lỗi hay gặp khi dạy việc đầu tiên. Bấm để xem dấu hiệu & cách sửa.
+
+<ErrorTable03 />
+
+## Hermes Operator Challenge
+
+**Mục tiêu:** dạy Hermes một việc thật và rút ra checklist để lần sau làm lại tốt hơn.
+
+### Output cần nộp
+
+Tạo 2 artifact:
+
+```text
+sop-use-case-01.md
+skill-draft-use-case-01.md
+```
+
+SOP ghi cách làm đúng. Skill draft ghi cách Hermes nên tự áp dụng lần sau.
+
+| Artifact | Nội dung bắt buộc |
+|---|---|
+| SOP | bước làm, input, output, tiêu chuẩn đạt |
+| Skill draft | khi nào dùng, quy trình, lỗi thường gặp, checklist kiểm tra |
+
+### Prompt copy dùng ngay
+
+```text
+Anh muốn dạy em một việc thật để lần sau em tự làm tốt hơn.
+
+Việc cần dạy:
+[tên việc]
+
+Dữ liệu đầu vào:
+[dán dữ liệu thật]
+
+Đầu ra mong muốn:
+[mô tả kết quả đúng]
+
+Quy trình hiện tại của anh:
+[các bước nếu có]
+
+Hãy làm bản nháp đầu tiên. Sau đó, khi anh feedback xong, hãy rút ra:
+1. Checklist quy trình.
+2. Tiêu chuẩn kiểm tra output.
+3. Skill draft để lần sau Hermes tự dùng.
+```
+
+### Tiêu chuẩn hoàn thành
+
+- [ ] Có 1 việc thật đã chạy với Hermes.
+- [ ] Có ít nhất 1 vòng feedback của CEO.
+- [ ] Có SOP ngắn cho việc đó.
+- [ ] Có skill draft hoặc checklist đủ để lưu thành skill.
+- [ ] Kết quả lần 2 tốt hơn lần 1.
+
+## Bước tiếp theo
+
+<NextLessonCard
+  kicker="Bài tiếp theo · 04"
+  title="Kết nối tool để agent hành động"
+  desc="Từ 'agent biết làm' sang 'agent có thể hành động': nối Telegram, file, Gmail, Google Sheets, web — để Hermes làm việc ngay trong hệ thống vận hành của bạn."
+  cta="Bài 04"
+  href="/docs/khoa-hoc-hermes-handbook/04-ket-noi-tool"
+/>

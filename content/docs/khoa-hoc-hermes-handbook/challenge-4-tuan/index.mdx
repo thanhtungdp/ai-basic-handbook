@@ -1,0 +1,230 @@
+---
+title: Challenge 4 tuần
+description: 20 nhiệm vụ thực hành để Solo CEO build agent Hermes đầu tiên chạy việc thật mỗi ngày
+---
+
+import Image from 'next/image'
+
+
+# Challenge 4 tuần: 20 nhiệm vụ để build agent đầu tiên
+
+> Mục tiêu của challenge này không phải “học thêm AI”.  
+> Mục tiêu là sau 4 tuần, anh/chị có **1–2 agent Hermes đang chạy việc thật mỗi ngày**.
+
+Mỗi ngày chỉ cần **60–90 phút**. Làm ít nhưng đều. Mỗi challenge phải tạo ra một artifact cụ thể: danh sách việc lặp, prompt, skill, lịch tự động, báo cáo, hoặc profile agent.
+
+<Image
+  src="/images/handbook/challenge-4-tuan-hero.png"
+  alt="Hình minh họa"
+  width={1536}
+  height={1024}
+  className="rounded-lg border border-border"
+/>
+
+## Cách dùng challenge này
+
+| Nguyên tắc | Cách làm |
+|---|---|
+| Thời lượng | 60–90 phút/ngày, 5 ngày/tuần |
+| Luật chọn việc | Chọn việc đang lặp lại thật trong business, không chọn demo cho vui |
+| Output mỗi ngày | Phải có file, prompt, checklist, skill, cron hoặc báo cáo cụ thể |
+| Vai trò CEO | Ra lệnh, duyệt, sửa tiêu chuẩn; không tự copy-paste từng bước |
+| Vai trò Hermes | Nhận input, xử lý, ghi nhớ cách làm, đề xuất bước nâng cấp |
+
+## Tuần 1 — Bản đồ việc lặp
+
+Tuần này trả lời câu hỏi: **việc nào đáng giao cho agent trước?**
+
+| Ngày | Challenge | Output bắt buộc |
+|---|---|---|
+| 1 | Liệt kê 20–50 việc CEO đang lặp lại | `repeated-work-map.md` |
+| 2 | Chấm điểm ROI: thời gian, tần suất, lỗi, giá trị kinh doanh | Bảng top 10 việc nên tự động hóa |
+| 3 | Chọn 3 việc có input/output rõ nhất | 3 bản mô tả use case |
+| 4 | Viết chuẩn đầu vào/đầu ra cho use case số 1 | Checklist input/output |
+| 5 | Chạy thử Hermes xử lý use case số 1 bằng prompt thủ công | Kết quả thử nghiệm + lỗi cần sửa |
+
+### Prompt mẫu tuần 1
+
+```text
+Em là Hermes Operator của công ty anh/chị.
+Hãy giúp anh/chị lập bản đồ việc lặp trong business.
+
+Bối cảnh business:
+[loại hình kinh doanh]
+
+Trong tuần qua anh/chị thường làm các việc sau:
+[dán danh sách việc]
+
+Hãy phân loại thành bảng:
+- Việc lặp
+- Tần suất
+- Thời gian mỗi lần
+- Đầu vào cần có
+- Đầu ra mong muốn
+- Rủi ro nếu làm sai
+- Có nên giao cho agent không
+- Lý do
+
+Sau đó chọn top 3 việc nên giao cho Hermes trước.
+```
+
+### Checklist cuối tuần 1
+
+- [ ] Có danh sách ít nhất 20 việc lặp.
+- [ ] Có top 3 use case theo ROI.
+- [ ] Có 1 use case đã chạy thử bằng prompt.
+- [ ] Biết rõ input nào còn thiếu hoặc chưa chuẩn.
+
+## Tuần 2 — SOP thành skill
+
+Tuần này biến cách làm đúng thành **skill** để agent không cần học lại từ đầu.
+
+| Ngày | Challenge | Output bắt buộc |
+|---|---|---|
+| 6 | Viết SOP bước-1-2-3 cho use case số 1 | `sop-use-case-01.md` |
+| 7 | Biến SOP thành checklist kiểm tra chất lượng | Checklist “đạt/chưa đạt” |
+| 8 | Yêu cầu Hermes tạo skill từ SOP | Skill nháp |
+| 9 | Chạy lại cùng việc với skill, so sánh kết quả | Báo cáo trước/sau |
+| 10 | Chuẩn hóa template đầu vào và đầu ra | Template dùng lại |
+
+### Prompt mẫu tuần 2
+
+```text
+Dựa trên quy trình dưới đây, hãy biến nó thành một skill cho Hermes.
+
+Quy trình hiện tại:
+[dán SOP]
+
+Yêu cầu skill:
+- Khi nào nên dùng
+- Input cần có
+- Các bước xử lý
+- Tiêu chuẩn đầu ra
+- Lỗi thường gặp
+- Cách kiểm tra trước khi gửi CEO
+
+Viết ngắn, rõ, để lần sau agent tự dùng được.
+```
+
+### Checklist cuối tuần 2
+
+- [ ] Có ít nhất 1 SOP viết rõ từng bước.
+- [ ] Có ít nhất 1 skill hoặc bản nháp skill.
+- [ ] Có template input/output dùng lại.
+- [ ] Kết quả lần 2 tốt hơn lần 1 hoặc ít cần CEO sửa hơn.
+
+## Tuần 3 — Tự động hóa lịch và kênh giao tiếp
+
+Tuần này chuyển từ “CEO gọi thì agent làm” sang **agent tự chạy theo lịch hoặc sự kiện**.
+
+| Ngày | Challenge | Output bắt buộc |
+|---|---|---|
+| 11 | Chọn 1 việc nên chạy định kỳ | Danh sách lịch chạy đề xuất |
+| 12 | Thiết kế báo cáo ngắn để CEO chỉ cần duyệt | Mẫu báo cáo 5 dòng |
+| 13 | Tạo cron/job nhắc hoặc tổng hợp định kỳ | Cron/job thử nghiệm |
+| 14 | Kết nối kênh giao tiếp chính: Telegram/Zalo/email | Lệnh mẫu qua kênh thật |
+| 15 | Chạy thử quy trình bán tự động: agent làm, CEO duyệt | Log thử nghiệm |
+
+### Prompt mẫu tuần 3
+
+```text
+Hãy thiết kế một workflow định kỳ cho việc sau:
+[việc lặp]
+
+Mục tiêu kinh doanh:
+[mục tiêu]
+
+Yêu cầu:
+- Lịch chạy đề xuất
+- Input agent cần lấy
+- Output gửi về CEO
+- Khi nào agent được tự xử lý
+- Khi nào phải hỏi CEO
+- Mẫu báo cáo ngắn dưới 10 dòng
+```
+
+### Checklist cuối tuần 3
+
+- [ ] Có ít nhất 1 việc chạy theo lịch hoặc được nhắc tự động.
+- [ ] Báo cáo agent gửi về đủ ngắn để CEO duyệt nhanh.
+- [ ] Có rule rõ: tự xử lý hay hỏi CEO.
+- [ ] Có log hoặc bằng chứng agent đã chạy thử.
+
+## Tuần 4 — Đội AI tự chủ
+
+Tuần này tách agent theo vai trò để business không phụ thuộc vào một “chat tổng hợp”.
+
+| Ngày | Challenge | Output bắt buộc |
+|---|---|---|
+| 16 | Vẽ sơ đồ đội agent cho business 1 người | Agent org chart |
+| 17 | Chọn 1–2 agent chạy thật mỗi ngày | Mô tả vai trò agent |
+| 18 | Viết rule kiểm tra, báo lỗi, escalation | Rule tự quyết/hỏi CEO |
+| 19 | Tạo profile hoặc bộ lệnh riêng cho agent quan trọng nhất | Profile/spec nháp |
+| 20 | Tổng kết, chốt lịch vận hành 30 ngày tiếp theo | Operating plan 30 ngày |
+
+### Prompt mẫu tuần 4
+
+```text
+Hãy thiết kế đội Hermes Agent cho business 1 người của anh/chị.
+
+Business:
+[mô tả]
+
+Các việc lặp quan trọng:
+[danh sách]
+
+Yêu cầu output:
+- 3–5 agent nên có
+- Vai trò từng agent
+- Việc agent được tự làm
+- Việc phải xin duyệt
+- Công cụ/kênh cần kết nối
+- Lịch chạy hằng ngày/hằng tuần
+- Agent nào nên triển khai đầu tiên trong 7 ngày tới
+```
+
+### Checklist cuối tuần 4
+
+- [ ] Có sơ đồ 3–5 agent cho business.
+- [ ] Có 1–2 agent được chọn để chạy thật mỗi ngày.
+- [ ] Có rule escalation rõ ràng.
+- [ ] Có lịch vận hành 30 ngày tiếp theo.
+- [ ] CEO biết mỗi ngày cần xem báo cáo nào, duyệt gì, bỏ qua gì.
+
+## Bảng đánh giá kết quả cuối challenge
+
+| Mức | Dấu hiệu | Ý nghĩa |
+|---|---|---|
+| Chưa đạt | Chỉ có prompt rời rạc, chưa có output chạy lại được | Vẫn đang dùng AI như chat |
+| Đạt cơ bản | Có 1 SOP + 1 skill + 1 workflow chạy thử | Đã bắt đầu có agent làm việc |
+| Đạt tốt | Có 1 agent chạy định kỳ và gửi báo cáo | CEO đã chuyển được một việc lặp ra khỏi đầu |
+| Xuất sắc | Có 2 agent, có rule tự quyết/hỏi CEO, có lịch 30 ngày | Business bắt đầu vận hành như có đội AI nhỏ |
+
+## Lỗi thường gặp
+
+1. **Chọn việc quá lớn ngay từ đầu**  
+   Ví dụ: “tự động hóa toàn bộ sales”. Hãy bắt đầu bằng “tổng hợp lead mới mỗi sáng” hoặc “soạn email follow-up”.
+
+2. **Không chuẩn input**  
+   Agent không làm ổn nếu dữ liệu đầu vào mỗi lần một kiểu. Tuần 2 phải có template.
+
+3. **Không có tiêu chuẩn đúng/sai**  
+   Nếu CEO không nói thế nào là đạt, agent chỉ đoán.
+
+4. **Tự động hóa không có điểm dừng**  
+   Việc liên quan tiền, khách hàng, pháp lý, dữ liệu nhạy cảm phải có rule xin duyệt.
+
+5. **Không ghi lại cách làm**  
+   Làm xong mà không tạo skill/SOP thì lần sau vẫn phải dạy lại.
+
+## Bước tiếp theo
+
+Nếu đây là lần đầu làm Hermes Handbook, hãy đi theo thứ tự:
+
+1. Đọc bài **Tư duy Hermes**.
+2. Hoàn thành **Tuần 1 — Bản đồ việc lặp**.
+3. Chọn 1 use case nhỏ nhưng có giá trị thật.
+4. Sau mỗi lần agent làm xong, yêu cầu Hermes ghi lại thành skill hoặc checklist.
+
+> Đích đến không phải “biết dùng Hermes”.  
+> Đích đến là CEO có thể nhắn một câu, agent tự chạy phần việc lặp — và ngày mai làm tốt hơn hôm nay.

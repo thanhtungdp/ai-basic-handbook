@@ -1,0 +1,82 @@
+---
+title: "Use Case Library"
+description: Thư viện use case Hermes theo 5 trụ cột vận hành cho Solo CEO
+---
+
+import Image from 'next/image'
+
+# Use Case Library
+
+> Trạng thái: **outline chiến lược**.  
+> Mục tiêu: giúp CEO nhìn Hermes theo **mục tiêu vận hành**, không nhìn theo tool kỹ thuật.
+
+<Image
+  src="/images/use-cases/uc-business-pillars-map.png"
+  alt="giúp CEO thấy Hermes bám vào 5 trụ cột vận hành, không phải danh sách tool rời rạc"
+  width={1536}
+  height={1024}
+  className="rounded-lg border border-border"
+/>
+
+## Tư duy thiết kế
+
+Không bắt đầu từ câu hỏi: “Hermes làm được gì?”
+
+Bắt đầu từ câu hỏi CEO thật sự quan tâm:
+
+> “Doanh nghiệp của tôi đang cần cải thiện mục tiêu vận hành nào?”
+
+Vì vậy, use case được chia theo 5 trụ cột:
+
+| Trụ cột | Mục tiêu CEO | Kết quả Hermes cần tạo |
+|---|---|---|
+| Marketing | Phát triển khách hàng tiềm năng | Lead magnet, viral video, campaign, nội dung kéo lead |
+| Sales | Tăng tỷ lệ chuyển đổi | Tư vấn cá nhân hóa, báo giá, follow-up, proposal |
+| Vận hành | Onboard và chăm sóc khách hàng | Onboarding checklist, CS workflow, báo cáo rủi ro |
+| Tài chính | Đảm bảo dòng tiền | Công nợ, nhắc thanh toán, forecast, cảnh báo cashflow |
+| HR / Knowledge | Giữ tri thức và chuẩn hóa đội ngũ | SOP, playbook, onboarding nhân sự, skill nội bộ |
+
+## Danh sách nhóm use case
+
+| Nhóm | Tên | Vai trò trong business |
+|---|---|---|
+| 01 | Marketing Growth Use Cases | Tạo nhu cầu và lead mới |
+| 02 | Sales Conversion Use Cases | Chuyển lead thành khách trả tiền |
+| 03 | Operations & Customer Success Use Cases | Giao hàng, onboard, giữ khách |
+| 04 | Finance & Cashflow Use Cases | Theo dõi dòng tiền, giảm rủi ro thu tiền |
+| 05 | HR & Knowledge Use Cases | Biến kinh nghiệm CEO thành tài sản vận hành |
+
+## Format mỗi use case chi tiết sau này
+
+Mỗi use case khi viết chi tiết sẽ theo format:
+
+1. **Mục tiêu kinh doanh** — cải thiện chỉ số hoặc điểm nghẽn nào?
+2. **Tình huống thực tế** — CEO thường gặp việc này khi nào?
+3. **Agent chính phụ trách** — Core/Sales/Funnel/Voice/Visual/Daily hay profile mới?
+4. **Input cần có** — dữ liệu, file, sheet, form, cuộc họp, template.
+5. **Output mong muốn** — kết quả đúng trông như thế nào?
+6. **Prompt mẫu** — CEO ra lệnh qua Telegram/CLI như thế nào?
+7. **Workflow Hermes** — skill/tool/cron/webhook/profile nào tham gia?
+8. **Approval rule** — việc nào agent tự làm, việc nào cần CEO duyệt?
+9. **Checklist kiểm tra** — làm sao biết agent chạy đúng?
+10. **Bước nâng cấp** — từ thủ công → bán tự động → tự động 24/24.
+
+## Nguyên tắc chọn use case để viết trước
+
+Ưu tiên use case có đủ 4 điều kiện:
+
+- Lặp lại hằng tuần hoặc hằng ngày.
+- Có đầu vào/đầu ra rõ.
+- Có tiêu chuẩn đúng/sai để kiểm tra.
+- Tạo ROI thấy ngay: thêm lead, tăng chốt, giảm quên việc, giữ tiền, giảm phụ thuộc CEO.
+
+## Bộ use case nên viết trước
+
+| Ưu tiên | Use case | Trụ cột | Lý do |
+|---|---|---|---|
+| 1 | Lead Magnet Builder | Marketing | Tạo tài sản kéo lead, dễ thấy kết quả |
+| 2 | Personalized Sales Proposal | Sales | Tăng tỷ lệ chuyển đổi, sát tiền |
+| 3 | Client Onboarding Command Center | Vận hành | Giảm rối sau khi chốt khách |
+| 4 | Cashflow & Receivable Watchdog | Tài chính | Giảm rủi ro quên thu tiền |
+| 5 | SOP Capture Agent | HR / Knowledge | Biến việc CEO làm thành tài sản đội ngũ |
+

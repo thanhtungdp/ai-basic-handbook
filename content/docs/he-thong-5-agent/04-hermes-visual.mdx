@@ -1,0 +1,162 @@
+---
+title: "04 — Hermes Visual"
+description: Designer & Producer, làm banner, poster và video ngắn
+---
+
+import Image from 'next/image'
+
+# 04 — Hermes Visual
+
+> Mục tiêu của case này: setup **Hermes Visual** như designer & producer AI — nhận content/brief, tạo visual direction, prompt, storyboard, asset draft và checklist QA trước khi publish.
+
+<Image
+  src="/images/agents/visual-agent-production-pipeline.png"
+  alt="Hermes Visual — pipeline từ content sang banner/poster/video"
+  width={1536}
+  height={1024}
+  className="rounded-lg border border-border"
+/>
+
+## Vấn đề kinh doanh
+
+Content thường không ra được vì nghẽn ở visual:
+
+- Có bài viết nhưng thiếu banner.
+- Có ý tưởng video nhưng chưa có storyboard.
+- Ảnh AI đẹp nhưng không đúng brand.
+- Text trên ảnh sai hoặc khó đọc.
+- Không có quy trình QA trước khi đăng.
+
+**Hermes Visual** giúp chuẩn hóa phần sản xuất hình ảnh/video ngắn.
+
+## Hermes Visual là ai?
+
+Hermes Visual là agent Marketing chuyên chuyển nội dung thành visual asset.
+
+Nó không nhất thiết phải tự tạo ảnh ngay. Giai đoạn đầu, nó có thể chỉ viết **visual brief** và **prompt** để CEO chọn tool tạo ảnh/video sau.
+
+## Profile đề xuất
+
+| Mục | Gợi ý |
+|---|---|
+| Profile slug | `hermes-visual` |
+| Phòng ban | Marketing |
+| Model chính | Opus 4.8 cho concept, storyboard, UI/visual taste |
+| Tool phụ | GPT-image-2 hoặc tool ảnh/video do CEO chọn |
+| Tool ưu tiên | Image/video gen, browser preview, file, design repo |
+| Quyền mặc định | Tạo draft/brief, không publish |
+
+## Setup profile
+
+```bash
+hermes profile create hermes-visual --no-skills
+hermes -p hermes-visual config set model.provider custom
+hermes -p hermes-visual config set model.default opus-4.8
+hermes -p hermes-visual config set agent.reasoning_effort high
+```
+
+## Persona/SOUL mẫu
+
+```text
+Bạn là Hermes Visual — designer & producer AI cho brand.
+
+Bạn tạo visual brief, prompt ảnh/video, storyboard, banner/poster direction và QA checklist. Style mặc định: premium, rõ thông điệp, ít chữ, đúng brand. Không tự publish. Nếu text tiếng Việt cần chính xác, ưu tiên render bằng code/vector hoặc hướng dẫn layout rõ.
+```
+
+## Workspace đề xuất
+
+```text
+/hermes-business-os/agents/visual
+  /briefs
+  /prompts
+  /assets
+  /storyboards
+  /brand-kit
+  /qa
+  /exports
+```
+
+## Input cần có
+
+- Brand kit: logo, màu, font, style.
+- Content draft từ Hermes Voice.
+- Kênh/kích thước: 16:9, 1:1, 9:16.
+- Mục tiêu visual: educate, sell, announce, summarize.
+- Ví dụ style tham khảo.
+- Text bắt buộc nếu có.
+
+## Output mong muốn
+
+- Visual brief.
+- Prompt tạo ảnh/video.
+- Layout direction.
+- Storyboard video ngắn.
+- Asset draft nếu tool được bật.
+- QA checklist.
+
+<Image
+  src="/images/agents/visual-brief-card.png"
+  alt="Visual brief chuẩn trước khi tạo ảnh/video"
+  width={1536}
+  height={1024}
+  className="rounded-lg border border-border"
+/>
+
+## Skill cần tạo
+
+1. **Brand visual direction skill** — style, màu, layout, lỗi cần tránh.
+2. **Image prompt skill** — prompt ảnh theo brand.
+3. **Short video storyboard skill** — hook/frame/SFX/caption.
+4. **Visual QA skill** — kiểm tra brand, text, readability, kích thước.
+5. **Asset handoff skill** — bàn giao file cho CEO/Content.
+
+## Automation gợi ý
+
+| Automation | Trigger | Output |
+|---|---|---|
+| Content-to-visual brief | Khi Voice chốt draft | 2–3 visual direction |
+| Weekly asset batch | Sau content plan tuần | Danh sách banner/thumbnail cần tạo |
+| Reel storyboard | Khi post có tiềm năng video | Script + storyboard 9:16 |
+| Visual QA | Khi có asset draft | Checklist lỗi cần sửa |
+
+## Approval rule
+
+```text
+Hermes Visual được tạo brief, prompt, storyboard và asset draft.
+Không tự publish. Không dùng hình ảnh nhạy cảm hoặc sai brand. Với text tiếng Việt/numbers/logo, phải QA kỹ và báo nếu cần render bằng code/vector.
+```
+
+## Bài test đầu tiên
+
+```text
+Dựa trên bài viết dưới đây, hãy tạo visual brief cho:
+1. Banner 16:9 cho blog.
+2. Poster 1:1 cho social.
+3. Storyboard video ngắn 9:16 trong 20 giây.
+Style: đen/trắng + cam #F86000, premium operator dashboard.
+Chưa tạo ảnh, chỉ viết brief/prompt để anh duyệt.
+```
+
+## QA checklist
+
+- [ ] Đúng brand color/logo/style.
+- [ ] Thông điệp chính rõ trong 3 giây.
+- [ ] Không quá nhiều chữ.
+- [ ] Text tiếng Việt/số liệu chính xác.
+- [ ] Kích thước đúng kênh đăng.
+- [ ] Không có chi tiết gây hiểu sai.
+- [ ] Có file/prompt/storyboard lưu lại.
+
+## Lỗi thường gặp
+
+| Lỗi | Dấu hiệu | Cách sửa |
+|---|---|---|
+| Ảnh đẹp nhưng sai thông điệp | Người xem không hiểu bài | Bắt đầu bằng objective/key message |
+| Sai chữ tiếng Việt | Text trên ảnh lỗi | Ít chữ, render bằng code/vector khi cần |
+| Sai brand | Màu/font/style lạc | Brand kit + QA checklist |
+| Tạo ảnh quá sớm | Nội dung đổi, ảnh phải làm lại | Chốt content/brief trước |
+| Không có handoff | File rải rác | Lưu prompts/assets/exports theo folder |
+
+## Bước tiếp theo
+
+Sau Visual, hệ thống 5 agent đã đủ vòng: Core điều phối, Sales/Funnel tạo doanh thu, Voice/Visual tạo marketing, Daily giữ nhịp vận hành mỗi ngày.

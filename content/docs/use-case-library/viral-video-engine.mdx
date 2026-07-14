@@ -1,0 +1,197 @@
+---
+title: "Viral Video Engine"
+description: "Use case Hermes giúp CEO tạo video ngắn kéo nhận thức và lead"
+---
+
+import Image from 'next/image'
+
+# Viral Video Engine
+
+> Mục tiêu: Tạo ra video ngắn có hook đủ mạnh, script đủ chặt, và CTA đủ rõ để kéo nhận thức + lead — rồi tái sử dụng 1 video thành nhiều kênh (post, email, carousel) mà không phải làm từ đầu mỗi lần.
+
+<Image
+  src="/images/use-cases/uc-viral-video-pipeline.png"
+  alt="cho CEO thấy luồng từ pain point → 10 hook → 3 script → visual brief → caption/CTA → repurpose package"
+  width={1536}
+  height={1024}
+  className="rounded-lg border border-border"
+/>
+
+---
+
+## 1. Vấn đề kinh doanh
+
+CEO biết video ngắn (TikTok, Reels, Shorts) là kênh kéo nhận thức rẻ nhất hiện nay. Nhưng khi ngồi xuống làm thì gãy ở 4 chỗ:
+
+- **Thiếu hook** — không biết mở đầu 3 giây đầu thế nào để khách dừng lướt. Viết hook generic ("Hôm nay mình chia sẻ về…") rồi video chìm.
+- **Thiếu angle** — biết pain point nhưng không biết bóc angle nào cho gây共鸣. Nói lan man, video dài nhưng không trúng tâm.
+- **Thiếu quy trình tái sử dụng** — làm 1 video, đăng 1 lần, xong. Không biến video thành post LinkedIn, không cắt thành carousel, không nhúng vào email. Mỗi lần làm lại từ đầu.
+- **Thiếu visual/SFX/B-roll** — script có nhưng không biết quay gì, cắt cảnh nào, ghép SFX chỗ nào — nên video nhạt, giữ chân không nổi.
+
+Kết quả: CEO hoặc bỏ không làm video, hoặc làm nhưng không ra kết quả, hoặc làm được 1-2 cái rồi kiệt sức vì không có quy trình lặp.
+
+Vấn đề cốt lõi không phải thiếu ý tưởng — CEO có pain point, có data khách, có góc nhìn — mà là thiếu **hệ thống biến ý tưởng thành video rồi thành nhiều kênh**. Hermes đóng vai engine: nhận pain point, nhả ra hook, script, visual brief, caption, CTA, và plan tái sử dụng — CEO chỉ chọn và duyệt.
+
+---
+
+## 2. Khi nào CEO dùng
+
+Dùng use case này trong các trường hợp cụ thể:
+
+- **Cần tạo video ngắn mới** — chưa có video nào, hoặc video cũ không còn relevant, muốn bắt đầu kênh video ngắn.
+- **Muốn test pain point mới trên video** — đã khám phá pain point mới từ cuộc gọi khách, từ feedback, từ trend — cần biến thành hook nhanh để xem khách có dừng lại không.
+- **Launch offer mới** — sắp ra sản phẩm/dịch vụ, cần video ngắn warm up tệp trước khi mở bán.
+- **Channel hiện tại chết** — video đăng đều nhưng view thấp, retention kém, cần đổi hook và angle theo data mới.
+- **Muốn repurpose nội dung** — đã có video nhưng chỉ đăng 1 kênh, muốn biến thành post, email, carousel mà không phải viết lại từ đầu.
+
+Không dùng khi: pain point chưa rõ (cần quay lại nghiên cứu ICP trước); hoặc khi CEO muốn video dài (YouTube 10 phút+) — use case này tối ưu cho video ngắn 30-60s.
+
+---
+
+## 3. Agent phụ trách
+
+| Agent | Vai trò trong use case |
+|---|---|
+| **Hermes Core** | Điều phối toàn bộ luồng — nhận lệnh từ CEO qua Telegram/CLI, phân bổ task cho Voice, Visual, Funnel, tổng hợp package, trình CEO duyệt. |
+| **Hermes Voice** | Tạo 10 hook theo pain point, viết 3 script chi tiết 30-60s (cấu trúc hook → body → CTA), tinh chỉnh theo feedback CEO. |
+| **Hermes Visual** | Tạo visual brief cho mỗi script — gợi ý B-roll, text overlay, SFX, transition, shot list — đủ để editor/director quay và cắt ngay. |
+| **Hermes Funnel** | Viết caption + CTA cho từng platform, thiết kế repurpose plan (video → post → email → carousel), gắn tracking nếu cần. |
+
+Hermes Core là đầu mối duy nhất — CEO chỉ nói chuyện với Core, Core tự điều phối ba agent còn lại theo thứ tự.
+
+---
+
+## 4. Input cần có
+
+Trước khi chạy use case, CEO cần chuẩn bị hoặc xác nhận:
+
+- **ICP (Ideal Customer Profile)** — ai là người xem video, ngành nào, vai trò gì, lướt platform nào, ngôn ngữ họ dùng khi scroll.
+- **Pain point cụ thể** — vấn đề gì ICP đang gặp mà họ sẽ dừng lướt khi nghe hook nhắc đến. Có thể 1-3 pain, càng cụ thể càng tốt.
+- **Platform mục tiêu** — TikTok, Instagram Reels, YouTube Shorts, hoặc nhiều kênh. Mỗi platform có format caption, hashtag, CTA khác nhau.
+- **Phong cách thương hiệu** — giọng tone (chuyên gia, hài hước, trực diện, kể chuyện), màu sắc, font, bối cảnh — để visual brief khớp.
+- **Offer đang muốn đẩy (nếu có)** — sản phẩm/dịch vụ mà CTA cuối video dẫn tới, để hook và script warm up đúng hướng.
+- **Video cũ (nếu có)** — nếu đã từng làm video, đưa Hermes xem 1-2 cái để học phong cách, tránh lặp hook.
+
+Nếu thiếu input, Hermes sẽ hỏi từng mục trước khi bắt đầu — không tự giả định.
+
+---
+
+## 5. Output mong muốn
+
+Sau khi chạy xong use case, CEO nhận được package đầy đủ:
+
+- **10 hook** — mỗi hook 1-2 câu, nhắm pain point cụ thể, đủ mạnh để dừng lướt trong 3 giây đầu. Kèm lý do vì sao hook này có khả năng giữ chân.
+- **3 script chi tiết 30-60s** — cấu trúc rõ: hook (0-3s) → body (3-50s, 3-5 beat) → CTA (50-60s). Có timing từng đoạn, có hướng dẫn thoại, có nhắc nhở visual.
+- **Visual brief** — cho mỗi script: B-roll list, text overlay, SFX gợi ý, transition, shot type (close-up, wide, B-roll), bối cảnh — đủ để editor cắt ngay.
+- **Caption + CTA** — caption cho từng platform (TikTok, Reels, Shorts), có hashtag, có CTA rõ (follow, comment, link bio, book call).
+- **Repurpose plan** — 1 video thành: 1 post LinkedIn, 1 email newsletter, 1 carousel (5-7 slide), 1 thread X — kèm outline từng kênh.
+- **Tóm tắt logic** — 1 đoạn giải thích vì sao chọn 3 hook này, angle nào mạnh nhất, luồng video → repurpose → offer như thế nào.
+
+Tất cả gói trong 1 file hoặc 1 thread Telegram, CEO duyệt từng phần trước khi xuất.
+
+---
+
+## 6. Workflow Hermes
+
+Luồng chạy từ lúc CEO ra lệnh đến khi có package xuất:
+
+1. **CEO ra lệnh qua Telegram/CLI** — gửi pain point + ICP + platform + phong cách. Ví dụ: *"Tạo 10 hook + 3 script video ngắn cho ICP founder công ty logistics 20-100 nhân sự, pain là không tối ưu chi phí vận tải real-time, platform TikTok + Reels, giọng tone trực diện chuyên gia."*
+2. **Hermes Core tiếp nhận** — xác nhận input đủ, chuyển cho Hermes Voice.
+3. **Hermes Voice tạo 10 hook** — dựa trên pain point, hành vi ICP trên platform, trend hiện tại. Mỗi hook kèm lý do và độ mạnh ước tính. Trình CEO.
+4. **CEO chọn 3 hook** — reply trên Telegram chọn 3 hook muốn viết full script.
+5. **Hermes Voice viết 3 script chi tiết** — song song, Hermes Visual tạo visual brief cho mỗi script.
+6. **Hermes Funnel viết caption + CTA + repurpose plan** — sau khi script xong, Funnel viết caption cho từng platform, CTA, và plan tái sử dụng.
+7. **Hermes Core tổng hợp** — gộp 3 script + visual brief + caption + CTA + repurpose plan thành 1 package, trình CEO duyệt.
+8. **CEO duyệt** — đọc từng phần, chỉnh nếu cần (Hermes sửa ngay), xác nhận xuất.
+9. **Hermes xuất package** — xuất ra Markdown/Google Doc, lưu vào workspace, gửi link Telegram. CEO tự quay/cut/đăng.
+
+Toàn bộ luồng diễn ra trong 1-2 buổi làm việc, tùy độ phức tạp và tốc độ CEO duyệt.
+
+---
+
+## 7. Prompt mẫu
+
+**Prompt Telegram — tạo 10 hook + 3 script từ pain point:**
+
+```
+Tạo video ngắn.
+ICP: founder công ty logistics 20-100 nhân sự.
+Pain: không tối ưu chi phí vận tải real-time, lãi mỗi chuyến không biết.
+Platform: TikTok + Reels.
+Phong cách: trực diện, chuyên gia, không废话.
+Tạo 10 hook, kèm lý do. Tôi sẽ chọn 3.
+```
+
+**Prompt CLI — chạy full pipeline trong 1 lệnh:**
+
+```
+hermes use-case viral-video-engine \
+  --icp "CFO công ty SaaS 50-200 người" \
+  --pain "không kiểm soát burn rate theo thời gian thực" \
+  --platform "tiktok,shorts" \
+  --tone "chuyên gia trực diện" \
+  --offer "dịch vụ fractional CFO" \
+  --hooks 10 \
+  --scripts 3
+```
+
+**Prompt Telegram — chỉnh script sau khi duyệt:**
+
+```
+Script 2 hook OK nhưng body dài quá, cắt xuống 45s.
+CTA đổi từ "Follow để xem thêm" thành "Link bio đặt audit 15 phút miễn phí".
+Visual brief script 1 thêm B-roll shot bảng tính Excel bị khoá đỏ.
+```
+
+---
+
+## 8. Approval rule
+
+Luồng approval được thiết kế để CEO giữ quyền kiểm soát mà không bị bottleneck:
+
+- **Agent tự tạo hook** — Hermes Voice tự tạo 10 hook, CEO không phải nghĩ từ đầu. CEO chỉ chọn 3.
+- **Agent tự viết script** — sau khi CEO chọn hook, Hermes tự viết full script + visual brief, không cần CEO gợi ý từng dòng.
+- **CEO duyệt trước khi xuất** — mọi draft (hook, script, visual brief, caption, repurpose plan) phải qua CEO duyệt. Hermes không tự xuất package, không tự đăng video.
+- **Agent không tự đăng video** — Hermes chỉ xuất package nội dung, CEO tự quay/cut/đăng. Hermes không có quyền publish lên bất kỳ platform nào.
+
+Nguyên tắc: agent làm việc nặng (tạo hook, viết script, visual brief, caption), CEO làm việc quyết định (chọn hook, duyệt script, đăng video).
+
+---
+
+## 9. Checklist kiểm tra
+
+Trước khi CEO bấm duyệt, chạy checklist này:
+
+- [ ] **Hook đủ mạnh trong 3 giây đầu?** — khách dừng lướt khi nghe hook, không phải generic "Hôm nay mình chia sẻ…". Test: đọc hook aloud, nếu không thấy "khoanh" thì đổi.
+- [ ] **Script dưới 60s?** — thoại đọc thật, timing không vượt 60s. Nếu dài, cắt beat yếu nhất.
+- [ ] **CTA rõ?** — khách xem xong biết下一步 làm gì (follow, comment, link bio, book call) — không kết vagues.
+- [ ] **Repurpose plan có đủ kênh?** — ít nhất 3 kênh (post, email, carousel/thread), mỗi kênh có outline riêng, không copy-paste nguyên video.
+- [ ] **Visual brief đủ chi tiết để editor cắt ngay?** — có shot list, có text overlay, có SFX gợi ý, có B-roll — editor không phải tự nghĩ.
+- [ ] **Caption khớp platform?** — TikTok caption khác Reels khác Shorts, hashtag đúng, độ dài đúng giới hạn.
+
+Nếu bất kỳ mục nào fail, trả lại Hermes chỉnh trước khi duyệt.
+
+---
+
+## 10. Bước nâng cấp
+
+Use case này chạy theo 3 cấp độ trưởng thành:
+
+| Cấp độ | Mô tả | Trạng thái |
+|---|---|---|
+| **Thủ công** | CEO ra lệnh mỗi lần cần video mới. Hermes thực hiện, CEO duyệt. Phù hợp khi mới bắt đầu, chưa rõ quy trình. | Mặc định |
+| **Bán tự động** | Tạo skill `viral-video-engine` — CEO chỉ cần nêu pain point + ICP + platform, skill tự chạy toàn bộ luồng từ hook đến repurpose plan, CEO chỉ duyệt cuối. Giảm thời gian từ vài giờ xuống 30-45 phút. | Nên build sau 5-10 lần chạy thủ công |
+| **Tự động** | Cron job hàng tuần quét trend platform, pain point mới từ feedback/log — tự đề xuất 5 hook mới → gửi CEO duyệt. CEO chỉ review 1 lần/tuần. | Mục tiêu dài hạn |
+
+Khi nào nâng cấp: sau khi chạy thủ công 5-10 lần và quy trình ổn định, build skill. Sau khi skill chạy tốt 2-3 tháng, thêm cron để tự động quét trend/pain mới.
+
+---
+
+## Common mistakes
+
+| Sai lầm | Hậu quả | Cách tránh |
+|---|---|---|
+| Hook generic ("Hôm nay mình chia sẻ về…") thay vì nhắm pain cụ thể | Khách lướt qua, retention 3 giây đầu dưới 30%, video chìm | Hook phải nhắc trực tiếp pain point trong câu đầu, test bằng câu hỏi: "Khách có dừng khi nghe câu này không?" |
+| Script dài quá 60s vì muốn nói hết | Retention rớt ở giây 30, khách thoát trước CTA | Giữ script 45-55s, cắt beat yếu nhất, ưu tiên 1 message chính |
+| CTA vagues ("Follow để xem thêm") thay vì cụ thể | Khách xem xong không biết làm gì, không có lead | CTA cụ thể: "Link bio đặt audit 15 phút", "Comment 'LOGI' để nhận checklist" |
+| Đăng video 1 lần rồi bỏ, không repurpose | 1 video chỉ tiếp cận 1 kênh, lãng nội dung | Luôn chạy repurpose plan: 1 video → post + email + carousel, đăng chéo 3-4 kênh |

@@ -1,0 +1,87 @@
+---
+title: "Hệ thống 5 Agent"
+description: Outline 5 agent ít mà sâu cho Solo CEO vận hành như có một team
+---
+
+import Image from 'next/image'
+
+# Hệ thống 5 Agent
+
+<Image
+  src="/images/agents/ceo-briefing-agent.png"
+  alt="Hermes Core điều phối 5 agent theo mô hình hub-spoke"
+  width={1536}
+  height={1024}
+  className="rounded-lg border border-border"
+/>
+
+> Trạng thái: **outline cấu trúc**. Chưa viết nội dung chi tiết.  
+> Mục tiêu: biến khóa học Hermes Handbook thành các case setup cụ thể theo **Hermes profile**.
+
+## Tư duy thiết kế
+
+**5 agent. Ít mà sâu.**
+
+Mỗi agent là một năng lực thật — không thêm cho có. Đủ để một mình vẫn có cảm giác như đang dẫn cả một team.
+
+Không xây agent theo kiểu “AI biết mọi thứ”. Mỗi agent cần có:
+
+- Một vai trò rõ.
+- Một nhóm việc lặp rõ.
+- Input/output rõ.
+- Tool cần dùng.
+- Skill cần có.
+- Profile Hermes riêng.
+- Quyền hạn và điểm duyệt.
+- Cách báo cáo về Hermes Core.
+
+## Sơ đồ hệ thống
+
+```text
+                    Hermes Core
+                Điều phối trung tâm
+                         │
+     ┌───────────────────┼───────────────────┐
+     │                   │                   │
+Phòng Sales          Marketing            Điều hành
+     │                   │                   │
+ ┌───┴────┐          ┌───┴────┐              │
+ Sales  Funnel      Voice  Visual          Daily
+```
+
+## Danh sách agent
+
+| STT | Phòng ban | Agent | Vai trò | Năng lực chính |
+|---|---|---|---|---|
+| CORE | Trung tâm | Hermes Core | Điều phối trung tâm | Nhận lệnh 1 nơi, điều phối các agent/profile |
+| 01 | Sales | Hermes Sales | Trợ lý Báo giá & Email | Tạo báo giá, email, hợp đồng, đồng bộ CRM/Excel |
+| 02 | Sales | Hermes Funnel | Quản lý Lead & Nhắc hẹn | Phân loại lead, follow-up, research lead |
+| 03 | Marketing | Hermes Voice | Tác giả Content | Viết post, blog, nội dung viral theo thương hiệu |
+| 04 | Marketing | Hermes Visual | Designer & Producer | Banner, poster, video ngắn |
+| 05 | Điều hành | Hermes Daily | Chánh Văn phòng | Briefing 7h sáng, báo cáo tuần, tin tức quan trọng |
+
+## Cách viết mỗi case setup
+
+Mỗi agent sẽ là một case setup riêng theo format:
+
+1. **Vấn đề kinh doanh** — agent này giải quyết bottleneck gì?
+2. **Vai trò agent** — agent là ai, thuộc phòng ban nào?
+3. **Profile Hermes đề xuất** — tên profile, scope, model phù hợp.
+4. **Input cần có** — dữ liệu, file, sheet, template, quyền truy cập.
+5. **Output mong muốn** — kết quả đúng trông như thế nào?
+6. **Tool cần kết nối** — Telegram, file, Gmail, Sheets, browser, image/video.
+7. **Skill cần tạo** — checklist/sop nào agent cần nhớ?
+8. **Automation gợi ý** — cron/webhook nào nên chạy?
+9. **Approval rule** — việc nào tự làm, việc nào CEO duyệt?
+10. **Dashboard/log** — agent báo cáo về đâu?
+11. **Setup checklist** — từng bước triển khai profile.
+12. **Bài test đầu tiên** — lệnh mẫu để kiểm tra agent chạy đúng.
+
+{/* IMAGE_BRIEF:
+type: system-map
+placement: đầu trang tổng quan hệ thống 5 agent
+purpose: giúp người học nhìn ngay cơ cấu 5 agent ít mà sâu, có Hermes Core điều phối
+concept: Hermes Core ở trung tâm, 5 agent xung quanh chia theo phòng ban Sales/Marketing/Điều hành; mỗi agent có 2–3 năng lực chính
+style: premium AI operating system map, đen/trắng + cam #F86000, sạch, rõ vai trò
+ratio: 16:9
+*/}

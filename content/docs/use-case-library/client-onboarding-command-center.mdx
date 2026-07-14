@@ -1,0 +1,178 @@
+---
+title: "Client Onboarding Command Center"
+description: Use case Hermes giúp CEO onboard khách hàng mới nhất quán, không bỏ sót bước
+---
+
+import Image from 'next/image'
+
+# Client Onboarding Command Center
+
+> Mục tiêu: sau khi chốt khách, Hermes giúp khởi động dự án trong 24h, không để CEO tự dò mò.
+
+<Image
+  src="/images/use-cases/uc-onboarding-command-center.png"
+  alt="cho CEO thấy toàn bộ luồng onboarding không bị rơi vào hỗn loạn sau khi ký"
+  width={1536}
+  height={1024}
+  className="rounded-lg border border-border"
+/>
+
+## 1. Vấn đề kinh doanh
+
+Khách ký xong là lúc CEO dễ thở nhất — và cũng là lúc rủi ro bắt đầu. Hợp đồng đã chốt nhưng onboarding kéo dài 3–5 ngày vì CEO phải tự gom thông tin, tự nhớ cần gửi email welcome nào, tự nhắc khách gửi data. Thông tin bàn giao nằm rải rác trong chat Telegram, email cá nhân, file proposal, voice note. CEO quên nhắc khách gửi tài liệu → dự án chậm khởi động → khách thấy thiếu chuyên nghiệp → bắt đầu doubting: *"Mình ký với đúng người chưa?"*.
+
+Vấn đề cốt lõi không phải thiếu kỹ năng — mà thiếu **hệ thống**. Mỗi lần onboard khách mới, CEO làm lại từ đầu, nhớ một số bước, quên một số bước. Kết quả: khách đầu tiên onboard tốt, khách thứ năm onboard tệ hơn vì CEO mệt và bận. Hermes cần thay thế trí nhớ CEO bằng quy trình lặp lại được, chạy nhất quán bất kể CEO đang bận hay không.
+
+## 2. Khi nào CEO dùng
+
+CEO dùng use case này trong các tình huống cụ thể:
+
+- **Khi khách mới ký hợp đồng** — chốt deal xong, cần khởi động dự án trong 24h.
+- **Khi cần handoff từ sales sang delivery** — thông tin deal cần chuyển sang team delivery một cách đầy đủ, không rơi rớt.
+- **Khi cần chuẩn bị kickoff meeting** — agenda, roles, câu hỏi cần hỏi khách, dữ liệu cần khách mang theo.
+- **Khi cần tạo timeline 30 ngày đầu** — mốc 7/14/30 ngày, ai làm gì, khi nào cần gì từ khách.
+- **Khi khách phàn nàn onboarding chậm** — CEO cần audit lại onboarding đã làm gì, thiếu gì, để sửa ngay.
+
+Đặc điểm chung: use case này lặp lại mỗi khi có khách mới. Tần suất phụ thuộc tốc độ chốt deal — có thể 1–2 lần/tháng hoặc 1–2 lần/tuần nếu sales chạy tốt.
+
+## 3. Agent phụ trách
+
+| Agent | Vai trò trong onboarding |
+|---|---|
+| Hermes Daily | Nhắc milestone onboarding (7/14/30 ngày), chạy checklist tracker, báo CEO khi khách chậm gửi data |
+| Hermes Core | Điều phối luồng onboarding, tổng hợp input từ nhiều nguồn, quản lý approval |
+| Hermes Sales | Cung cấp handoff info từ deal đã chốt: scope, cam kết, kỳ vọng, payment terms |
+| Hermes Voice | Viết email welcome, soạn kickoff agenda, soạn email nhắc khách gửi data |
+
+Hermes Core đóng vai trò điều phối viên: nhận lệnh từ CEO, gọi Hermes Sales lấy thông tin deal, gọi Hermes Voice soạn văn bản, gọi Hermes Daily tạo checklist và timeline, sau đó gói lại thành onboarding pack gửi CEO duyệt.
+
+## 4. Input cần có
+
+Trước khi Hermes tạo onboarding pack, CEO cần cung cấp hoặc Hermes Sales cần trích xuất:
+
+- **Scope work** — hợp đồng/proposal đã ký, mô tả công việc, deliverables.
+- **Thông tin khách** — tên người phụ trách, email, SĐT, vai trò, quyền quyết định.
+- **Deadline tổng** — ngày giao hàng hoặc ngày go-live.
+- **Team tham gia** — ai từ phía CEO, ai từ phía khách, vai trò từng người.
+- **Template onboarding** (nếu có) — email welcome mẫu, checklist chuẩn, timeline template.
+- **Cam kết đặc biệt** — SLA, điều khoản đặc biệt đã hứa trong quá trình sales.
+
+Nếu thiếu input, Hermes Core sẽ liệt kê thiếu gì và soạn checklist yêu cầu CEO bổ sung trước khi tạo onboarding pack.
+
+## 5. Output mong muốn
+
+Onboarding pack hoàn chỉnh gồm 5 thành phần:
+
+1. **Email welcome** — gửi trong 24h sau ký, xác nhận hợp đồng, giới thiệu team, nêu bước tiếp theo, tone chuyên nghiệp.
+2. **Kickoff agenda** — agenda cho buổi họp khởi động, gồm mục tiêu, thành phần tham gia, thời lượng, câu hỏi cần hỏi khách, output kỳ vọng.
+3. **Data request checklist** — danh sách tài liệu/thông tin cần khách gửi, kèm deadline từng mục, giải thích tại sao cần.
+4. **Timeline 14/30 ngày đầu** — mốc ngày 7 (kickoff xong, data đủ), ngày 14 (bản nháp đầu tiên), ngày 30 (bàn giao phase 1 hoặc review), ai làm gì, khi nào cần gì.
+5. **Risk flags** — rủi ro đã thấy từ đầu: khách chậm phản hồi, scope mơ hồ, dependency bên thứ ba, deadline quá sát.
+
+Onboarding pack được gói thành một tin nhắn Telegram hoặc email duy nhất, CEO có thể forward cho khách ngay sau khi duyệt.
+
+## 6. Workflow Hermes
+
+```text
+CEO gửi Telegram: "Khách [X] vừa ký, info: [...]"
+    ↓
+Hermes Core nhận → gọi Hermes Sales handoff
+    ↓
+Hermes Sales trích xuất scope, cam kết, payment terms, kỳ vọng
+    ↓
+Hermes Voice viết email welcome + kickoff agenda
+    ↓
+Hermes Daily tạo data request checklist + timeline 7/14/30 ngày
+    ↓
+Hermes Core tổng hợp thành onboarding pack + risk flags
+    ↓
+CEO duyệt (Telegram: "OK gửi" hoặc chỉnh sửa)
+    ↓
+Hermes gửi email welcome cho khách
+    ↓
+Hermes Daily tạo cron nhắc:
+  - Ngày 3: nhắc khách gửi data (nếu chưa có)
+  - Ngày 7: nhắc CEO check kickoff xong chưa
+  - Ngày 14: nhắc CEO check bản nháp đầu tiên
+  - Ngày 30: nhắc CEO check mốc bàn giao phase 1
+```
+
+Toàn bộ quy trình từ lúc CEO gửi lệnh đến lúc onboarding pack sẵn sàng duyệt: 5–15 phút. Nếu CEO duyệt ngay, email welcome gửi trong vòng 30 phút sau.
+
+## 7. Prompt mẫu
+
+**Ví dụ 1 — Onboard khách mới (đầy đủ thông tin):**
+
+```text
+Khách [Tên] vừa ký hợp đồng. Info:
+- Scope: thiết kế website 5 trang + SEO setup
+- Người phụ trách khách: Nguyễn Văn A (a@company.com)
+- Deadline: 45 ngày
+- Team: tôi (CEO) + 1 designer + 1 dev
+- Đặc biệt: khách cần bilingual VN/EN
+
+Hãy tạo onboarding pack: email welcome, kickoff agenda,
+data request checklist, timeline 30 ngày, risk flags.
+```
+
+**Ví dụ 2 — Onboard khách mới (thông tin tối thiểu, cần Hermes Sales bổ sung):**
+
+```text
+Khách [Tên] vừa ký. Tôi chỉ biết scope là "consulting 3 tháng".
+Chi tiết deal nằm trong file proposal [đính kèm].
+Hãy trích xuất scope, timeline, cam kết từ proposal,
+rồi tạo onboarding pack. Nếu thiếu info, liệt kê tôi bổ sung.
+```
+
+**Ví dụ 3 — Nhắc onboarding đang chậm:**
+
+```text
+Khách [Tên] ký đã 5 ngày rồi nhưng chưa kickoff.
+Check lại onboarding pack đã gửi gì, khách đã gửi data chưa,
+cần nhắc gì thì soạn nhắc cho tôi duyệt.
+```
+
+## 8. Approval rule
+
+| Việc | Ai làm | Cần duyệt? |
+|---|---|---|
+| Tạo onboarding pack (email, agenda, checklist, timeline, risk flags) | Hermes tự làm | CEO duyệt trước khi gửi khách |
+| Gửi email welcome cho khách | Hermes gửi sau khi CEO duyệt | Có |
+| Tự nhắc milestone (7/14/30 ngày) cho CEO | Hermes Daily tự làm | Không — chỉ nhắc CEO, không nhắc khách |
+| Nhắc khách gửi data | Hermes soạn draft, CEO duyệt | Có |
+| Thay đổi scope hoặc cam kết | Không tự làm | CEO quyết định |
+| Hẹn lịch kickoff meeting | Không tự làm | CEO quyết định thời gian |
+
+Nguyên tắc: agent tự tạo, tự nhắc CEO, nhưng **không tự gửi gì cho khách khi chưa duyệt** và **không tự thay đổi scope/cam kết/hẹn lịch**.
+
+## 9. Checklist kiểm tra
+
+Sau khi onboarding pack được tạo, CEO kiểm tra:
+
+- [ ] Email welcome gửi trong 24h sau ký?
+- [ ] Kickoff agenda có đủ roles (ai tham gia, vai trò gì)?
+- [ ] Data request checklist có deadline cụ thể cho từng mục?
+- [ ] Timeline có mốc 7/14/30 ngày rõ ràng?
+- [ ] Risk flags đã nêu ít nhất 2–3 rủi ro tiềm ẩn?
+- [ ] Email welcome đúng tone (chuyên nghiệp, không quá form, có next step)?
+- [ ] Kickoff agenda có câu hỏi cần hỏi khách?
+- [ ] Hermes Daily đã tạo cron nhắc milestone?
+
+Nếu bất kỳ mục nào thiếu, CEO yêu cầu Hermes bổ sung trước khi gửi.
+
+## 10. Bước nâng cấp
+
+| Giai đoạn | Mô tả | Nỗ lực CEO |
+|---|---|---|
+| **Thủ công** | CEO gửi Telegram mỗi khi khách ký, Hermes tạo pack, CEO duyệt | Thấp — chỉ gửi 1 tin nhắn |
+| **Skill onboarding-pack** | Tạo skill Hermes chuyên onboarding, tự động trích xuất từ proposal, điền template | Rất thấp — chỉ đính kèm file |
+| **Webhook: deal won** | Kết nối CRM/sales pipeline, khi deal won → tự động tạo onboarding pack, CEO chỉ duyệt và gửi | Gần như zero — chỉ approve |
+
+Mục tiêu cuối: khách ký xong, CEO nhận notification "Onboarding pack sẵn sàng, duyệt để gửi" — bấm OK, xong. Toàn bộ quy trình onboarding chạy tự động từ đó.
+
+## Common mistakes
+
+- **Gửi email welcome trước khi CEO duyệt** — email sai tone hoặc sai cam kết, khách ấn tượng xấu ngay từ ngày đầu. Luôn duyệt trước.
+- **Kickoff agenda chung chung** — không có câu hỏi cụ thể cho khách, họp lan man, khách thấy không chuyên nghiệp. Hermes cần hỏi đủ input để tạo agenda có chiều sâu.
+- **Quên nhắc khách gửi data** — data checklist tạo xong nhưng không có cron nhắc, khách quên gửi, dự án chậm. Phải có Hermes Daily nhắc tự động.
+- **Timeline quá tham vọng** — mốc 7 ngày đòi data đủ + kickoff xong + bắt đầu làm, nhưng khách chưa kịp phản hồi. Cần buffer thực tế và risk flags nêu rõ.

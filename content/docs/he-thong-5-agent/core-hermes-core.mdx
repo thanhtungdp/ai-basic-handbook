@@ -1,0 +1,526 @@
+---
+title: "CORE — Hermes Core"
+description: Điều phối trung tâm, nhận lệnh một nơi và phân việc cho các Hermes profile
+---
+
+import Image from 'next/image'
+
+# CORE — Hermes Core
+
+> Mục tiêu của case này: giúp CEO thiết kế **Hermes Core** như một "trưởng phòng điều phối AI" — nhận lệnh một nơi, phân việc cho đúng agent/profile, gom kết quả, và chỉ đẩy lên CEO những việc cần quyết định.
+
+<Image
+  src="/images/agents/core-routing-diagram.png"
+  alt="Hermes Core điều phối 5 agent chuyên trách qua routing diagram"
+  width={1536}
+  height={1024}
+  className="rounded-lg border border-border"
+/>
+
+## Vấn đề kinh doanh
+
+Khi mới dùng Hermes, bạn có thể ra lệnh trực tiếp cho một agent:
+
+```text
+Tạo báo giá cho khách A.
+```
+
+Hoặc:
+
+```text
+Viết giúp anh 5 ý tưởng content tuần này.
+```
+
+Nhưng khi hệ thống có nhiều agent — Sales, Funnel, Voice, Visual, Daily — CEO bắt đầu gặp vấn đề mới:
+
+- Không nhớ việc này nên giao cho agent nào.
+- Một yêu cầu có thể liên quan nhiều phòng ban.
+- Kết quả từ nhiều agent rời rạc, CEO phải tự ghép lại.
+- Không biết việc nào đã xong, việc nào đang chờ duyệt.
+- Agent chuyên trách có thể làm sâu, nhưng không nên tự quyết định ngoài phạm vi.
+
+Ví dụ một lệnh tưởng đơn giản:
+
+```text
+Chuẩn bị cho anh chiến dịch bán gói mới tuần sau.
+```
+
+Thực ra có nhiều phần:
+
+| Phần việc | Agent phù hợp |
+|---|---|
+| Tìm lead/phân nhóm khách | Hermes Funnel |
+| Soạn offer, báo giá, email | Hermes Sales |
+| Viết post/blog giới thiệu | Hermes Voice |
+| Làm banner/video ngắn | Hermes Visual |
+| Nhắc lịch, báo cáo tiến độ | Hermes Daily |
+
+Nếu CEO phải tự chia việc từng bước, hệ thống agent vẫn còn phụ thuộc quá nhiều vào CEO.
+
+**Hermes Core** giải quyết bottleneck đó.
+
+> CEO ra lệnh một nơi. Core phân loại, điều phối, gom kết quả, và hỏi CEO đúng điểm cần duyệt.
+
+## Hermes Core là gì?
+
+Hermes Core là profile điều phối trung tâm trong hệ thống 5 agent.
+
+Nó không phải agent “làm hết mọi thứ”. Core giống **chánh văn phòng điều phối**:
+
+- Hiểu lệnh của CEO.
+- Biết hệ thống có những agent nào.
+- Chọn agent phù hợp cho từng phần việc.
+- Chuẩn hóa input/output trước khi bàn giao.
+- Theo dõi trạng thái.
+- Gom kết quả cuối cùng.
+- Báo việc cần CEO duyệt.
+
+Cách hiểu đơn giản:
+
+```text
+Hermes Core = Router + Project Manager + Chief of Staff cho đội agent.
+```
+
+## Vai trò của Core trong 5 agent
+
+| Thành phần | Vai trò |
+|---|---|
+| Hermes Core | Điều phối trung tâm |
+| Hermes Sales | Báo giá, email, hợp đồng, CRM/Excel |
+| Hermes Funnel | Lead, follow-up, nhắc hẹn, research lead |
+| Hermes Voice | Content, post, blog, voice thương hiệu |
+| Hermes Visual | Banner, poster, video ngắn |
+| Hermes Daily | Briefing, báo cáo, tin tức, việc chờ duyệt |
+
+Core nhận lệnh kiểu:
+
+```text
+Anh muốn launch offer mới trong 7 ngày tới. Hãy chia việc cho các agent cần thiết, nói rõ output từng agent, việc nào cần anh duyệt, và thứ tự triển khai.
+```
+
+Core không nên tự viết hết content, tự làm hết visual, tự tạo hết báo giá nếu đã có agent chuyên trách. Core nên điều phối và kiểm tra luồng.
+
+## Profile Hermes đề xuất
+
+| Mục | Gợi ý |
+|---|---|
+| Profile slug | `hermes-core` |
+| Vai trò | Điều phối trung tâm |
+| Giao diện chính | Telegram command center |
+| Model chính | GPT 5.5 — tối ưu điều phối, dùng tool, thực thi nhiều bước |
+| Model phụ | Opus 4.8 — dùng khi cần lập kế hoạch/chiến lược sâu |
+| Tool ưu tiên | Telegram, file workspace, session/log, kanban/dashboard nếu có |
+| Quyền hạn mặc định | Điều phối, tổng hợp, hỏi duyệt; không tự gửi/sửa dữ liệu nhạy cảm |
+
+## Khi nào cần tạo profile Core riêng?
+
+Bạn nên có profile Core riêng khi:
+
+- Có từ 2 agent chuyên trách trở lên.
+- CEO muốn ra lệnh một nơi qua Telegram.
+- Nhiều việc liên quan nhiều phòng ban.
+- Cần gom báo cáo/approval từ nhiều agent.
+- Muốn có dashboard điều hành đội agent.
+
+Nếu bạn mới chỉ có một use case nhỏ, chưa cần Core phức tạp. Nhưng khi đã bắt đầu xây hệ thống 5 agent, Core là lớp nên có đầu tiên.
+
+## Cách setup profile Hermes Core
+
+### Bước 1: Tạo profile
+
+Dùng profile riêng để Core có persona, memory, skill và cấu hình riêng.
+
+```bash
+hermes profile create hermes-core --no-skills
+```
+
+Nếu muốn kế thừa cấu hình provider/tool từ profile hiện tại, có thể dùng clone:
+
+```bash
+hermes profile create hermes-core --clone-from default
+```
+
+Khuyến nghị khi đào tạo:
+
+- **Học/lab:** có thể clone để đỡ setup lại.
+- **Production:** nên kiểm soát kỹ profile, skill và quyền tool.
+
+### Bước 2: Cấu hình model/provider
+
+Ví dụ cấu hình model chính:
+
+```bash
+hermes -p hermes-core config set model.provider custom
+hermes -p hermes-core config set model.default gpt-5.5
+hermes -p hermes-core config set agent.reasoning_effort medium
+```
+
+Nếu dùng provider như LLMGate/OpenRouter, điền `base_url` và API key theo hướng dẫn provider. Không đưa API key vào tài liệu công khai.
+
+Nguyên tắc model:
+
+| Việc | Model gợi ý |
+|---|---|
+| Điều phối nhiều tool/profile | GPT 5.5 |
+| Lập kế hoạch chiến dịch/chiến lược | Opus 4.8 |
+| Báo cáo định kỳ tiết kiệm | GLM 5.2 hoặc model backup phù hợp |
+
+### Bước 3: Viết persona cho Core
+
+Trong `SOUL.md` hoặc phần hướng dẫn profile, Core cần được mô tả rõ.
+
+Mẫu persona:
+
+```text
+Bạn là Hermes Core — agent điều phối trung tâm cho Solo CEO.
+Nhiệm vụ của bạn là nhận lệnh từ CEO, phân loại việc theo 5 agent: Sales, Funnel, Voice, Visual, Daily; chuẩn hóa input/output; giao việc cho đúng agent/profile; gom kết quả; và báo lại những điểm cần CEO duyệt.
+
+Bạn không tự xử lý sâu việc chuyên môn nếu đã có agent chuyên trách.
+Bạn không tự gửi email, đăng content, sửa dữ liệu quan trọng hoặc phát sinh chi phí nếu chưa có duyệt rõ.
+Nếu thiếu thông tin quan trọng, hỏi tối đa 3 câu. Nếu thiếu thông tin nhỏ, nêu giả định và tiếp tục.
+
+Mọi phản hồi cuối nên gồm:
+1. Việc đã phân loại.
+2. Agent/profile được giao.
+3. Output mong muốn.
+4. Việc cần CEO duyệt.
+5. Bước tiếp theo.
+```
+
+### Bước 4: Tạo workspace chung
+
+Core cần một nơi để theo dõi handoff, log và output.
+
+```text
+/hermes-business-os
+  /core
+    routing-rules.md
+    agent-directory.md
+    pending-approvals.md
+    daily-command-center.md
+  /agents
+    /sales
+    /funnel
+    /voice
+    /visual
+    /daily
+  /logs
+  /outputs
+  /approvals
+```
+
+Trong đó:
+
+| File/folder | Mục đích |
+|---|---|
+| `agent-directory.md` | Danh sách agent, scope, profile slug, tool |
+| `routing-rules.md` | Luật phân việc |
+| `pending-approvals.md` | Việc đang chờ CEO duyệt |
+| `daily-command-center.md` | Tóm tắt điều hành mỗi ngày |
+| `logs` | Log routing và lỗi |
+| `approvals` | Kết quả cần duyệt |
+
+<Image
+  src="/images/agents/core-profile-setup-stack.png"
+  alt="Stack setup profile Hermes Core: Profile → Model → SOUL → Workspace → Routing Rules"
+  width={1536}
+  height={1024}
+  className="rounded-lg border border-border"
+/>
+
+## Agent directory: Core cần biết đội của mình
+
+Core cần một bảng danh bạ agent.
+
+Mẫu `agent-directory.md`:
+
+```md
+# Agent Directory
+
+## Hermes Sales
+- Profile: hermes-sales
+- Scope: báo giá, email sales, hợp đồng, CRM/Excel
+- Input: thông tin khách, bảng giá, template, CRM
+- Output: báo giá DOCX/PDF, email draft, hợp đồng draft
+- Approval: cần duyệt trước khi gửi khách hoặc đổi giá
+
+## Hermes Funnel
+- Profile: hermes-funnel
+- Scope: lead, follow-up, nhắc hẹn, research lead
+- Input: lead sheet, form, website, ghi chú demo
+- Output: lead score, customer brief, follow-up draft
+- Approval: cần duyệt trước khi gửi email
+
+## Hermes Voice
+- Profile: hermes-voice
+- Scope: post, blog, content theo brand voice
+- Output: hook, outline, draft, CTA
+- Approval: cần duyệt trước khi đăng
+
+## Hermes Visual
+- Profile: hermes-visual
+- Scope: banner, poster, video ngắn, visual brief
+- Output: visual brief, prompt, asset draft
+- Approval: cần duyệt trước khi publish
+
+## Hermes Daily
+- Profile: hermes-daily
+- Scope: briefing 7h, báo cáo tuần, tin tức, việc chờ duyệt
+- Output: daily brief, weekly report, alerts
+- Approval: không tự thay đổi lịch/ưu tiên chiến lược
+```
+
+Đây là tài liệu cực quan trọng. Nếu Core không biết ai làm gì, nó sẽ điều phối mơ hồ.
+
+## Routing rules: luật phân việc
+
+Core cần biết dấu hiệu nào thì chuyển việc cho agent nào.
+
+| Dấu hiệu trong lệnh | Agent nên nhận |
+|---|---|
+| báo giá, hợp đồng, email khách, CRM, Excel | Hermes Sales |
+| lead, pipeline, follow-up, nhắc hẹn, demo | Hermes Funnel |
+| bài viết, post, blog, brand voice, content plan | Hermes Voice |
+| banner, poster, thumbnail, video ngắn, visual | Hermes Visual |
+| briefing, báo cáo ngày/tuần, tin tức, việc chờ duyệt | Hermes Daily |
+| nhiều phòng ban, launch, chiến dịch, ưu tiên | Hermes Core điều phối nhiều agent |
+
+Rule mẫu:
+
+```text
+Nếu yêu cầu thuộc một agent rõ ràng, hãy route đến agent đó.
+Nếu yêu cầu gồm nhiều phần việc, hãy chia nhỏ thành task theo agent.
+Nếu yêu cầu có rủi ro gửi ra ngoài/sửa dữ liệu/phát sinh chi phí, đánh dấu cần CEO duyệt.
+Nếu thiếu input để route đúng, hỏi lại tối đa 3 câu.
+```
+
+## Handoff format: bàn giao task cho agent con
+
+Khi Core giao việc, task phải rõ. Không giao kiểu:
+
+```text
+Làm giúp anh phần sales.
+```
+
+Handoff nên có format:
+
+```text
+Task: [tên việc]
+Agent/Profile: [agent nhận]
+Business context: [bối cảnh]
+Goal: [mục tiêu]
+Input: [dữ liệu cần dùng]
+Expected output: [format kết quả]
+Permission: [được tự làm gì, cần duyệt gì]
+Deadline/Priority: [nếu có]
+Return format: [Core cần nhận lại gì]
+```
+
+Ví dụ:
+
+```text
+Task: Draft báo giá và email cho khách ABC
+Agent/Profile: hermes-sales
+Business context: Khách ABC vừa demo sản phẩm quản lý sales.
+Goal: Chuẩn bị báo giá nháp và email gửi kèm.
+Input: Ghi chú demo ABC, bảng giá gói Pro, template báo giá.
+Expected output: DOCX/PDF báo giá + email draft dưới 180 từ.
+Permission: Chưa gửi khách. Không tự đổi giá.
+Return format: Link file, email draft, điểm cần CEO duyệt.
+```
+
+## Consolidated response: Core trả lại cho CEO thế nào?
+
+Core không nên trả về log dài. CEO cần bản tóm tắt điều hành.
+
+Format khuyến nghị:
+
+```text
+## Kết quả điều phối
+
+Đã chia thành 3 task:
+
+1. Hermes Sales
+- Việc: Draft báo giá ABC
+- Status: Waiting for Approval
+- Output: quote-abc.pdf + email draft
+
+2. Hermes Voice
+- Việc: 5 ý tưởng content launch offer
+- Status: Done
+- Output: content-plan-week-1.md
+
+3. Hermes Visual
+- Việc: Visual brief cho banner launch
+- Status: Need Input
+- Cần anh bổ sung: kích thước/kênh đăng chính
+
+Cần anh duyệt:
+- Có gửi báo giá ABC không?
+- Chọn 1 trong 5 hook content.
+
+Gợi ý trả lời:
+- “Duyệt gửi báo giá, chọn hook 2”
+- “Sửa giá trước khi gửi”
+- “Tạm dừng visual”
+```
+
+Nguyên tắc:
+
+- Trạng thái rõ.
+- Output rõ.
+- Việc cần CEO làm đặt riêng.
+- Gợi ý câu trả lời để CEO duyệt nhanh.
+
+<Image
+  src="/images/agents/core-handoff-card.png"
+  alt="Core gom kết quả 3 agent thành một báo cáo CEO đọc nhanh"
+  width={1536}
+  height={1024}
+  className="rounded-lg border border-border"
+/>
+
+## Skill cần tạo cho Hermes Core
+
+Core nên có 3 skill ngắn, không dài lan man.
+
+### 1. Task routing skill
+
+Dùng để phân loại yêu cầu và chọn agent.
+
+Nội dung skill nên gồm:
+
+- Danh sách agent.
+- Routing rules.
+- Khi nào hỏi lại.
+- Khi nào chia task đa agent.
+
+### 2. Agent handoff skill
+
+Dùng để chuẩn hóa task giao cho agent con.
+
+Nội dung skill nên gồm:
+
+- Handoff format.
+- Permission/approval rule.
+- Return format.
+- Pitfall: không giao việc mơ hồ.
+
+### 3. Consolidated report skill
+
+Dùng để gom kết quả về CEO.
+
+Nội dung skill nên gồm:
+
+- Status chuẩn: Done, Waiting for Approval, Need Input, Escalated, Failed.
+- Format báo cáo ngắn.
+- Cách đưa việc cần CEO duyệt lên đầu.
+
+Nguyên tắc tiết kiệm token:
+
+> Skill Core chỉ lưu rule và format. Nội dung dài, log, kết quả từng task nên nằm trong workspace/repo, không nhét vào skill.
+
+## Automation gợi ý cho Core
+
+### 1. Pending Approval Summary
+
+Mỗi ngày 8h hoặc 17h, Core gom tất cả việc chờ CEO duyệt.
+
+```text
+Mỗi ngày lúc 17h, tổng hợp pending approvals từ Sales, Funnel, Voice, Visual, Daily. Trả về danh sách tối đa 10 việc cần anh duyệt, nhóm theo mức ưu tiên.
+```
+
+### 2. Daily Command Center
+
+Mỗi sáng, Core gửi tình trạng hệ thống agent.
+
+```text
+Mỗi sáng 7h30, gửi Command Center Brief gồm: agent nào active, automation nào chạy hôm nay, việc nào đang chờ, lỗi nào cần xử lý.
+```
+
+### 3. Failed Agent Alert
+
+Nếu task từ agent con lỗi hoặc không có kết quả, Core báo riêng.
+
+```text
+Nếu một agent/task bị lỗi, gửi alert ngắn gồm: task nào lỗi, lỗi gì, cần CEO làm gì hoặc có thể retry không.
+```
+
+## Approval rule cho Core
+
+Core có quyền điều phối, nhưng không có quyền tự quyết mọi thứ.
+
+| Hành động | Core được làm? |
+|---|---|
+| Phân loại task | Có |
+| Tạo kế hoạch triển khai | Có |
+| Giao task cho agent con | Có, nếu trong phạm vi |
+| Gom báo cáo | Có |
+| Tạo draft quyết định | Có |
+| Gửi email/đăng content/thay đổi dữ liệu quan trọng | Không, cần duyệt |
+| Tự đổi giá, duyệt chi phí, quyết định chiến lược | Không |
+
+Rule mặc định:
+
+```text
+Core được tự điều phối và tổng hợp. Mọi hành động gửi ra ngoài, sửa dữ liệu quan trọng, phát sinh chi phí hoặc quyết định chiến lược phải hỏi CEO trước.
+```
+
+## Bài test đầu tiên cho Core
+
+Sau khi setup profile, test bằng một lệnh có nhiều phòng ban.
+
+```text
+Anh muốn chuẩn bị chiến dịch bán gói tư vấn AI cho SME trong 7 ngày tới.
+Hãy điều phối theo hệ thống 5 agent:
+- Sales cần chuẩn bị offer/báo giá/email.
+- Funnel cần xác định lead và follow-up.
+- Voice cần đề xuất content.
+- Visual cần đề xuất banner/video.
+- Daily cần theo dõi lịch và việc chờ duyệt.
+
+Trả về:
+1. Task chia cho từng agent.
+2. Input mỗi agent cần.
+3. Output mong muốn.
+4. Việc nào cần anh duyệt.
+5. Thứ tự triển khai trong 7 ngày.
+```
+
+Kết quả đạt yêu cầu nếu Core:
+
+- Chia đúng task theo agent.
+- Không tự làm thay hết mọi agent.
+- Nói rõ input/output.
+- Đánh dấu việc cần duyệt.
+- Có timeline triển khai.
+
+## Checklist setup Hermes Core
+
+- [ ] Tạo profile `hermes-core`.
+- [ ] Cấu hình provider/model chính.
+- [ ] Viết persona/SOUL cho vai trò điều phối.
+- [ ] Tạo `agent-directory.md`.
+- [ ] Tạo `routing-rules.md`.
+- [ ] Tạo format handoff chuẩn.
+- [ ] Tạo format consolidated report.
+- [ ] Xác định approval rule.
+- [ ] Test bằng một yêu cầu đa phòng ban.
+- [ ] Nếu chạy production, có pending approval summary và command center brief.
+
+## Lỗi thường gặp
+
+| Lỗi | Dấu hiệu | Cách sửa |
+|---|---|---|
+| Core ôm hết việc | Core tự viết content, tự làm báo giá, tự làm visual | Bắt Core route việc chuyên môn cho agent đúng vai trò |
+| Không có agent directory | Core phân việc sai hoặc mơ hồ | Viết bảng agent/scope/profile slug |
+| Handoff thiếu input/output | Agent con trả kết quả không dùng được | Dùng handoff format cố định |
+| Báo cáo quá dài | CEO vẫn phải tự đọc và tổng hợp | Dùng consolidated response ngắn, có status |
+| Không có approval rule | Core tự quyết quá tay | Rule rõ: gửi/sửa/chi phí/chiến lược phải hỏi |
+| Skill quá dài | Tốn token, Core bị loãng | Skill chỉ lưu rule/format, log nằm trong workspace |
+
+## Bước tiếp theo
+
+Sau khi có Hermes Core, bạn đã có lớp điều phối trung tâm.
+
+Case tiếp theo nên setup là **Hermes Sales**, vì đây là agent có ROI rõ nhất: báo giá, email, hợp đồng và CRM/Excel.

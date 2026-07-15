@@ -1,59 +1,228 @@
-import Link from 'next/link';
+'use client'
+
+import Link from 'next/link'
+import { useEffect, useRef } from 'react'
+import styles from './home.module.css'
+
+const modules = [
+  {
+    week: '01',
+    title: 'AI Foundation',
+    subtitle: 'Quay về nền tảng',
+    description: 'Hiểu LLM, prompting có kiểm chứng, structured content và cách biến một việc lặp thành workflow.',
+    output: 'Claude Project · Skill · Workflow pack',
+    tone: 'orange',
+  },
+  {
+    week: '02',
+    title: 'Product Design & Front-End',
+    subtitle: 'Biến ý tưởng thành trải nghiệm',
+    description: 'Từ problem statement đến UX flow, prototype và một ReactJS front-end responsive.',
+    output: 'UX flow · Prototype · ReactJS app',
+    tone: 'blue',
+  },
+  {
+    week: '03',
+    title: 'Backend, Database & Mobile',
+    subtitle: 'Hiểu hệ thống phía sau',
+    description: 'Nắm client-server, REST API, .NET, database và kết nối sản phẩm với mobile.',
+    output: '.NET API · Database · Mobile app',
+    tone: 'green',
+  },
+  {
+    week: '04',
+    title: 'Data, ML & DevOps',
+    subtitle: 'Đưa sản phẩm vào vận hành',
+    description: 'Đọc dữ liệu, hiểu ML ở mức thực dụng, làm việc với Git và tự động hóa CI/CD.',
+    output: 'Notebook · GitHub · CI/CD pipeline',
+    tone: 'purple',
+  },
+  {
+    week: '05',
+    title: 'Integrated Capstone',
+    subtitle: 'Ship và bảo vệ sản phẩm',
+    description: 'Hoàn thiện business model, pricing, go-to-market, demo công khai và portfolio.',
+    output: 'Deployed product · Portfolio · Demo',
+    tone: 'dark',
+  },
+]
+
+const principles = [
+  ['01', 'Manual first', 'Làm thủ công trước để hiểu bản chất. Sau đó mới dùng AI để tăng tốc.'],
+  ['02', 'Critical questioning', 'Không chỉ nhận output. Học cách hỏi ngược, kiểm tra và bảo vệ quyết định.'],
+  ['03', 'One product', 'Mỗi module bàn giao cho module tiếp theo trên cùng một sản phẩm.'],
+  ['04', 'Proof of work', 'Tốt nghiệp bằng sản phẩm đã build, đã deploy và có thể trình bày.'],
+]
+
+function useReveal() {
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const root = ref.current
+    if (!root) return
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(styles.isVisible)
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.14 },
+    )
+    root.querySelectorAll('[data-reveal]').forEach((element) => observer.observe(element))
+    return () => observer.disconnect()
+  }, [])
+
+  return ref
+}
 
 export default function HomePage() {
+  const revealRoot = useReveal()
+
   return (
-    <div className="flex flex-col items-center justify-center text-center px-4 py-16 max-w-3xl mx-auto">
-      <span className="text-sm font-medium text-orange-500 mb-3">
-        KADA Training Program
-      </span>
-      <h1 className="text-4xl sm:text-5xl font-bold mb-4 leading-tight">
-        Từ hiểu AI đến ship sản phẩm có business model
-      </h1>
-      <p className="text-lg text-muted-foreground mb-8 max-w-xl">
-        8 ngày × 6 giờ. Hands-on Claude, prompting có kiểm chứng,
-        structured content, workflow automation — kết thúc bằng capstone sản phẩm end-to-end.
-      </p>
-      <div className="flex flex-col sm:flex-row gap-3 mb-12">
-        <Link
-          href="/docs"
-          className="inline-flex items-center justify-center rounded-lg bg-orange-500 px-6 py-3 text-sm font-semibold text-white hover:bg-orange-600 transition-colors"
-        >
-          Xem chương trình →
-        </Link>
-        <Link
-          href="/docs/module-1-ai-foundation"
-          className="inline-flex items-center justify-center rounded-lg border border-border px-6 py-3 text-sm font-semibold hover:bg-muted transition-colors"
-        >
-          Module 1 — AI Foundation
-        </Link>
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-2xl">
-        <div className="rounded-lg border border-border p-4 text-left">
-          <div className="text-2xl font-bold text-orange-500 mb-1">8</div>
-          <div className="text-sm font-medium mb-1">Ngày học</div>
-          <div className="text-xs text-muted-foreground">
-            5 ngày Foundation + 3 ngày Capstone
+    <main ref={revealRoot} className={styles.page}>
+      <section className={styles.hero}>
+        <div className={styles.heroGrid} />
+        <div className={styles.heroGlow} />
+        <div className={`${styles.heroContent} ${styles.container}`}>
+          <div className={styles.eyebrow}>
+            <span className={styles.liveDot} />
+            KADA Vietnam · 5 tuần · 23 ngày học
+          </div>
+          <h1>
+            Đừng bắt đầu bằng
+            <br />
+            <em>công cụ.</em>
+            <br />
+            Hãy bắt đầu bằng nền tảng.
+          </h1>
+          <p className={styles.heroLead}>
+            Một hành trình được thiết kế để bạn hiểu AI từ gốc, xây được sản phẩm thật,
+            và biết vì sao sản phẩm đó đáng được sử dụng.
+          </p>
+          <div className={styles.heroActions}>
+            <Link href="/docs" className={styles.primaryButton}>
+              Khám phá hành trình <span>↗</span>
+            </Link>
+            <a href="#roadmap" className={styles.textButton}>
+              Xem roadmap <span>↓</span>
+            </a>
+          </div>
+          <div className={styles.heroMeta}>
+            <span><b>40–45</b> học viên / cohort</span>
+            <span className={styles.metaDivider} />
+            <span><b>01</b> sản phẩm xuyên suốt</span>
+            <span className={styles.metaDivider} />
+            <span><b>05</b> module liên kết</span>
           </div>
         </div>
-        <div className="rounded-lg border border-border p-4 text-left">
-          <div className="text-2xl font-bold text-orange-500 mb-1">2</div>
-          <div className="text-sm font-medium mb-1">Module</div>
-          <div className="text-xs text-muted-foreground">
-            AI Foundation & Integrated Capstone
+        <div className={styles.heroOrbit} aria-hidden="true">
+          <div className={styles.orbitRing} />
+          <div className={styles.orbitRingSmall} />
+          <div className={styles.orbitCore}>AI</div>
+          <span className={`${styles.orbitLabel} ${styles.orbitLabelOne}`}>understand</span>
+          <span className={`${styles.orbitLabel} ${styles.orbitLabelTwo}`}>build</span>
+          <span className={`${styles.orbitLabel} ${styles.orbitLabelThree}`}>defend</span>
+        </div>
+        <div className={styles.scrollHint}><span /> kéo xuống để bắt đầu</div>
+      </section>
+
+      <section className={`${styles.statement} ${styles.container}`} data-reveal>
+        <div className={styles.sectionKicker}>01 — Tư duy chương trình</div>
+        <div className={styles.statementLayout}>
+          <h2>AI không thay thế<br /><span>năng lực nền tảng.</span></h2>
+          <div className={styles.statementCopy}>
+            <p className={styles.largeCopy}>AI chỉ khuếch đại những gì bạn đã hiểu — hoặc khuếch đại sự nhầm lẫn.</p>
+            <p>KADA đưa bạn quay lại những câu hỏi căn bản: hệ thống hoạt động thế nào, vấn đề thật sự là gì, dữ liệu có đáng tin không, và output này có thể kiểm chứng không.</p>
+            <p>Rồi từ nền tảng đó, bạn học cách dùng AI như một người xây dựng — không phải một người chỉ biết yêu cầu AI làm thay.</p>
           </div>
         </div>
-        <div className="rounded-lg border border-border p-4 text-left">
-          <div className="text-2xl font-bold text-orange-500 mb-1">1</div>
-          <div className="text-sm font-medium mb-1">Sản phẩm thật</div>
-          <div className="text-xs text-muted-foreground">
-            Ship end-to-end có BMC, pricing, GTM
+        <div className={styles.handwritten}>back to basics <span>↗</span></div>
+      </section>
+
+      <section className={styles.darkStory} data-reveal>
+        <div className={styles.container}>
+          <div className={styles.sectionKickerLight}>02 — Câu chuyện học tập</div>
+          <div className={styles.storyHeader}>
+            <h2>Từ một câu hỏi<br /><span>đến một sản phẩm.</span></h2>
+            <p>Không học từng công cụ rời rạc. Bạn đi qua một roadmap có chủ đích — mỗi bước tạo nền cho bước tiếp theo.</p>
+          </div>
+          <div className={styles.storyPath}>
+            <svg className={styles.pathSvg} viewBox="0 0 1100 240" preserveAspectRatio="none" aria-hidden="true">
+              <path className={styles.pathBase} d="M0,185 C150,185 130,50 280,55 S420,210 555,168 S710,28 820,74 S940,208 1100,45" />
+              <path className={styles.pathActive} d="M0,185 C150,185 130,50 280,55 S420,210 555,168 S710,28 820,74 S940,208 1100,45" />
+            </svg>
+            <div className={`${styles.pathNode} ${styles.nodeOne}`}><span>01</span><b>Ask</b><small>Đặt câu hỏi đúng</small></div>
+            <div className={`${styles.pathNode} ${styles.nodeTwo}`}><span>02</span><b>Understand</b><small>Hiểu hệ thống</small></div>
+            <div className={`${styles.pathNode} ${styles.nodeThree}`}><span>03</span><b>Build</b><small>Tạo sản phẩm</small></div>
+            <div className={`${styles.pathNode} ${styles.nodeFour}`}><span>04</span><b>Ship</b><small>Đưa vào thực tế</small></div>
+            <div className={`${styles.pathNode} ${styles.nodeFive}`}><span>05</span><b>Defend</b><small>Bảo vệ lựa chọn</small></div>
           </div>
         </div>
-      </div>
-      <div className="mt-10 text-sm text-muted-foreground max-w-lg">
-        Hands-on Claude là primary tool. Giới thiệu ChatGPT Work và Hermes Agent (always-on 24/7).
-        Kết thúc có portfolio: GitHub README, CV, promo video, social images.
-      </div>
-    </div>
-  );
+      </section>
+
+      <section id="roadmap" className={`${styles.roadmap} ${styles.container}`} data-reveal>
+        <div className={styles.sectionKicker}>03 — Roadmap 5 tuần</div>
+        <div className={styles.roadmapIntro}>
+          <h2>Mỗi tuần một<br /><span>năng lực mới.</span></h2>
+          <p>Ý tưởng của bạn không bị bỏ lại ở cuối một buổi workshop. Nó lớn lên từng tuần — từ problem statement đến một sản phẩm có thể demo trước người thật.</p>
+        </div>
+        <div className={styles.moduleList}>
+          {modules.map((module, index) => (
+            <article key={module.week} className={`${styles.moduleCard} ${styles[`tone${module.tone}`]}`} data-reveal>
+              <div className={styles.moduleWeek}>W{module.week}</div>
+              <div className={styles.moduleBody}>
+                <div className={styles.moduleSubtitle}>{module.subtitle}</div>
+                <h3>{module.title}</h3>
+                <p>{module.description}</p>
+                <div className={styles.moduleOutput}><span>Output</span>{module.output}</div>
+              </div>
+              <div className={styles.moduleArrow}>↗</div>
+              {index < modules.length - 1 && <div className={styles.connector} />}
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className={styles.principles} data-reveal>
+        <div className={styles.container}>
+          <div className={styles.sectionKicker}>04 — Cách học</div>
+          <div className={styles.principleTop}>
+            <h2>Học để <em>làm chủ</em>,<br />không học để chạy theo.</h2>
+            <p>AI thay đổi mỗi ngày. Năng lực suy nghĩ, xây dựng và kiểm chứng là thứ ở lại với bạn lâu hơn bất kỳ tool nào.</p>
+          </div>
+          <div className={styles.principleGrid}>
+            {principles.map(([number, title, copy]) => (
+              <div className={styles.principleCard} key={number}>
+                <span className={styles.principleNumber}>{number}</span>
+                <h3>{title}</h3>
+                <p>{copy}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className={`${styles.finalCta} ${styles.container}`} data-reveal>
+        <div className={styles.ctaMark}>KADA</div>
+        <div className={styles.ctaContent}>
+          <div className={styles.sectionKicker}>05 — Điểm đến</div>
+          <h2>Đến cuối hành trình,<br /><span>bạn có gì trong tay?</span></h2>
+          <p>Một sản phẩm đã deploy. Một portfolio có thể mở ra cơ hội. Và quan trọng nhất — khả năng giải thích rõ bạn đã xây gì, vì sao bạn xây nó, và AI đã giúp bạn đi xa hơn như thế nào.</p>
+          <Link href="/docs" className={styles.primaryButton}>Bắt đầu hành trình <span>↗</span></Link>
+        </div>
+        <div className={styles.ctaStamp}>BUILD<br />WITH<br />INTENT</div>
+      </section>
+
+      <footer className={styles.footer}>
+        <div className={styles.container}>
+          <span>KADA Vietnam</span>
+          <span>Back to basics. Forward with AI.</span>
+          <span>© 2026</span>
+        </div>
+      </footer>
+    </main>
+  )
 }

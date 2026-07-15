@@ -47,6 +47,12 @@ const modules = [
   },
 ]
 
+const heroStages = [
+  { key: 'understand', label: 'understand', copy: 'Hiểu hệ thống', status: 'foundation / verified' },
+  { key: 'build', label: 'build', copy: 'Tạo sản phẩm', status: 'prototype / working' },
+  { key: 'defend', label: 'defend', copy: 'Bảo vệ lựa chọn', status: 'demo / portfolio' },
+]
+
 const journeySteps = [
   {
     number: '01',
@@ -153,6 +159,46 @@ function useReveal() {
   return ref
 }
 
+function HeroPlayground() {
+  const [active, setActive] = useState(0)
+  const stage = heroStages[active]
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActive((current) => (current + 1) % heroStages.length)
+    }, 2100)
+    return () => window.clearInterval(timer)
+  }, [])
+
+  return (
+    <div className={`${styles.heroOrbit} ${styles.heroPlayground}`} aria-label="AI journey playground">
+      <div className={styles.orbitGlow} />
+      <div className={styles.orbitRing} />
+      <div className={styles.orbitRingSmall} />
+      <div className={styles.orbitTrail} />
+      <div className={styles.orbitCore} key={stage.key}>
+        <span>AI</span>
+        <small>{stage.status}</small>
+      </div>
+      {heroStages.map((item, index) => (
+        <button
+          type="button"
+          className={`${styles.orbitLabel} ${styles[`orbit${item.key}`]} ${active === index ? styles.orbitLabelActive : ''}`}
+          key={item.key}
+          onClick={() => setActive(index)}
+          aria-label={`${item.label}: ${item.copy}`}
+        >
+          <i />{item.label}
+        </button>
+      ))}
+      <div className={styles.orbitCaption} key={stage.key}>
+        <span>NOW EXPLORING</span>
+        <b>{stage.copy}</b>
+      </div>
+    </div>
+  )
+}
+
 function JourneyPlayground() {
   const [active, setActive] = useState(0)
   const [playing, setPlaying] = useState(false)
@@ -244,11 +290,8 @@ export default function HomePage() {
             KADA Vietnam · 5 tuần · 23 ngày học
           </div>
           <h1>
-            Đừng bắt đầu bằng
-            <br />
-            <em>công cụ.</em>
-            <br />
-            Hãy bắt đầu bằng nền tảng.
+            <span>Đừng bắt đầu bằng <em>công cụ.</em></span>
+            <span>Hãy bắt đầu bằng nền tảng.</span>
           </h1>
           <p className={styles.heroLead}>
             Một hành trình được thiết kế để bạn hiểu AI từ gốc, xây được sản phẩm thật,
@@ -270,14 +313,7 @@ export default function HomePage() {
             <span><b>05</b> module liên kết</span>
           </div>
         </div>
-        <div className={styles.heroOrbit} aria-hidden="true">
-          <div className={styles.orbitRing} />
-          <div className={styles.orbitRingSmall} />
-          <div className={styles.orbitCore}>AI</div>
-          <span className={`${styles.orbitLabel} ${styles.orbitLabelOne}`}>understand</span>
-          <span className={`${styles.orbitLabel} ${styles.orbitLabelTwo}`}>build</span>
-          <span className={`${styles.orbitLabel} ${styles.orbitLabelThree}`}>defend</span>
-        </div>
+        <HeroPlayground />
         <div className={styles.scrollHint}><span /> kéo xuống để bắt đầu</div>
       </section>
 

@@ -136,7 +136,12 @@
 .principles { background: #e6e1d7; padding: 135px 0; }
 .principleTop { align-items: end; margin-bottom: 68px; } .principleTop h2 em { color: var(--orange); font-style: normal; } .principleTop p { max-width: 390px; color: var(--muted); line-height: 1.65; margin: 0 0 7px; }
 .principleGrid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); }
-.principleCard { padding: 26px 22px 0 0; margin-right: 26px; border-right: 1px solid var(--line); min-height: 190px; } .principleCard:last-child { border-right: 0; } .principleNumber { color: var(--orange); font: 12px 'Space Mono', monospace; } .principleCard h3 { font-size: 18px; margin: 34px 0 10px; letter-spacing: -.03em; } .principleCard p { color: var(--muted); line-height: 1.55; font-size: 14px; margin: 0; }
+.principleCard { position: relative; padding: 26px 22px 0 0; margin-right: 26px; border-right: 1px solid var(--line); min-height: 235px; } .principleCard:last-child { border-right: 0; } .principleNumber { color: var(--orange); font: 12px 'Space Mono', monospace; } .principleCard h3 { font-size: 18px; margin: 18px 0 10px; letter-spacing: -.03em; } .principleCard p { color: var(--muted); line-height: 1.55; font-size: 14px; margin: 0; }
+.principleIcon { width: 48px; height: 48px; margin-bottom: 18px; color: var(--orange); }
+.principleIcon svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; overflow: visible; animation: principleFloat 4s ease-in-out infinite; }
+.principleCard:nth-child(2) .principleIcon svg { animation-delay: .35s; } .principleCard:nth-child(3) .principleIcon svg { animation-delay: .7s; } .principleCard:nth-child(4) .principleIcon svg { animation-delay: 1.05s; }
+.principleCard:hover .principleIcon svg { color: var(--ink); transform: translateY(-4px) rotate(-4deg); transition: transform .35s, color .35s; }
+.principleIcon .iconPulseLine { stroke-dasharray: 32; animation: iconDash 2.8s ease-in-out infinite; } .principleIcon .iconFlow { stroke-dasharray: 5 7; animation: iconFlow 1.6s linear infinite; }
 
 .teachers { background: #f2f0e9; padding: 135px 0 120px; border-top: 1px solid var(--line); }
 .teachersIntro { display: grid; grid-template-columns: 1.1fr .9fr; gap: 80px; align-items: end; margin: 38px 0 65px; }
@@ -169,6 +174,9 @@
 @keyframes orbitSpinReverse { to { transform: rotate(-316deg) skewX(12deg); } }
 @keyframes orbitGlowPulse { 0%,100% { opacity: .55; transform: scale(.94); } 50% { opacity: .95; transform: scale(1.06); } }
 @keyframes coreSwap { from { opacity: .3; transform: scale(.92); } to { opacity: 1; transform: scale(1); } }
+@keyframes principleFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes iconDash { 0%,100% { stroke-dashoffset: 32; opacity: .55; } 50% { stroke-dashoffset: 0; opacity: 1; } }
+@keyframes iconFlow { to { stroke-dashoffset: -24; } }
 @keyframes spinSlow { to { transform: rotate(372deg); } }
 
 @media (max-width: 900px) {

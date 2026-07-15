@@ -129,11 +129,24 @@ const teachers = [
 ]
 
 const principles = [
-  ['01', 'Manual first', 'Làm thủ công trước để hiểu bản chất. Sau đó mới dùng AI để tăng tốc.'],
-  ['02', 'Critical questioning', 'Không chỉ nhận output. Học cách hỏi ngược, kiểm tra và bảo vệ quyết định.'],
-  ['03', 'One product', 'Mỗi module bàn giao cho module tiếp theo trên cùng một sản phẩm.'],
-  ['04', 'Proof of work', 'Tốt nghiệp bằng sản phẩm đã build, đã deploy và có thể trình bày.'],
+  ['01', 'Manual first', 'Làm thủ công trước để hiểu bản chất. Sau đó mới dùng AI để tăng tốc.', 'hand'],
+  ['02', 'Critical questioning', 'Không chỉ nhận output. Học cách hỏi ngược, kiểm tra và bảo vệ quyết định.', 'search'],
+  ['03', 'One product', 'Mỗi module bàn giao cho module tiếp theo trên cùng một sản phẩm.', 'nodes'],
+  ['04', 'Proof of work', 'Tốt nghiệp bằng sản phẩm đã build, đã deploy và có thể trình bày.', 'check'],
 ]
+
+function PrincipleIcon({ type }: { type: string }) {
+  if (type === 'hand') {
+    return <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M15 25V12a2.5 2.5 0 0 1 5 0v10-14a2.5 2.5 0 0 1 5 0v14-12a2.5 2.5 0 0 1 5 0v13-9a2.5 2.5 0 0 1 5 0v14c0 8-5 12-11 12h-3c-5 0-7-3-9-7l-3-6a2.6 2.6 0 0 1 4-3l2 2Z" /><path d="M10 8c-2 2-3 5-3 8M38 8c2 2 3 5 3 8" /></svg>
+  }
+  if (type === 'search') {
+    return <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="21" cy="21" r="11" /><path d="m29 29 10 10M21 15v12M15 21h12" /><path className="iconPulseLine" d="M10 39h22" /></svg>
+  }
+  if (type === 'nodes') {
+    return <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="9" cy="24" r="4" /><circle cx="39" cy="12" r="4" /><circle cx="39" cy="36" r="4" /><path d="M13 23h10c5 0 6-9 12-10M13 25h10c5 0 6 9 12 10" /><path className="iconFlow" d="M17 24h14" /></svg>
+  }
+  return <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="16" /><path d="m15 24 6 6 13-14" /><path className="iconPulseLine" d="M24 3v5M24 40v5" /></svg>
+}
 
 function useReveal() {
   const ref = useRef<HTMLDivElement>(null)
@@ -385,8 +398,9 @@ export default function HomePage() {
             <p>AI thay đổi mỗi ngày. Năng lực suy nghĩ, xây dựng và kiểm chứng là thứ ở lại với bạn lâu hơn bất kỳ tool nào.</p>
           </div>
           <div className={styles.principleGrid}>
-            {principles.map(([number, title, copy]) => (
+            {principles.map(([number, title, copy, icon]) => (
               <div className={styles.principleCard} key={number}>
+                <div className={styles.principleIcon}><PrincipleIcon type={icon} /></div>
                 <span className={styles.principleNumber}>{number}</span>
                 <h3>{title}</h3>
                 <p>{copy}</p>

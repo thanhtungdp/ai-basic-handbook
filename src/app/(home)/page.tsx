@@ -95,6 +95,33 @@ const journeySteps = [
   },
 ]
 
+const teachers = [
+  {
+    initials: 'TT',
+    name: 'Phan Thanh Tung',
+    module: 'Module 1 & Module 5',
+    focus: 'AI Foundation · Business Model · Capstone & Portfolio',
+  },
+  {
+    initials: 'BT',
+    name: 'Brian Truong',
+    module: 'Module 2',
+    focus: 'Product Design · UX · ReactJS · Front-End',
+  },
+  {
+    initials: 'PP',
+    name: 'Pham Hoang Phat',
+    module: 'Module 3',
+    focus: 'Backend .NET · Database · REST API · Mobile',
+  },
+  {
+    initials: 'DT',
+    name: 'Dan Truong',
+    module: 'Module 4',
+    focus: 'Data · Machine Learning · Git · DevOps · CI/CD',
+  },
+]
+
 const principles = [
   ['01', 'Manual first', 'Làm thủ công trước để hiểu bản chất. Sau đó mới dùng AI để tăng tốc.'],
   ['02', 'Critical questioning', 'Không chỉ nhận output. Học cách hỏi ngược, kiểm tra và bảo vệ quyết định.'],
@@ -331,10 +358,36 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className={styles.teachers} data-reveal>
+        <div className={styles.container}>
+          <div className={styles.sectionKicker}>05 — Đội ngũ giảng viên</div>
+          <div className={styles.teachersIntro}>
+            <h2>Người dẫn đường<br /><span>cho từng chặng.</span></h2>
+            <p>Mỗi module được dẫn dắt bởi người đang làm thật trong lĩnh vực của mình — để kiến thức luôn gắn với cách sản phẩm được xây dựng ngoài đời.</p>
+          </div>
+          <div className={styles.teacherGrid}>
+            {teachers.map((teacher) => (
+              <article className={styles.teacherCard} key={teacher.name}>
+                <div className={styles.avatarPlaceholder} aria-label={`Avatar placeholder của ${teacher.name}`}>
+                  {teacher.initials}
+                </div>
+                <div className={styles.teacherInfo}>
+                  <div className={styles.teacherModule}>{teacher.module}</div>
+                  <h3>{teacher.name}</h3>
+                  <p>{teacher.focus}</p>
+                </div>
+                <span className={styles.teacherArrow}>↗</span>
+              </article>
+            ))}
+          </div>
+          <div className={styles.avatarNote}>Avatar sẽ được cập nhật sau <span>·</span> circle hiện tại là placeholder</div>
+        </div>
+      </section>
+
       <section className={`${styles.finalCta} ${styles.container}`} data-reveal>
         <div className={styles.ctaMark}>KADA</div>
         <div className={styles.ctaContent}>
-          <div className={styles.sectionKicker}>05 — Điểm đến</div>
+          <div className={styles.sectionKicker}>06 — Điểm đến</div>
           <h2>Đến cuối hành trình,<br /><span>bạn có gì trong tay?</span></h2>
           <p>Một sản phẩm đã deploy. Một portfolio có thể mở ra cơ hội. Và quan trọng nhất — khả năng giải thích rõ bạn đã xây gì, vì sao bạn xây nó, và AI đã giúp bạn đi xa hơn như thế nào.</p>
           <Link href="/docs" className={styles.primaryButton}>Bắt đầu hành trình <span>↗</span></Link>

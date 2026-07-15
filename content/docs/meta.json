@@ -2,6 +2,9 @@
   "title": "KADA Program",
   "pages": [
     "module-1-ai-foundation",
+    "module-2-design-front-end",
+    "module-3-backend-db-mobile",
+    "module-4-data-ml-devops",
     "module-5-capstone"
   ]
 }

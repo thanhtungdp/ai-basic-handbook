@@ -1,0 +1,5 @@
+{
+  "title": "Module 4 — Data, ML & DevOps",
+  "description": "5 ngày × 5 giờ · Teacher: Dan Truong · Data, ML, Git và CI/CD.",
+  "pages": ["index", "buoi-16-data-handling-va-jupyter", "buoi-17-statistics-va-visualization", "buoi-18-machine-learning-intuition", "buoi-19-git-github-va-collaboration", "buoi-20-cicd-va-deployment"]
+}

@@ -1,9 +1,5 @@
 {
-  "title": "Module 5 — Capstone & Portfolio",
-  "description": "3 ngày × 6 giờ. Business model, build sprint, go-to-market, final demo, portfolio clinic.",
-  "pages": [
-    "buoi-6-business-model-canvas",
-    "buoi-7-build-sprint-va-gtm",
-    "buoi-8-final-demo-va-portfolio"
-  ]
+  "title": "Module 5 — Integrated Capstone & Portfolio",
+  "description": "3 ngày × 6 giờ · Teacher: Phan Thanh Tung · Build, business model, GTM, demo và portfolio.",
+  "pages": ["index", "buoi-6-business-model-canvas", "buoi-7-build-sprint-va-gtm", "buoi-8-final-demo-va-portfolio"]
 }

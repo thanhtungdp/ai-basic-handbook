@@ -1,11 +1,5 @@
 {
   "title": "Module 1 — AI Foundation",
-  "description": "5 ngày × 6 giờ. Nền tảng LLM, prompting có kiểm chứng, structured content, workflow automation, mini-project.",
-  "pages": [
-    "buoi-1-io-ai-va-claude",
-    "buoi-2-prompting-va-market-research",
-    "buoi-3-structured-content-va-skills",
-    "buoi-4-workflow-automation-va-hermes-agent",
-    "buoi-5-team-mini-project"
-  ]
+  "description": "5 ngày × 6 giờ · Teacher: Phan Thanh Tung · LLMs, prompting, structured content, Skills và workflow automation.",
+  "pages": ["index", "buoi-1-io-ai-va-claude", "buoi-2-prompting-va-market-research", "buoi-3-structured-content-va-skills", "buoi-4-workflow-automation-va-hermes-agent", "buoi-5-team-mini-project"]
 }

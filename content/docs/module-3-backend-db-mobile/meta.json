@@ -1,0 +1,5 @@
+{
+  "title": "Module 3 — Backend, Database & Mobile",
+  "description": "5 ngày × 6 giờ · Teacher: Pham Hoang Phat · .NET, APIs, databases và mobile.",
+  "pages": ["index", "buoi-11-client-server-va-rest-api", "buoi-12-dotnet-backend", "buoi-13-sql-nosql-va-database", "buoi-14-api-integration-va-optimization", "buoi-15-mobile-application"]
+}

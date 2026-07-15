@@ -14,6 +14,8 @@
 .container { width: min(1080px, calc(100% - 64px)); margin: 0 auto; }
 
 .hero {
+  width: min(1080px, calc(100% - 64px));
+  margin: 0 auto;
   min-height: min(800px, calc(100vh - 64px));
   position: relative;
   display: flex;
@@ -34,7 +36,7 @@
 .heroContent { position: relative; z-index: 2; width: 100%; padding: 82px 0 98px; animation: rise .9s cubic-bezier(.2,.8,.2,1) both; }
 .eyebrow, .sectionKicker, .sectionKickerLight { display: flex; align-items: center; gap: 10px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; color: var(--orange); }
 .liveDot { width: 7px; height: 7px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 0 5px rgba(237,107,60,.13); animation: pulse 2s infinite; }
-.hero h1 { margin: 22px 0 22px; max-width: 720px; font-size: clamp(2.8rem, 5.25vw, 5.55rem); letter-spacing: -.07em; line-height: .97; font-weight: 650; overflow-wrap: break-word; }
+.hero h1 { margin: 22px 0 22px; max-width: 680px; font-size: clamp(2rem, 3.45vw, 3.55rem); letter-spacing: -.065em; line-height: .99; font-weight: 650; overflow-wrap: break-word; }
 .hero h1 > span { display: block; white-space: nowrap; }
 .hero h1 em { color: var(--orange); font-style: normal; position: relative; }
 .hero h1 em::after { content: ''; position: absolute; height: 9px; left: 0; right: 3%; bottom: -6px; background: var(--orange); opacity: .28; transform: rotate(-2deg); transform-origin: left; animation: underline 1.3s .8s both; }
@@ -70,7 +72,7 @@
 
 .statement { padding: 150px 0 145px; position: relative; }
 .statementLayout, .roadmapIntro, .principleTop { display: grid; grid-template-columns: 1.1fr .9fr; gap: 80px; margin-top: 38px; }
-.statement h2, .roadmapIntro h2, .principleTop h2, .storyHeader h2, .finalCta h2 { font-size: clamp(2.8rem, 5.5vw, 5.9rem); letter-spacing: -.075em; line-height: .94; margin: 0; font-weight: 650; }
+.statement h2, .roadmapIntro h2, .principleTop h2, .storyHeader h2, .finalCta h2 { font-size: clamp(1.9rem, 3vw, 3.1rem); letter-spacing: -.06em; line-height: .98; margin: 0; font-weight: 650; }
 .statement h2 span, .roadmapIntro h2 span, .storyHeader h2 span, .finalCta h2 span { color: var(--orange); }
 .statementCopy { padding-top: 10px; max-width: 440px; color: var(--muted); font-size: 16px; line-height: 1.65; }
 .statementCopy p { margin: 0 0 18px; } .statementCopy .largeCopy { color: var(--ink); font-size: 24px; line-height: 1.25; letter-spacing: -.03em; }
@@ -124,7 +126,7 @@
 .moduleCard { position: relative; min-height: 196px; display: grid; grid-template-columns: 125px 1fr 60px; gap: 25px; padding: 30px 32px; border-radius: 6px; border: 1px solid transparent; transition: transform .35s, box-shadow .35s; overflow: visible; }
 .moduleCard:hover { transform: translateX(7px); box-shadow: 16px 18px 0 rgba(31,37,35,.08); }
 .moduleWeek { font: 700 13px 'Space Mono', monospace; opacity: .7; padding-top: 4px; }
-.moduleSubtitle { font-size: 11px; text-transform: uppercase; letter-spacing: .14em; opacity: .7; margin-bottom: 9px; } .moduleBody h3 { margin: 0; font-size: 27px; letter-spacing: -.05em; } .moduleBody p { max-width: 610px; margin: 10px 0 18px; line-height: 1.5; font-size: 14px; opacity: .78; }
+.moduleSubtitle { font-size: 10px; text-transform: uppercase; letter-spacing: .14em; opacity: .7; margin-bottom: 9px; } .moduleBody h3 { margin: 0; font-size: 19px; letter-spacing: -.04em; } .moduleBody p { max-width: 610px; margin: 10px 0 18px; line-height: 1.5; font-size: 14px; opacity: .78; }
 .moduleOutput { border-top: 1px solid currentColor; padding-top: 11px; font: 11px 'Space Mono', monospace; opacity: .82; } .moduleOutput span { display: inline-block; margin-right: 13px; text-transform: uppercase; opacity: .6; }
 .moduleArrow { width: 37px; height: 37px; border: 1px solid currentColor; border-radius: 50%; display: grid; place-items: center; font-size: 18px; transition: transform .25s; } .moduleCard:hover .moduleArrow { transform: rotate(45deg); }
 .toneorange { background: #f7d7c6; border-color: #e6bfa9; } .toneblue { background: #d8e6e9; border-color: #b9d0d6; } .tonegreen { background: #dce7d8; border-color: #c2d3bd; } .tonepurple { background: #e5ddeb; border-color: #d0c1dd; } .tonedark { background: var(--ink); color: white; border-color: var(--ink); }
@@ -137,7 +139,7 @@
 
 .teachers { background: #f2f0e9; padding: 135px 0 120px; border-top: 1px solid var(--line); }
 .teachersIntro { display: grid; grid-template-columns: 1.1fr .9fr; gap: 80px; align-items: end; margin: 38px 0 65px; }
-.teachersIntro h2 { margin: 0; font-size: clamp(2.8rem, 5.5vw, 5.9rem); letter-spacing: -.075em; line-height: .94; font-weight: 650; }
+.teachersIntro h2 { margin: 0; font-size: clamp(1.9rem, 3vw, 3.1rem); letter-spacing: -.06em; line-height: .98; font-weight: 650; }
 .teachersIntro h2 span { color: var(--orange); } .teachersIntro p { max-width: 390px; margin: 0 0 7px; color: var(--muted); line-height: 1.65; }
 .teacherGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
 .teacherCard { position: relative; display: flex; align-items: center; gap: 20px; min-height: 145px; padding: 23px; border: 1px solid var(--line); border-radius: 6px; background: rgba(255,255,255,.33); transition: transform .3s, background .3s, box-shadow .3s; }
@@ -180,12 +182,12 @@
   .container { width: min(100% - 34px, 560px); }
   .hero { min-height: 730px; align-items: flex-start; } .heroContent { padding-top: 70px; } .hero h1 { max-width: 100%; margin-top: 20px; font-size: clamp(2.65rem, 13vw, 4.2rem); line-height: .97; } .heroLead { font-size: 16px; max-width: 390px; }
   .heroOrbit { top: auto; bottom: -92px; right: -78px; width: 340px; opacity: .34; } .hero h1 > span { white-space: normal; } .heroMeta { flex-wrap: wrap; gap: 10px 14px; margin-top: 55px; } .metaDivider { display: none; } .heroActions { flex-wrap: wrap; gap: 18px; } .scrollHint { display: none; }
-  .statement, .roadmap, .principles, .teachers, .finalCta { padding: 90px 0; } .statement h2, .roadmapIntro h2, .principleTop h2, .storyHeader h2, .teachersIntro h2, .finalCta h2 { font-size: 3.2rem; }
+  .statement, .roadmap, .principles, .teachers, .finalCta { padding: 90px 0; } .statement h2, .roadmapIntro h2, .principleTop h2, .storyHeader h2, .teachersIntro h2, .finalCta h2 { font-size: 1.9rem; }
   .teachersIntro { grid-template-columns: 1fr; gap: 28px; margin: 30px 0 40px; } .teacherGrid { grid-template-columns: 1fr; gap: 10px; } .teacherCard { min-height: 118px; padding: 17px; gap: 14px; } .avatarPlaceholder { flex-basis: 58px; width: 58px; height: 58px; font-size: 14px; } .teacherInfo h3 { font-size: 16px; } .teacherInfo p { font-size: 11px; padding-right: 10px; } .avatarNote { text-align: left; line-height: 1.5; }
   .handwritten { right: 8%; bottom: 46px; } .darkStory { padding: 90px 0 100px; } .storyPath { height: 480px; margin-top: 36px; transform: none; } .pathSvg { width: 110px; height: 430px; left: 35px; top: 0; } .pathBase, .pathActive { d: path('M55,0 C10,70 100,100 55,170 S10,270 55,330 S100,390 55,430'); }
   .pathNode { width: 145px; align-items: flex-start; text-align: left; flex-direction: row; flex-wrap: wrap; gap: 7px 10px; } .pathNode span { flex: 0 0 40px; } .pathNode b { padding-top: 12px; } .pathNode small { padding-left: 50px; margin-top: -14px; } .node1 { left: 12px; top: -4px; } .node2 { left: 12px; top: 91px; } .node3 { left: 12px; top: 190px; } .node4 { left: 12px; top: 290px; } .node5 { left: 12px; top: 390px; } 
   .playgroundToolbar { align-items: flex-start; flex-direction: column; padding: 17px; } .playgroundBody { display: block; min-height: 0; } .playgroundSteps { display: flex; overflow-x: auto; padding: 12px 8px; border-right: 0; border-bottom: 1px solid rgba(244,241,233,.14); scrollbar-width: none; } .playgroundSteps::-webkit-scrollbar { display: none; } .playgroundStep { flex: 0 0 92px; display: flex; flex-direction: column; gap: 6px; padding: 8px; } .playgroundStep span { flex: 0 0 27px; width: 27px; height: 27px; } .playgroundStep b { font-size: 11px; } .playgroundStep small { font-size: 8px; white-space: nowrap; } .playgroundScreen { margin: 16px; min-height: 210px; } .screenContent { padding: 29px 20px; } .playgroundCaption { border-left: 0; border-top: 1px solid rgba(244,241,233,.14); padding: 20px 17px; }
-  .moduleCard { grid-template-columns: 45px 1fr 35px; gap: 12px; padding: 22px 18px; min-height: 220px; } .moduleBody h3 { font-size: 22px; } .moduleBody p { font-size: 13px; } .moduleArrow { width: 31px; height: 31px; } .connector { left: 39px; }
+  .moduleCard { grid-template-columns: 45px 1fr 35px; gap: 12px; padding: 22px 18px; min-height: 220px; } .moduleBody h3 { font-size: 17px; } .moduleBody p { font-size: 13px; } .moduleArrow { width: 31px; height: 31px; } .connector { left: 39px; }
   .principleGrid { grid-template-columns: 1fr; gap: 0; } .principleCard, .principleCard:nth-child(2) { border-right: 0; border-bottom: 1px solid var(--line); min-height: auto; padding: 24px 0; margin: 0; } .principleCard:last-child { border-bottom: 0; }
   .ctaStamp { width: 82px; height: 82px; right: 0; bottom: 65px; font-size: 8px; } .ctaMark { top: 100px; right: -10px; font-size: 9rem; } .footer .container { flex-direction: column; gap: 10px; }
 }

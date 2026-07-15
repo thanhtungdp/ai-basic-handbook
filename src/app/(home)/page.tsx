@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styles from './home.module.css'
 
 const modules = [
@@ -47,6 +47,54 @@ const modules = [
   },
 ]
 
+const journeySteps = [
+  {
+    number: '01',
+    title: 'Ask',
+    subtitle: 'Đặt câu hỏi đúng',
+    label: 'Problem statement',
+    copy: 'Bạn bắt đầu bằng một vấn đề có thật — không phải bằng một tool đang hot.',
+    visual: 'problem',
+    artifact: '“Làm sao giúp nhóm bán hàng giảm thời gian tạo báo giá?”',
+  },
+  {
+    number: '02',
+    title: 'Understand',
+    subtitle: 'Hiểu hệ thống',
+    label: 'System map',
+    copy: 'Bạn nhìn thấy người dùng, dữ liệu, quy trình và những điểm cần kiểm chứng.',
+    visual: 'system',
+    artifact: 'Input → Process → Decision → Output',
+  },
+  {
+    number: '03',
+    title: 'Build',
+    subtitle: 'Tạo sản phẩm',
+    label: 'Working prototype',
+    copy: 'Bạn biến insight thành một sản phẩm có thể chạm, thử và cải thiện.',
+    visual: 'build',
+    artifact: 'ReactJS · API · Database · AI workflow',
+  },
+  {
+    number: '04',
+    title: 'Ship',
+    subtitle: 'Đưa vào thực tế',
+    label: 'Deployed product',
+    copy: 'Bạn đưa sản phẩm ra khỏi laptop để nhận feedback từ người thật.',
+    visual: 'ship',
+    artifact: 'https://your-product.vercel.app',
+  },
+  {
+    number: '05',
+    title: 'Defend',
+    subtitle: 'Bảo vệ lựa chọn',
+    label: 'Portfolio & demo',
+    copy: 'Bạn giải thích được mình đã xây gì, vì sao xây nó và điều gì cần làm tiếp.',
+    visual: 'defend',
+    artifact: 'README · Demo · Business model · Interview',
+  },
+]
+
 const principles = [
   ['01', 'Manual first', 'Làm thủ công trước để hiểu bản chất. Sau đó mới dùng AI để tăng tốc.'],
   ['02', 'Critical questioning', 'Không chỉ nhận output. Học cách hỏi ngược, kiểm tra và bảo vệ quyết định.'],
@@ -76,6 +124,83 @@ function useReveal() {
   }, [])
 
   return ref
+}
+
+function JourneyPlayground() {
+  const [active, setActive] = useState(0)
+  const [playing, setPlaying] = useState(false)
+  const step = journeySteps[active]
+
+  useEffect(() => {
+    if (!playing) return
+    const timer = window.setInterval(() => {
+      setActive((current) => {
+        if (current >= journeySteps.length - 1) {
+          setPlaying(false)
+          return current
+        }
+        return current + 1
+      })
+    }, 2200)
+    return () => window.clearInterval(timer)
+  }, [playing])
+
+  return (
+    <div className={styles.journeyPlayground}>
+      <div className={styles.playgroundToolbar}>
+        <div>
+          <span className={styles.playgroundEyebrow}>PRODUCT JOURNEY / LIVE VIEW</span>
+          <strong>Bấm từng bước để xem sản phẩm lớn lên</strong>
+        </div>
+        <div className={styles.playgroundControls}>
+          <button type="button" onClick={() => setPlaying((value) => !value)}>
+            {playing ? 'Pause' : 'Play journey'} <span>{playing ? 'Ⅱ' : '▶'}</span>
+          </button>
+          <button type="button" className={styles.resetButton} onClick={() => { setPlaying(false); setActive(0) }}>
+            Reset
+          </button>
+        </div>
+      </div>
+
+      <div className={styles.playgroundBody}>
+        <div className={styles.playgroundSteps} role="tablist" aria-label="Các bước trong hành trình">
+          {journeySteps.map((item, index) => (
+            <button
+              type="button"
+              role="tab"
+              aria-selected={active === index}
+              className={`${styles.playgroundStep} ${active === index ? styles.playgroundStepActive : ''}`}
+              key={item.number}
+              onClick={() => { setActive(index); setPlaying(false) }}
+            >
+              <span>{item.number}</span>
+              <b>{item.title}</b>
+              <small>{item.subtitle}</small>
+            </button>
+          ))}
+        </div>
+
+        <div className={`${styles.playgroundScreen} ${styles[`visual${step.visual}`]}`}>
+          <div className={styles.screenTopbar}><span /><span /><span /><small>kada / {step.title.toLowerCase()}</small></div>
+          <div className={styles.screenContent}>
+            <div className={styles.screenLabel}>{step.label}</div>
+            <div className={styles.screenArtifact}>{step.artifact}</div>
+            <div className={styles.screenFakeLines}><i /><i /><i /></div>
+            <div className={styles.screenStatus}><span className={styles.statusDot} /> {active === 0 ? 'needs clarity' : active === 1 ? 'mapped' : active === 2 ? 'in progress' : active === 3 ? 'live' : 'ready to defend'}</div>
+          </div>
+          <div className={styles.screenCorner}>{step.number} / 05</div>
+        </div>
+
+        <div className={styles.playgroundCaption} key={step.number}>
+          <span className={styles.captionNumber}>{step.number}</span>
+          <p>{step.copy}</p>
+        </div>
+      </div>
+      <div className={styles.playgroundProgress}>
+        <span style={{ width: `${((active + 1) / journeySteps.length) * 100}%` }} />
+      </div>
+    </div>
+  )
 }
 
 export default function HomePage() {
@@ -154,12 +279,13 @@ export default function HomePage() {
               <path className={styles.pathBase} d="M0,185 C150,185 130,50 280,55 S420,210 555,168 S710,28 820,74 S940,208 1100,45" />
               <path className={styles.pathActive} d="M0,185 C150,185 130,50 280,55 S420,210 555,168 S710,28 820,74 S940,208 1100,45" />
             </svg>
-            <div className={`${styles.pathNode} ${styles.nodeOne}`}><span>01</span><b>Ask</b><small>Đặt câu hỏi đúng</small></div>
-            <div className={`${styles.pathNode} ${styles.nodeTwo}`}><span>02</span><b>Understand</b><small>Hiểu hệ thống</small></div>
-            <div className={`${styles.pathNode} ${styles.nodeThree}`}><span>03</span><b>Build</b><small>Tạo sản phẩm</small></div>
-            <div className={`${styles.pathNode} ${styles.nodeFour}`}><span>04</span><b>Ship</b><small>Đưa vào thực tế</small></div>
-            <div className={`${styles.pathNode} ${styles.nodeFive}`}><span>05</span><b>Defend</b><small>Bảo vệ lựa chọn</small></div>
+            {journeySteps.map((item, index) => (
+              <div className={`${styles.pathNode} ${styles[`node${index + 1}`]}`} key={item.number}>
+                <span>{item.number}</span><b>{item.title}</b><small>{item.subtitle}</small>
+              </div>
+            ))}
           </div>
+          <JourneyPlayground />
         </div>
       </section>
 

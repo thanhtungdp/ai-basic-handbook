@@ -75,7 +75,35 @@
 .pathNode { position: absolute; width: 130px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 7px; }
 .pathNode span { width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid #66706a; background: var(--ink); border-radius: 50%; color: #f29570; font: 11px 'Space Mono', monospace; box-shadow: 0 0 0 7px var(--ink); }
 .pathNode b { font-size: 14px; } .pathNode small { color: #9aa39d; font-size: 11px; white-space: nowrap; }
-.nodeOne { left: -1%; top: 145px; } .nodeTwo { left: 23%; top: 12px; } .nodeThree { left: 47%; top: 127px; } .nodeFour { left: 68%; top: 20px; } .nodeFive { right: -2%; top: 127px; }
+.node1 { left: -1%; top: 145px; } .node2 { left: 23%; top: 12px; } .node3 { left: 47%; top: 127px; } .node4 { left: 68%; top: 20px; } .node5 { right: -2%; top: 127px; }
+
+.journeyPlayground { position: relative; margin-top: 54px; border: 1px solid rgba(244,241,233,.18); background: rgba(255,255,255,.045); border-radius: 8px; overflow: hidden; }
+.playgroundToolbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 20px 24px; border-bottom: 1px solid rgba(244,241,233,.14); }
+.playgroundToolbar strong { display: block; margin-top: 7px; font-size: 15px; font-weight: 500; }
+.playgroundEyebrow { color: #f29570; font: 10px 'Space Mono', monospace; letter-spacing: .11em; }
+.playgroundControls { display: flex; gap: 8px; }
+.playgroundControls button { border: 1px solid rgba(244,241,233,.3); background: rgba(244,241,233,.08); border-radius: 999px; color: #f4f1e9; padding: 9px 13px; font-size: 11px; cursor: pointer; transition: background .2s, border-color .2s; }
+.playgroundControls button:hover, .playgroundControls button:focus-visible { background: var(--orange); border-color: var(--orange); outline: none; }
+.playgroundControls button span { color: #f29570; margin-left: 5px; } .playgroundControls button:hover span { color: white; }
+.playgroundControls .resetButton { color: #9aa39d; background: transparent; border-color: transparent; }
+.playgroundBody { display: grid; grid-template-columns: 180px 1fr 235px; min-height: 280px; }
+.playgroundSteps { padding: 17px 0; border-right: 1px solid rgba(244,241,233,.14); }
+.playgroundStep { display: grid; grid-template-columns: 29px 1fr; gap: 0 10px; width: 100%; padding: 11px 15px; border: 0; background: transparent; color: #8f9992; text-align: left; cursor: pointer; }
+.playgroundStep span { grid-row: span 2; width: 28px; height: 28px; display: grid; place-items: center; border: 1px solid #59625c; border-radius: 50%; font: 9px 'Space Mono', monospace; transition: background .25s, color .25s, border-color .25s; }
+.playgroundStep b { font-size: 12px; font-weight: 600; line-height: 1.2; transition: color .25s; } .playgroundStep small { margin-top: 3px; font-size: 9px; color: #6f7972; }
+.playgroundStep:hover b, .playgroundStepActive b { color: #f4f1e9; } .playgroundStepActive span { background: var(--orange); color: white; border-color: var(--orange); box-shadow: 0 0 0 5px rgba(237,107,60,.12); } .playgroundStepActive small { color: #f29570; }
+.playgroundScreen { position: relative; margin: 24px; border: 1px solid rgba(244,241,233,.18); border-radius: 5px; min-height: 230px; background: #252d29; overflow: hidden; animation: screenIn .45s ease both; }
+.playgroundScreen::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 75% 15%, rgba(237,107,60,.22), transparent 33%); pointer-events: none; }
+.screenTopbar { height: 30px; display: flex; align-items: center; gap: 5px; padding: 0 11px; border-bottom: 1px solid rgba(244,241,233,.13); color: #7c8880; }
+.screenTopbar > span { width: 5px; height: 5px; border-radius: 50%; background: #657068; } .screenTopbar small { margin-left: 8px; font: 9px 'Space Mono', monospace; opacity: .7; }
+.screenContent { position: relative; padding: 35px 29px; } .screenLabel { color: #f29570; font: 10px 'Space Mono', monospace; text-transform: uppercase; letter-spacing: .12em; } .screenArtifact { max-width: 330px; margin: 12px 0 25px; color: #f4f1e9; font-size: clamp(16px, 2vw, 22px); line-height: 1.25; letter-spacing: -.04em; }
+.screenFakeLines { display: grid; gap: 6px; width: 65%; } .screenFakeLines i { display: block; height: 4px; border-radius: 4px; background: rgba(244,241,233,.18); } .screenFakeLines i:nth-child(2) { width: 75%; } .screenFakeLines i:nth-child(3) { width: 46%; }
+.screenStatus { position: absolute; right: 21px; bottom: 17px; color: #9aa39d; font: 9px 'Space Mono', monospace; } .statusDot { display: inline-block; width: 6px; height: 6px; margin-right: 4px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 8px var(--orange); }
+.screenCorner { position: absolute; right: 14px; top: 47px; color: rgba(244,241,233,.3); font: 10px 'Space Mono', monospace; }
+.visualproblem { background: #303b35; } .visualsystem { background: #273842; } .visualbuild { background: #322f3f; } .visualship { background: #263d34; } .visualdefend { background: #3e302d; }
+.playgroundCaption { display: flex; gap: 15px; align-items: flex-start; padding: 28px 25px; border-left: 1px solid rgba(244,241,233,.14); animation: captionIn .45s ease both; } .captionNumber { color: #f29570; font: 11px 'Space Mono', monospace; } .playgroundCaption p { margin: 0; color: #adb4ad; font-size: 13px; line-height: 1.55; }
+.playgroundProgress { height: 3px; background: rgba(244,241,233,.1); } .playgroundProgress span { display: block; height: 100%; background: var(--orange); transition: width .45s cubic-bezier(.2,.8,.2,1); }
+@keyframes screenIn { from { opacity: .2; transform: scale(.98); } to { opacity: 1; transform: scale(1); } } @keyframes captionIn { from { opacity: 0; transform: translateX(12px); } to { opacity: 1; transform: translateX(0); } }
 
 .roadmap { padding: 150px 0; }
 .roadmapIntro { align-items: end; margin-bottom: 70px; } .roadmapIntro p { max-width: 390px; color: var(--muted); line-height: 1.65; margin: 0 0 7px; }
@@ -127,7 +155,8 @@
   .heroOrbit { top: auto; bottom: -92px; right: -125px; width: 410px; opacity: .28; } .heroMeta { flex-wrap: wrap; gap: 10px 14px; margin-top: 55px; } .metaDivider { display: none; } .heroActions { flex-wrap: wrap; gap: 18px; } .scrollHint { display: none; }
   .statement, .roadmap, .principles, .finalCta { padding: 90px 0; } .statement h2, .roadmapIntro h2, .principleTop h2, .storyHeader h2, .finalCta h2 { font-size: 3.2rem; }
   .handwritten { right: 8%; bottom: 46px; } .darkStory { padding: 90px 0 100px; } .storyPath { height: 480px; margin-top: 36px; transform: none; } .pathSvg { width: 110px; height: 430px; left: 35px; top: 0; } .pathBase, .pathActive { d: path('M55,0 C10,70 100,100 55,170 S10,270 55,330 S100,390 55,430'); }
-  .pathNode { width: 145px; align-items: flex-start; text-align: left; flex-direction: row; flex-wrap: wrap; gap: 7px 10px; } .pathNode span { flex: 0 0 40px; } .pathNode b { padding-top: 12px; } .pathNode small { padding-left: 50px; margin-top: -14px; } .nodeOne { left: 12px; top: -4px; } .nodeTwo { left: 12px; top: 91px; } .nodeThree { left: 12px; top: 190px; } .nodeFour { left: 12px; top: 290px; } .nodeFive { left: 12px; top: 390px; } 
+  .pathNode { width: 145px; align-items: flex-start; text-align: left; flex-direction: row; flex-wrap: wrap; gap: 7px 10px; } .pathNode span { flex: 0 0 40px; } .pathNode b { padding-top: 12px; } .pathNode small { padding-left: 50px; margin-top: -14px; } .node1 { left: 12px; top: -4px; } .node2 { left: 12px; top: 91px; } .node3 { left: 12px; top: 190px; } .node4 { left: 12px; top: 290px; } .node5 { left: 12px; top: 390px; } 
+  .playgroundToolbar { align-items: flex-start; flex-direction: column; padding: 17px; } .playgroundBody { display: block; min-height: 0; } .playgroundSteps { display: flex; overflow-x: auto; padding: 12px 8px; border-right: 0; border-bottom: 1px solid rgba(244,241,233,.14); scrollbar-width: none; } .playgroundSteps::-webkit-scrollbar { display: none; } .playgroundStep { flex: 0 0 92px; display: flex; flex-direction: column; gap: 6px; padding: 8px; } .playgroundStep span { flex: 0 0 27px; width: 27px; height: 27px; } .playgroundStep b { font-size: 11px; } .playgroundStep small { font-size: 8px; white-space: nowrap; } .playgroundScreen { margin: 16px; min-height: 210px; } .screenContent { padding: 29px 20px; } .playgroundCaption { border-left: 0; border-top: 1px solid rgba(244,241,233,.14); padding: 20px 17px; }
   .moduleCard { grid-template-columns: 45px 1fr 35px; gap: 12px; padding: 22px 18px; min-height: 220px; } .moduleBody h3 { font-size: 22px; } .moduleBody p { font-size: 13px; } .moduleArrow { width: 31px; height: 31px; } .connector { left: 39px; }
   .principleGrid { grid-template-columns: 1fr; gap: 0; } .principleCard, .principleCard:nth-child(2) { border-right: 0; border-bottom: 1px solid var(--line); min-height: auto; padding: 24px 0; margin: 0; } .principleCard:last-child { border-bottom: 0; }
   .ctaStamp { width: 82px; height: 82px; right: 0; bottom: 65px; font-size: 8px; } .ctaMark { top: 100px; right: -10px; font-size: 9rem; } .footer .container { flex-direction: column; gap: 10px; }

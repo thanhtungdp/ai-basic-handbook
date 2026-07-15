@@ -284,37 +284,39 @@ export default function HomePage() {
       <section className={styles.hero}>
         <div className={styles.heroGrid} />
         <div className={styles.heroGlow} />
-        <div className={`${styles.heroContent} ${styles.container}`}>
-          <div className={styles.eyebrow}>
-            <span className={styles.liveDot} />
-            KADA Vietnam · 5 tuần · 23 ngày học
+        <div className={styles.heroFrame}>
+          <div className={styles.heroContent}>
+            <div className={styles.eyebrow}>
+              <span className={styles.liveDot} />
+              KADA Vietnam · 5 tuần · 23 ngày học
+            </div>
+            <h1>
+              <span>Đừng bắt đầu bằng <em>công cụ.</em></span>
+              <span>Hãy bắt đầu bằng nền tảng.</span>
+            </h1>
+            <p className={styles.heroLead}>
+              Một hành trình được thiết kế để bạn hiểu AI từ gốc, xây được sản phẩm thật,
+              và biết vì sao sản phẩm đó đáng được sử dụng.
+            </p>
+            <div className={styles.heroActions}>
+              <Link href="/docs" className={styles.primaryButton}>
+                Khám phá hành trình <span>↗</span>
+              </Link>
+              <a href="#roadmap" className={styles.textButton}>
+                Xem roadmap <span>↓</span>
+              </a>
+            </div>
+            <div className={styles.heroMeta}>
+              <span><b>40–45</b> học viên / cohort</span>
+              <span className={styles.metaDivider} />
+              <span><b>01</b> sản phẩm xuyên suốt</span>
+              <span className={styles.metaDivider} />
+              <span><b>05</b> module liên kết</span>
+            </div>
           </div>
-          <h1>
-            <span>Đừng bắt đầu bằng <em>công cụ.</em></span>
-            <span>Hãy bắt đầu bằng nền tảng.</span>
-          </h1>
-          <p className={styles.heroLead}>
-            Một hành trình được thiết kế để bạn hiểu AI từ gốc, xây được sản phẩm thật,
-            và biết vì sao sản phẩm đó đáng được sử dụng.
-          </p>
-          <div className={styles.heroActions}>
-            <Link href="/docs" className={styles.primaryButton}>
-              Khám phá hành trình <span>↗</span>
-            </Link>
-            <a href="#roadmap" className={styles.textButton}>
-              Xem roadmap <span>↓</span>
-            </a>
-          </div>
-          <div className={styles.heroMeta}>
-            <span><b>40–45</b> học viên / cohort</span>
-            <span className={styles.metaDivider} />
-            <span><b>01</b> sản phẩm xuyên suốt</span>
-            <span className={styles.metaDivider} />
-            <span><b>05</b> module liên kết</span>
-          </div>
+          <HeroPlayground />
+          <div className={styles.scrollHint}><span /> kéo xuống để bắt đầu</div>
         </div>
-        <HeroPlayground />
-        <div className={styles.scrollHint}><span /> kéo xuống để bắt đầu</div>
       </section>
 
       <section className={`${styles.statement} ${styles.container}`} data-reveal>

@@ -14,8 +14,8 @@
 .container { width: min(1080px, calc(100% - 64px)); margin: 0 auto; }
 
 .hero {
-  width: min(1080px, calc(100% - 64px));
-  margin: 0 auto;
+  width: 100%;
+  margin: 0;
   min-height: min(800px, calc(100vh - 64px));
   position: relative;
   display: flex;
@@ -33,6 +33,7 @@
   animation: gridDrift 20s linear infinite;
 }
 .heroGlow { position: absolute; width: 560px; height: 560px; border-radius: 50%; right: 7%; top: 50%; transform: translateY(-50%); background: radial-gradient(circle, rgba(236,107,60,.2), transparent 67%); filter: blur(12px); animation: breathe 6s ease-in-out infinite; }
+.heroFrame { position: relative; width: min(1080px, calc(100% - 64px)); min-height: min(800px, calc(100vh - 64px)); margin: 0 auto; }
 .heroContent { position: relative; z-index: 2; width: 100%; padding: 82px 0 98px; animation: rise .9s cubic-bezier(.2,.8,.2,1) both; }
 .eyebrow, .sectionKicker, .sectionKickerLight { display: flex; align-items: center; gap: 10px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; color: var(--orange); }
 .liveDot { width: 7px; height: 7px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 0 5px rgba(237,107,60,.13); animation: pulse 2s infinite; }
@@ -180,7 +181,7 @@
 
 @media (max-width: 640px) {
   .container { width: min(100% - 34px, 560px); }
-  .hero { min-height: 730px; align-items: flex-start; } .heroContent { padding-top: 70px; } .hero h1 { max-width: 100%; margin-top: 20px; font-size: clamp(2.65rem, 13vw, 4.2rem); line-height: .97; } .heroLead { font-size: 16px; max-width: 390px; }
+  .hero { min-height: 730px; align-items: flex-start; } .heroFrame { width: min(100% - 34px, 560px); min-height: 730px; } .heroContent { padding-top: 70px; } .hero h1 { max-width: 100%; margin-top: 20px; font-size: clamp(2.65rem, 13vw, 4.2rem); line-height: .97; } .heroLead { font-size: 16px; max-width: 390px; }
   .heroOrbit { top: auto; bottom: -92px; right: -78px; width: 340px; opacity: .34; } .hero h1 > span { white-space: normal; } .heroMeta { flex-wrap: wrap; gap: 10px 14px; margin-top: 55px; } .metaDivider { display: none; } .heroActions { flex-wrap: wrap; gap: 18px; } .scrollHint { display: none; }
   .statement, .roadmap, .principles, .teachers, .finalCta { padding: 90px 0; } .statement h2, .roadmapIntro h2, .principleTop h2, .storyHeader h2, .teachersIntro h2, .finalCta h2 { font-size: 1.9rem; }
   .teachersIntro { grid-template-columns: 1fr; gap: 28px; margin: 30px 0 40px; } .teacherGrid { grid-template-columns: 1fr; gap: 10px; } .teacherCard { min-height: 118px; padding: 17px; gap: 14px; } .avatarPlaceholder { flex-basis: 58px; width: 58px; height: 58px; font-size: 14px; } .teacherInfo h3 { font-size: 16px; } .teacherInfo p { font-size: 11px; padding-right: 10px; } .avatarNote { text-align: left; line-height: 1.5; }
